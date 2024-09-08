@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Initial data/metadata - WP1</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">WP1</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../dataflow/">Overview</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../liveraim_database_structure/">LIVERAIM Database Structure</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Modules documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../modules_documentation/file_reading_utils_doc/">File Reading utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../modules_documentation/data_processing_utils_doc/">Preprocessing utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../modules_documentation/qc_checks_utils_doc/">Quality Control utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../modules_documentation/file_exporting_utils_doc/">File Exporting utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../modules_documentation/sql_exporting_utils_doc/">SQL Exporting utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../configuration/configuration_module/">Configuration module</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../quick_start_guide/">Quick Start Guide</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#initial-datametadata">Initial data/metadata</a></li>
+            <li class="second-level"><a href="#database-files">Database files</a></li>
+                
+            <li class="second-level"><a href="#var_data-files">var_data files</a></li>
+                
+            <li class="second-level"><a href="#level_data-files">level_data files</a></li>
+                
+            <li class="second-level"><a href="#comb_var_data-file">comb_var_data file</a></li>
+                
+            <li class="second-level"><a href="#panel_data-file">panel_data file</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="initial-datametadata">Initial data/metadata</h1>
+<p>This section describes the initial data and metadata files that the program needs to build the data warehouse. For each cohort, there are three types of files, which are described below:</p>
+<ul>
+<li><a href="#database-files"><code>database</code></a>: contains the raw data of the cohort</li>
+<li><a href="#var_data-files"><code>var_data</code></a>: contains metadata about the core variables needed to create the data warehouse</li>
+<li><a href="#level_data-files"><code>level_data</code></a>: contains metadata about the levels of categorical core variables needed to create the data warehouse</li>
+<li><a href="#comb_var_data-file"><code>comb_var_data</code></a>: For the variables that need to be combined, it contains the necessary data to perform this process.</li>
+</ul>
+<p>Finally, an other file, <a href="#panel_data-file"><code>panel_data</code></a> is needed for the proper creation of the data warehouse. In this file the structure of the final panels is described. </p>
+<h2 id="database-files"><code>Database</code> files</h2>
+<p>The files we refer to as <em>database</em> files contain the raw database of the cohort. These are the files that the partners responsible for each cohort have sent us with the patient data.</p>
+<p>The content of these files is never modified, neither manually nor through the code: all data processing is done after reading these files, which remain intact after each execution. The only modification they receive is a renaming necessary for their correct reading. For more details, see the section <a href="../configuration/fast_configuration/#structure-of-datacohort_namedatabases-directory">Structure of <code>data/cohort_name/databases/</code> directory</a>.</p>
+<p>The format of these files varies depending on the cohort. For more information on reading the data, see the section <a href="../modules_documentation/file_reading_utils_doc/">File reading utils</a>. When this files are read, they are loaded into the code as <code>pandas.DataFrame</code> objects. </p>
+<blockquote>
+<p><strong>Note</strong>: For obvious data privacy reasons, these files are not uploaded to GitHub.</p>
+</blockquote>
+<h2 id="var_data-files"><code>var_data</code> files</h2>
+<p>This file, along with level_data, is essential for the creation of the data warehouse. It is an Excel file (.xlsx) where each row corresponds to one of the selected/core variables. It contains the following columns:</p>
+<ul>
+<li><code>original_name (str)</code>: Name of the core variable in the original database. It varies between cohorts.</li>
+<li><code>liveraim_name (str)</code>: Name of the core variable in the common format, i.e., in the liveraim format.</li>
+<li><code>panel (str)</code>: Panel where the variable will be stored.</li>
+<li><code>data_type (str)</code>: Final datatype of the variable.</li>
+<li><code>initial_units (str)</code>: Units of the variable in the original cohort.</li>
+<li><code>description (str)</code>: Short text describing the variable.</li>
+<li><code>final_units (str)</code>: Final units of the variable, i.e., units in the liveraim data warehouse.</li>
+<li><code>lower_bound (float)</code>: Lower bound of the variable. For checking purposes.</li>
+<li><code>upper_bound (float)</code>: Upper bound of the variable. For checking purposes.</li>
+<li><code>conversion_factor (float)</code>: Conversion factor from initial_units to final_units. Set to 1 if not needed.</li>
+</ul>
+<p>Before running the code, you must verify that these files are in the correct directories, can be read correctly, have the structure defined above, and that the information they contain is correct. Any variation in structure/content may result in an error in execution or the creation of an erroneous data warehouse. The correct functioning of the program is highly dependent on these files.</p>
+<p>These files are tracked in GitHub like the rest of the scripts, so there is no need to create them from scratch, and they should work fine if the repository is cloned. </p>
+<p>When this file is read, it is loaded into the code as a <code>pandas.DataFrame</code> object. Throughout all the documentation, we will refer to this DataFrame also as <code>var_data</code>.</p>
+<blockquote>
+<p><strong>Note 1</strong>: There must be certain coherence between the var_data files from each cohort: the number of variables in each file (i.e., the number of rows) should be the same. In addition, the set of variables in <code>liveraim_name</code> should be the same between cohorts, and the <code>final_data</code> column should be consistent. Although this is checked in the code, making sure that there are no errors is recomended. </p>
+<p><strong>Note 2</strong>: If needed, addition of other columns is possible and should not create incompatibilities (but the management of those new columns should be implemented).</p>
+</blockquote>
+<h2 id="level_data-files"><code>level_data</code> files</h2>
+<p>This file, along with <code>var_data</code>, is essential for the creation of the data warehouse. These files describe the different levels of the categorical core variables. In this case, each row does not correspond to a variable, but to a level of the original variable. The file contains the following columns:</p>
+<ul>
+<li><code>original_name (str)</code>: Name of the core variable in the original database. It varies between cohorts.</li>
+<li><code>original_level_value (Variable)</code>: Original value of the level in the cohort.</li>
+<li><code>original_data_type (str)</code>: Original datatype of the variable.</li>
+<li><code>liveraim_level_value (Variable)</code>: Value of the level in the final database (i.e., in the LIVERAIM data warehouse).</li>
+<li><code>level_desc (str)</code>: Description/label of the level.</li>
+<li><code>liveraim_name (str)</code>: Name of the core variable in the common format, i.e., in the liveraim format.</li>
+</ul>
+<p>Before running the code, you must verify that these files are in the correct directories, can be read correctly, have the structure defined above, and that the information they contain is correct. Any variation in structure/content may result in an error in execution or the creation of an erroneous data warehouse. The correct functioning of the program is highly dependent on these files.</p>
+<p>These files are tracked in GitHub like the rest of the scripts, so there is no need to create them from scratch, and they should work fine if the repository is cloned.</p>
+<p>When this file is read, it is loaded into the code as a <code>pandas.DataFrame</code> object. Throughout all the documentation, we will refer to this DataFrame also as <code>level_data</code>.</p>
+<blockquote>
+<p><strong>Note</strong>: There must be certain coherence between the <code>level_data</code> files from each cohort: In this case, the number of rows in each file does not need to match, as in some cohorts two or more different levels might coincide in the same final level. However, the <code>original_name</code>, <code>liveraim_name</code>, and <code>liveraim_level_value</code> columns should be consistent between files. Although this is checked in the code, it is recommended to ensure there are no errors.</p>
+</blockquote>
+<h2 id="comb_var_data-file"><code>comb_var_data</code> file</h2>
+<p>This is a <code>json</code> file that will be loaded into the code as a dictionary. It contains the necessary information to obtain a final variable by combining original variables present in the database. For more information about this process, see the section <a href="../modules_documentation/data_processing_utils_doc/"><code>data_processing_utils</code></a>, subsection <a href="../modules_documentation/data_processing_utils_doc/#class-varcombiner"><code>class VarCombiner</code></a>. This section describes the class responsible for combining the variables listed in <code>comb_var_data</code> according to the specified configuration.</p>
+<p>The primary goal of this dictionary is to combine variables that refer to the same magnitude but use different units. Combining these variables helps reduce the number of missing values. For example, in the LIVERSCREEN cohort, for the magnitude blood glucose (in visit 1), there are the variables <code>glc</code> (expressed in mmol/L) and <code>glc_mg_dl</code> (expressed in mg/dL). Both will be combined to fill missing at least one of the variables have a proper value.</p>
+<blockquote>
+<p><strong>Note</strong>: Currently, only the functionality described above has been implemented. However, it can be extended (by modifying this dictionary and the <code>VarCombiner</code> class) to combine categorical variables, generate secondary or calculated variables, and more.</p>
+</blockquote>
+<p>The structure of the <code>comb_var_data</code> dictionary is as follows:</p>
+<ul>
+<li><strong>Primary Key</strong>: The name of the final variable resulting from the combination. This variable must appear in the <a href="#var_data-files"><code>var_data</code></a> file described in this documentation. It usually matches the name of one of the variables to be used in the combination.</li>
+<li><strong>Primary Value</strong>: A dictionary with the following structure:<ul>
+<li><strong>Secondary Key</strong>: Names of the variables (in the database) that will be used for the combination.</li>
+<li><strong>Secondary Value</strong>: Conversion factor to transform the variable from its original units to the final units (i.e., the units of the variable named by the primary key).</li>
+</ul>
+</li>
+</ul>
+<p>The structure of the dictionary would be:</p>
+<pre><code class="language-yaml">comb_var_data:
+  &lt;final_variable_name_1&gt;:            # Primary Key: Name of the final variable
+    &lt;original_variable_name_1&gt;: &lt;conversion_factor_1&gt;    # Secondary Key-Value: Original variable and its conversion factor
+    &lt;original_variable_name_2&gt;: &lt;conversion_factor_2&gt;    # Secondary Key-Value: Original variable and its conversion factor
+  &lt;final_variable_name_2&gt;:            # Primary Key: Name of another final variable
+    &lt;original_variable_name_3&gt;: &lt;conversion_factor_3&gt;    # Secondary Key-Value: Original variable and its conversion factor
+    &lt;original_variable_name_4&gt;: &lt;conversion_factor_4&gt;    # Secondary Key-Value: Original variable and its conversion factor
+  ...
+</code></pre>
+<p>And an example: </p>
+<pre><code>{
+    "glc": {
+        "glc": 1,
+        "glc_mg_dl": 0.055
+    },
+    "crea_mg_dl": {
+        "creat": 0.017,
+        "crea_mg_dl": 1
+    }
+}
+</code></pre>
+<p>In this case, it indicates that the <code>glc</code> variable will be created by combining the <code>glc</code> itself and <code>glc_mg_dl</code> variables. Specifically, the value of <code>glc</code> will be used if it exists, and if not, the value of <code>glc_mg_dl</code> will be used, multiplied by the corresponding conversion factor (in this case, 0.055). A similar procedure will be aplied to <code>crea_mg_dl</code>.</p>
+<p>These files are tracked in GitHub like the rest of the scripts, so there is no need to create them from scratch, and they should work fine if the repository is cloned.</p>
+<h2 id="panel_data-file">panel_data file</h2>
+<p>This file is not specific to any cohort and is used as a guide to create and structure the different final panels. The file <code>panel_metadata.xlsx</code> is an Excel file that contains a sheet for each final panel. Each of these panels includes the following columns:</p>
+<ul>
+<li><code>var_name (str)</code>: Name of the variable (in the common liveraim format).</li>
+<li>
+<p><code>melt (int)</code>: Integer (acting as a boolean, so it is 0 or 1) indicating:</p>
+<ul>
+<li><code>0</code>: The variable is not melted: it will appear in the panel as a column.</li>
+<li><code>1</code>: The variable is melted: the variable name and value will be restructured in a long format. A column <code>variable</code> will contain the name of the variable, and the column <code>value</code> will contain its value.</li>
+</ul>
+</li>
+</ul>
+<p>These files are tracked in GitHub like the rest of the scripts, so there is no need to create them from scratch, and they should work fine if the repository is cloned.</p>
+<p>When this file is read, since it is an .xlsx file with multiple sheets, it is loaded into the code as a dictionary of <code>pandas.DataFrames</code>. Each sheet name becomes a key, and the corresponding table becomes its value (a <code>DataFrame</code>). Throughout the documentation, we will refer to this dictionary as <code>panel_metadata</code>.</p>
+<p>It is important to maintain the structure of this file (and the previously described). Changes can be easily made to modify the final structure of the data warehouse by adding new sheets to the file (i.e., adding new panels), adding variables to a panel, or changing their structure (long or wide format).</p>
+<p>For more information about the structure of the final data, check the section <a href="data_warehouse_structure.md">Data Warehouse structure</a>.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
