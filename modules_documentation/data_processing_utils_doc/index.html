@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Preprocessing utils - WP1</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">WP1</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../dataflow/">Overview</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../liveraim_database_structure/">LIVERAIM Database Structure</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Modules documentation <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../file_reading_utils_doc/">File Reading utils</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Preprocessing utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../qc_checks_utils_doc/">Quality Control utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../file_exporting_utils_doc/">File Exporting utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../sql_exporting_utils_doc/">SQL Exporting utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../configuration/configuration_module/">Configuration module</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../quick_start_guide/">Quick Start Guide</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../file_reading_utils_doc/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../qc_checks_utils_doc/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#data_processing_utils-documentation">data_processing_utils Documentation</a></li>
+            <li class="second-level"><a href="#overview">Overview</a></li>
+                
+            <li class="second-level"><a href="#general-structure">General Structure</a></li>
+                
+            <li class="second-level"><a href="#functions-and-classes">Functions and Classes</a></li>
+                
+                <li class="third-level"><a href="#functions">Functions:</a></li>
+                <li class="third-level"><a href="#check_df_formatsdf_dict-dictstr-pddataframe-bool">check_df_formats(df_dict: dict[str, pd.DataFrame]) -&gt; bool</a></li>
+                <li class="third-level"><a href="#classes">Classes:</a></li>
+                <li class="third-level"><a href="#class-datapreprocessor">Class DataPreprocessor</a></li>
+                <li class="third-level"><a href="#class-varcombiner">Class VarCombiner</a></li>
+            <li class="second-level"><a href="#general-operation">General Operation</a></li>
+                
+            <li class="second-level"><a href="#usage-example">Usage Example</a></li>
+                
+            <li class="second-level"><a href="#usage-in-main-execution">Usage in main execution</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="data_processing_utils-documentation"><code>data_processing_utils</code> Documentation<a class="headerlink" href="#data_processing_utils-documentation" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The goal of this module is to prepare the raw data received from various partners so that it can later be homogenized (using the <a href="../cohort_utils_doc/"><code>cohort_utils</code></a> module) and exported (using the <a href="../file_exporting_utils_doc/"><code>file_exporting_utils</code></a> and <a href="../sql_exporting_utils_doc/"><code>sql_exporting_utils</code></a> modules). This module performs the following tasks:</p>
+<ul>
+<li><strong>Add calculated variables</strong> based on the original data. This includes updating the objects with configuration data, such as <code>var_data</code> and <code>level_data</code> with new information, which will be used in the <code>cohort_utils</code> module to create the <code>Cohort</code> object. Examples of added variables include: <code>status</code>, <code>birth_date</code>, <code>exit_date</code>, <code>cohort</code>, etc.</li>
+<li><strong>Combine variables</strong> that measure the same quantity but in different units to reduce the number of missing values in a variable.</li>
+<li><strong>Merge versions</strong> of the same database to obtain each patient's data in its latest version. This includes identifying patients with <code>status='withdrawn'</code>, i.e., patients who do not appear in the latest version but do appear in previous versions.</li>
+<li><strong>Check compatibility</strong> of the databases from different cohorts.</li>
+</ul>
+<h2 id="general-structure">General Structure<a class="headerlink" href="#general-structure" title="Permanent link">&para;</a></h2>
+<p>The module consists of the following key components:</p>
+<ul>
+<li><strong><code>DataPreprocessor</code></strong>: A class responsible for centralizing the preprocessing described above. It is designed to be flexible and customizable based on the specifics of each cohort's data: for each cohort, <code>DataPreprocessor</code> allows for personalized transformations through cohort-specific methods that apply the appropriate preprocessing steps.</li>
+<li><strong><code>VarCombiner</code></strong>: A helper class responsible for combining the variables specified in the <code>var_comb_data</code> dictionary. It is used within <code>DataPreprocessor</code> during data preprocessing.</li>
+<li><strong>Auxiliary functions</strong>: helper functions to check and transform data structure.</li>
+</ul>
+<h2 id="functions-and-classes">Functions and Classes<a class="headerlink" href="#functions-and-classes" title="Permanent link">&para;</a></h2>
+<p>In this sections are described the classes and functions defined in the module: </p>
+<h3 id="functions"><strong>Functions</strong>:<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h3>
+<h3 id="check_df_formatsdf_dict-dictstr-pddataframe-bool"><code>check_df_formats(df_dict: dict[str, pd.DataFrame]) -&gt; bool</code><a class="headerlink" href="#check_df_formatsdf_dict-dictstr-pddataframe-bool" title="Permanent link">&para;</a></h3>
+<p>Checks if the format (variable names and data types) of all DataFrames in <code>df_dict</code> are compatible for concatenation. It ensures that the columns are in the same order (this can be modified by sorting the columns) and checks if the data types are consistent.</p>
+<ul>
+<li><strong>Arguments</strong>:</li>
+<li>
+<p><code>df_dict</code> (dict[str, pd.DataFrame]): A dictionary containing DataFrames to check for compatibility.</p>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+</li>
+<li><code>bool</code>: Returns <code>True</code> if the DataFrames are compatible for concatenation, even if data types differ (a warning is logged). Returns <code>False</code> if the formats are incompatible.</li>
+</ul>
+<h4 id="logs">logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h4>
+<ul>
+<li>In <code>check_df_formats</code> function:<ul>
+<li>If there are discrepancies between the names of the columns of the different versions of the same databse, an error is logged. </li>
+<li>If there are discrepancies between the data types of the same column between the different versions of the same database, a warning is logged.</li>
+</ul>
+</li>
+</ul>
+<h3 id="classes"><strong>Classes</strong>:<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>Note</strong>: Due to how pandas handles DataFrame modifications, changes made to the <code>data</code> attribute (<code>data</code>) (generally modifying and/or adding columns) occur 'inplace'. Therefore, when passing the DataFrame by reference into a method or function, any modifications to it will be reflected in the original, and returning the object is not necessary. However, changes made to <code>var_data</code> and <code>level_data</code> objects do require returning the modified object in the function.</p>
+</blockquote>
+<h3 id="class-datapreprocessor">Class <code>DataPreprocessor</code><a class="headerlink" href="#class-datapreprocessor" title="Permanent link">&para;</a></h3>
+<h4 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h4>
+<p>This class centralizes data preprocessing tasks for cohort databases. It processes the dataframe columns/variables, updates configuration data (<code>var_data</code> and <code>level_data</code>), and handles cohort-specific transformations. In particular, it first merges all the database versions into a single DataFrame, keeping the data of each patient from the las version. This single dataframe will be stored in the attribute <code>data</code>. Then new calculated/secundary variables are added to it, such as <code>status</code>, <code>exit_date</code>, etc. Moreover, it combines variables using the <code>var_combine_data</code> atrribute (if it exists). During the preprocessing, the configuration data (<code>var_data</code> and <code>level_data</code> dataframes) are updated to fit the structure of <code>data</code>. </p>
+<p>Once the preprocessing is finished, <code>data</code>, <code>var_data</code> and <code>level_data</code> is returned so they can be used, for example, to instantiate a <code>Cohort</code>. </p>
+<h4 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h4>
+<h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong><code>__init__(self,</code>
+    <code>cohort_databases: dict[str, pd.DataFrame],</code>
+    <code>var_data: pd.DataFrame, level_data: pd.DataFrame,</code>
+    <code>cohort_name: str, **kwargs)</code>:</strong></p>
+<p>Initializes the <code>DataPreprocessor</code> class with cohort databases (all the avaliable versions) and the configuration data objects:  <code>var_data</code> and <code>level_data</code>. Also sets up cohort-specific information like the name of some relevant variables in the specific cohort: age, inclusion date, and ID variables.</p>
+<ul>
+<li><strong>Arguments</strong>:<ul>
+<li><code>cohort_databases</code> (dict[str, pd.DataFrame]): A dictionary containing cohort databases. Keys should be the version date (ckeck the format specified in <a href="../../quick_start_guide/#structure-of-datacohort_namedatabases-directory">Structure of data/cohort_name/databases/ Directory</a>)</li>
+<li><code>var_data</code> (pd.DataFrame): A DataFrame with variable configuration data.</li>
+<li><code>level_data</code> (pd.DataFrame): A DataFrame with level configuration data.</li>
+<li><code>cohort_name</code> (str): The name of the cohort being processed.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>set_new_variables(self) -&gt; tuple</code></strong>:
+  Sets new variables for the cohort, including status, birth date, exit date, and cohort name. Updates the variable and level configuration objects accordingly. To do so, it calls an specific method for each variable, such as: <code>set_status_metadata</code>, <code>set_birth_date_columns</code>, etc. </p>
+<ul>
+<li><strong>Returns</strong><ul>
+<li><strong>tuple</strong>:<ul>
+<li><code>var_data</code>: the <code>var_data</code> object updated with the information about the new variables added. </li>
+<li><code>level_data</code>: the <code>level_data</code> object updated with the information aobut the new variable levels added. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>preprocess(self) -&gt; self</code></strong>:
+Centralizes the preprocessing logic for different cohorts by identifying the cohort and applying the corresponding cohort-specific method.</p>
+<ul>
+<li><strong>Returns</strong>: <ul>
+<li><strong>self (PreProcessor)</strong>: Returns the updated class itself. </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>preprocess_alcofib(self)</code></strong>:
+Preprocesses the ALCOFIB cohort data by applying transformations specific to that cohort.</p>
+</li>
+<li>
+<p><strong><code>preprocess_glucofib(self)</code></strong>:
+Preprocesses the GLUCOFIB cohort data by applying transformations specific to that cohort.</p>
+</li>
+<li>
+<p><strong><code>preprocess_liverscreen(self)</code></strong>:
+Preprocesses the LIVERSCREEN cohort data. If a combination dictionary (<code>comb_var_dict</code>) is provided, it combines variables according to that configuration.</p>
+</li>
+<li>
+<p><strong><code>preprocess_decide(self)</code></strong>:
+Preprocesses the DECIDE cohort data by applying transformations specific to that cohort.</p>
+</li>
+<li>
+<p><strong><code>preprocess_marina1(self)</code></strong>:
+Preprocesses the MARINA1 cohort data by applying transformations specific to that cohort.</p>
+</li>
+<li>
+<p><strong><code>set_status_metadata(self)</code></strong>:
+Method to update the configuration objects <code>var_data</code> and <code>level_data</code> with the new variable <code>status</code>. This variable is added as a column to the <code>_data</code> attribute when the method <code>get_last_version</code> is called. In addition, it updates both the <code>var_data</code> and <code>level_data</code> DataFrames with the new configuration data. This method uses the configuration defined in <code>config.new_var_config</code> and <code>config.new_levels_config</code> to update the <code>var_data</code> and <code>level_data</code> DataFrames.</p>
+<ul>
+<li><strong>Returns</strong>:<ul>
+<li><code>var_data</code> (pd.DataFrame): The updated DataFrame with metadata for the status variable.</li>
+<li><code>level_data</code> (pd.DataFrame): The updated DataFrame with metadata for the status levels.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>set_birth_date_column(self) -&gt; pd.DataFrame</code></strong>:
+Calculates and adds a "<code>birth_date</code>" column to the dataset based on the inclusion date and age varaibles (specified during the instantiation of the class). Updates the <code>var_data</code> DataFrame with the new configuration data for the birth date variable. If first checks if both columns, age and inclusion date, are in the raw data dataframe. Then, for those patients with values in both columns, computes the <code>birth_date</code>. </p>
+<ul>
+<li><strong>Returns</strong>:<ul>
+<li><code>var_data</code> (pd.DataFrame): The updated DataFrame with configuration data for the birth date variable.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>set_exit_date_column(self)</code></strong>:
+Adds the "<code>exit_date</code>" column to the dataset, which represents the date a patient leaves the cohort or the end of the study. If the study is ongoing, the current date is used.</p>
+<ul>
+<li><strong>Returns</strong>:<ul>
+<li><code>var_data</code> (pd.DataFrame): The updated DataFrame with metadata for the exit date variable.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>set_cohort_column(self)</code></strong>:
+Adds the "cohort" column to the dataset, representing the cohort name for each patient. Uses the <code>cohort_name</code> attribute to do so. Updates the <code>var_data</code> DataFrame with metadata for this variable.</p>
+<ul>
+<li><strong>Returns</strong>:<ul>
+<li><code>var_data</code> (pd.DataFrame): The updated DataFrame with metadata for the cohort variable.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>get_last_version(self, cohort_databases: dict[str, pd.DataFrame]) -&gt; pd.DataFrame</code></strong>:
+Merges all versions of the cohort databases and assigns the patient status based on whether they appear in the latest version. Removes duplicates, keeping only the oldest data for each patient. If incompatibilites are found that might prevent the databases to merge properly (this is checked using the function <a href="#check_df_formatsdf_dict-dictstr-pddataframe---bool"><code>check_df_formats</code></a>) only the last version is returned and a warning is logged. </p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>cohort_databases</code> (dict[str, pd.DataFrame]): A dictionary of cohort database versions. </li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>pd.DataFrame</code>: The final version of the cohort data, with the status variable updated.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>get_data(self)</code></strong>
+Returns all processed data, including the main dataset, <code>var_data</code>, and <code>level_data</code>. This is a sort of a getter for all the processed data. </p>
+<ul>
+<li><strong>Returns</strong>:<ul>
+<li><code>tuple</code>: A tuple containing the main dataset, <code>var_data</code>, and <code>level_data</code> DataFrames.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="logs_1">Logs<a class="headerlink" href="#logs_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>In <code>__init__</code>:</p>
+<ul>
+<li>An error is logged if problems ocurre while calling configuration variables in the <code>config</code> package. </li>
+</ul>
+</li>
+<li>
+<p>In <code>set_status_metadata</code>:</p>
+<ul>
+<li>An error is logged if any issues occur while updating <code>var_data</code> or <code>level_data</code>, particularly when concatenating the new rows in the former DataFrame.</li>
+</ul>
+</li>
+<li>
+<p>In <code>set_birth_date_column</code>:</p>
+<ul>
+<li>If any of the variables used to compute <code>birth_date</code> (i.e. age or inclusion date) is not a subset of the columns in <code>data</code>, an error is logged. </li>
+<li>In any errors occurs while computing and assigning the new colimn, an error message is logged. </li>
+</ul>
+</li>
+<li>
+<p>In <code>set_exit_date_column</code>:</p>
+<ul>
+<li>If there is an error while assigning the correct <code>exit_date</code> based on the status, an error is logged. </li>
+</ul>
+</li>
+<li>
+<p>In <code>get_last_version</code>:</p>
+<ul>
+<li>If an error occurs while assigning the column date_version, an error is logged. </li>
+<li>If an error occurs while merging al the version databases, an error is logged. </li>
+<li>If an error occurs while dropping the duplicates in the merged data and assigning the <code>status</code> column, an error message is logged. </li>
+</ul>
+</li>
+</ul>
+<h3 id="class-varcombiner">Class <code>VarCombiner</code><a class="headerlink" href="#class-varcombiner" title="Permanent link">&para;</a></h3>
+<h4 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">&para;</a></h4>
+<p>A class designed to combine variables in a DataFrame based on a reference dictionary (<code>comb_var_dict</code>). This class helps merge variables and apply conversion factors as needed. In this version, the main functionality of the class is to combine variables of the same magnitude that are expressed in different units so the count of missings is reduced. To do so, it uses the <code>var_combine_dict</code>, where the variables (and their conversion factor) to be combined are specified. For more information about the structure of this dictionary check the section <a href="../../liveraim_database_structure/#comb_var_data-file">comb_var_data file</a>. </p>
+<p>The <strong>process of combining the data</strong> works as follows (it's important to understand the structure of <code>comb_var_dict</code>). For each key-value pair in <code>comb_var_dict</code> with the following structure:</p>
+<pre><code>&lt;final_variable&gt;: {&lt;variable_to_combine_1&gt;: &lt;conversion_factor_1&gt;, &lt;variable_to_combine_2&gt;: &lt;conversion_factor_2&gt;, ...}
+</code></pre>
+<p>The process performs the following steps:</p>
+<ol>
+<li>
+<p>If <code>final_variable</code> is also one of the <code>variables_to_combine_n</code> and its value is not <code>NaN</code>, that value is directly used as the <code>final_variable</code> value.</p>
+</li>
+<li>
+<p>If <code>final_variable</code> is not present among the <code>variables_to_combine_n</code> or its value is <code>NaN</code>, the method iterates through all the <code>variables_to_combine_n</code>. It searches for the first variable with a numeric value, applies the corresponding conversion factor, and assigns the result as the value for <code>final_variable</code>.</p>
+</li>
+<li>
+<p>If no numeric values are found among the <code>variables_to_combine_n</code>, the value for <code>final_variable</code> is set to <code>NaN</code>.</p>
+</li>
+</ol>
+<h4 id="attributes_1">Attributes<a class="headerlink" href="#attributes_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong><code>comb_var_dict (dict)</code></strong>: A dictionary where keys are reference variables (the name of the final variable to be obtained) and values are dictionaries with variables to combine and their respective conversion factors.</p>
+</li>
+<li>
+<p><strong><code>ref_vars (list[str])</code></strong>: A list of reference variables extracted from the keys of <code>comb_var_dict</code>, i.e. the final variables to be obtained.</p>
+</li>
+<li>
+<p><strong><code>original_data (pd.DataFrame)</code></strong>: A DataFrame containing the original data before any transformations. This is the raw data from each cohort. </p>
+</li>
+<li>
+<p><strong><code>transformed_data (pd.DataFrame)</code></strong>: A copy of the original DataFrame that will be transformed by combining variables. </p>
+</li>
+</ul>
+<h4 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong><code>__init__(self, comb_var_dict: dict, df: pd.DataFrame)</code></strong>
+Initializes the <code>VarCombiner</code> class with a dictionary of reference variables and conversion factors, along with the DataFrame to be transformed. It creates the attributes described above, setting <code>transformed_data</code> as a copy of <code>original_data</code> (i.e. a copy of <code>df</code>). </p>
+</li>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>comb_var_dict</code> (dict): A dictionary with reference variables and their corresponding conversion factors.</li>
+<li><code>df</code> (pd.DataFrame): The DataFrame containing the data to be combined.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>_combine_vars(self, row: pd.Series, ref_var: str, var_conv_factors: dict) -&gt; float</code></strong>
+Combines variables within a row by applying conversion factors if the reference variable is missing (using the algorithm described in the <a href="#description-1">class <em>Description</em></a>). This function is intended to be used inside the apply method from pandas, specifically in the method <code>_combine_data</code>. </p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>row</code> (pd.Series): A row of the DataFrame.</li>
+<li><code>ref_var</code> (str): The reference variable to check.</li>
+<li><code>var_conv_factors</code> (dict): A dictionary where keys are alternative variables and 
+      values are conversion factors.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>float</code>: The combined value for the reference variable or NaN if no valid variables are found.
+"""</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>_combine_data(self, df:pd.DataFrame, comb_var_dict: dict) -&gt; pd.DataFrame:</code></strong>
+Applies the variable combination logic (i.e. the _combine_vars method) across all the variables in the comb_var_dict keys.</p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>df</code> (pd.DataFrame): The DataFrame to apply the variable combination to.</li>
+<li><code>comb_var_dict</code> (dict): The dictionary containing the reference variables and their 
+  corresponding combining variables and factors.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>pd.DataFrame</code>: The DataFrame with the combined variables.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>combine_all_data(self) -&gt; 'VarCombiner'</code></strong>
+Combines all data according to the <code>comb_var_dict</code> and returns the updated instance of the <code>VarCombiner</code> class.</p>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>VarCombiner</code>: The updated instance of the class with combined data.</li>
+</ul>
+</li>
+</ul>
+<h4 id="logs_2">Logs<a class="headerlink" href="#logs_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>In <code>original_data.setter</code>:<ul>
+<li>If the variables to combine are not a subset of the columns of the data dataframe (<code>original_data</code>), an error message is logged. </li>
+</ul>
+</li>
+</ul>
+<h2 id="general-operation">General Operation<a class="headerlink" href="#general-operation" title="Permanent link">&para;</a></h2>
+<h2 id="usage-example">Usage Example<a class="headerlink" href="#usage-example" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">from data_processing_utils import DataPreprocessor
+
+# Initialize DataPreprocessor with required arguments
+preprocessor = DataPreprocessor(cohort_databases, var_data, level_data, cohort_name)
+
+# Preprocess the data
+preprocessor.preprocess()
+
+# Get the final processed data
+processed_data, var_data, level_data = preprocessor.get_data()
+</code></pre>
+<h2 id="usage-in-main-execution">Usage in main execution<a class="headerlink" href="#usage-in-main-execution" title="Permanent link">&para;</a></h2></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
