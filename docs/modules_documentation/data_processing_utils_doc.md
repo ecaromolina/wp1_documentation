@@ -229,6 +229,9 @@ Combines all data according to the `comb_var_dict` and returns the updated insta
 
 #### Logs
 
+- In `original_data.setter`:
+    - If the variables to combine are not a subset of the columns of the data dataframe (`original_data`), an error message is logged. 
+
 ## General Operation
 
 ## Usage Example

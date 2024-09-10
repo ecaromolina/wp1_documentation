@@ -19,3 +19,9 @@ nav:
 theme: 
   name: cinder
   color_mode: dark
+
+markdown_extensions:
+  - markdown_include.include:
+      base_path: docs/
+  - toc: 
+      permalink: True

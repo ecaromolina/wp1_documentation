@@ -1,17 +1,39 @@
-# MKLorum
+# Executive Summary
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+The LIVERAIM warehouse is a high-quality, scalable, and interoperable data warehouse specifically designed for research on liver disease. Built to support clinical and biomedical research, the data warehouse integrates patient data from multiple cohorts and standardizes it into a unified, homogeneous format. It follows a ETL (Extract, Transform, Load) type process, ensuring data quality, consistency, and interoperability across multiple patient cohorts. The warehouse is composed of various tables, including patient demographics, medical history, blood test results, and physical examination details, which are stored in either wide or long formats. 
 
-## Commands
+By using modern data processing tools and complying with security standards, LIVERAIM warehouse ensures that sensitive patient data is protected while providing a flexible and scalable research environment. The datasets can be exported in multiple formats and is compatible with major data analysis platforms, making it a valuable tool for the scientific and clinical communities involved in liver disease research. 
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+# Table of Contents
 
-## Project layout
+### [Overview](dataflow.md)
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+A brief description of the data flow and key concepts.
+
+### [LIVERAIM Database Structure](liveraim_database_structure.md)
+
+Documentation about the LIVERAIM database structure.
+
+### Modules Documentation
+
+1. [File Reading utils](modules_documentation/file_reading_utils_doc.md)
+      - Utilities for reading files.
+
+2. [Preprocessing utils](modules_documentation/data_processing_utils_doc.md)
+      - Functions and utilities for data preprocessing.
+
+3. [Quality Control utils](modules_documentation/qc_checks_utils_doc.md)
+      - Tools for data quality control.
+
+4. [File Exporting utils](modules_documentation/file_exporting_utils_doc.md)
+      - Modules for exporting files in various formats.
+
+5. [SQL Exporting utils](modules_documentation/sql_exporting_utils_doc.md)
+      - Utilities for exporting data to SQL databases.
+
+6. [Configuration module](configuration/configuration_module.md)
+      - Documentation for the configuration module.
+
+### [Quick Start Guide](quick_start_guide.md)
+
+A guide to quickly get started with the documentation and modules.
