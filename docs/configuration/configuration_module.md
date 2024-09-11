@@ -16,6 +16,7 @@ The following sections describe the variables contained in each of these files, 
 #### General paremeters
 * `EXECUTION_DATETIME (str)`: DateTime of the execution. Used for debugging, logging and exportation purposes. 
 * `NUMERIC_TYPES (list)`: List of numeric python types compatibles with the databse. 
+* `CONFIG_OBJ_NAMES (list)`: List with the names of the configuration data objects in the code (such as `var_data`, `level_data`, etc.)
 
 #### Quality control paramenters
 * `ALPHA (str)`: Error threshold used during the numeric QC checks.

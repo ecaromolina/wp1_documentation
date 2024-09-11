@@ -6,34 +6,31 @@ By using modern data processing tools and complying with security standards, LIV
 
 # Table of Contents
 
-### [Overview](dataflow.md)
+- ### [Overview](dataflow.md)
+      A brief description of the data flow and key concepts.
 
-A brief description of the data flow and key concepts.
+- ### [LIVERAIM Database Structure](liveraim_database_structure.md)
+      Documentation about the LIVERAIM database structure.
 
-### [LIVERAIM Database Structure](liveraim_database_structure.md)
+  - ### Modules Documentation
 
-Documentation about the LIVERAIM database structure.
+      1. [File Reading utils](modules_documentation/file_reading_utils_doc.md)
+            - Utilities for reading files.
 
-### Modules Documentation
+      2. [Preprocessing utils](modules_documentation/data_processing_utils_doc.md)
+            - Functions and utilities for data preprocessing.
 
-1. [File Reading utils](modules_documentation/file_reading_utils_doc.md)
-      - Utilities for reading files.
+      3. [Quality Control utils](modules_documentation/qc_checks_utils_doc.md)
+            - Tools for data quality control.
 
-2. [Preprocessing utils](modules_documentation/data_processing_utils_doc.md)
-      - Functions and utilities for data preprocessing.
+      4. [File Exporting utils](modules_documentation/file_exporting_utils_doc.md)
+            - Modules for exporting files in various formats.
 
-3. [Quality Control utils](modules_documentation/qc_checks_utils_doc.md)
-      - Tools for data quality control.
+      5. [SQL Exporting utils](modules_documentation/sql_exporting_utils_doc.md)
+            - Utilities for exporting data to SQL databases.
 
-4. [File Exporting utils](modules_documentation/file_exporting_utils_doc.md)
-      - Modules for exporting files in various formats.
+      6. [Configuration module](configuration/configuration_module.md)
+            - Documentation for the configuration module.
 
-5. [SQL Exporting utils](modules_documentation/sql_exporting_utils_doc.md)
-      - Utilities for exporting data to SQL databases.
-
-6. [Configuration module](configuration/configuration_module.md)
-      - Documentation for the configuration module.
-
-### [Quick Start Guide](quick_start_guide.md)
-
-A guide to quickly get started with the documentation and modules.
+- ### [Quick Start Guide](quick_start_guide.md)
+      A guide to quickly get started with the documentation and modules.

@@ -234,6 +234,35 @@ Combines all data according to the `comb_var_dict` and returns the updated insta
 
 ## General Operation
 
+The data preprocessing is carried out iteratively for each cohort. Once completed, the resulting objects are used to create a `Cohort` class, responsible for homogenizing and formatting the data (see the section [`cohort_utils`](cohort_utils_doc.md)).
+
+The data preprocessing begins with the instantiation of the `DataPreprocessor` class, which requires as parameters (for each cohort) the `var_data`, `level_data`, and `databases` objects. Additionally, the `var_comb_data` parameter can be used to combine variables following the specifications of this object. These objects are read using the `DataReader` class from the [`file_reading_utils`](file_reading_utils_doc.md) module. For more details on the structure of these objects, see the section [Initial data and configuration data](../liveraim_data_warehouse_structure.md#initial-data-and-configuration-data).
+
+During preprocessing, three main modifications will be made:
+
+- **Merging of the different versions **of the database. Duplicates will be removed, resulting in a single dataframe with the latest version of data for each patient.
+  
+- **New variables will be added**, and the configuration data will be updated accordingly.
+  
+- **Variables will be combined** following the specifications of `var_comb_data`.
+
+The preprocessing pipeline follows these steps:
+
+- The necessary attributes for preprocessing are initialized. See the `__init__` method explained in the section [class `DataPreprocessor`/methods](#methods). In particular, the attributes `cohort_name`, `age_column`, `inclusion_date_column`, `id_var`, and `status` are initialized, which represent the name of the variable referring to age, inclusion date, etc. Additionally, if the `comb_var_dict` argument is included, it is also initialized as an attribute.
+
+- The `preprocess` method is called, centralizing the data processing. In this method, the cohort being processed is identified (using the `cohort_name` attribute), and the method responsible for applying the specific transformations for that cohort is called.
+
+- Within the methods specific to each cohort, named according to the rule `preprocess_cohort-name`, the specific modifications for each cohort are applied. Generally, in the current version, the `set_new_variables` method is called (for all cohorts). This method performs the following actions:
+
+    - Calls the `get_last_version` and `set_status_metadata` methods. The first merges the dataframes from each version of the same cohort into a single dataframe, which is stored in the `data` attribute. It adds the `version_date` variable and removes duplicates for each patient, keeping only the data from the latest version for each patient (the available data, i.e., the databases, are wide-format dataframes, so there should be no repetitions in the `id_var` column). Once duplicates are removed, this method creates the `status` column/variable, assigning the values *ongoing*, *finished*, or *withdrawn* based on the `version_date` variable. 
+    The second method updates the `var_data` and `level_data` dataframes with the new information about the `status` variable. This method returns the updated dataframes, which are stored in the corresponding attributes.
+
+    - Calls the `set_birth_date_column`, `set_exit_date_column`, and `set_cohort_column` methods. These create the respective variables in the `data` dataframe, and each returns the updated `var_data` and `level_data` dataframes, ensuring the respective attributes are updated with the new information.
+
+    - If the `DataPreprocessor` class is initialized with the `var_comb_data` parameter, the combination of the variables specified in this object is carried out. For this, the `VarCombiner` class is instantiated, which requires `var_comb_data` and `data` as parameters. For more information on the variable combination process, see the sections [Class `VarCombiner`/description](#description-1) or [Combination of variables](../dataflow.md#combination-of-variables). In this case, the `transformed_data` attribute of `VarCombiner` is used (after the combination is applied) to update `data`.
+
+Once all preprocessing is completed, the preprocessed data can be accessed using the `get_data` method.
+
 ## Usage Example
 
 ```python

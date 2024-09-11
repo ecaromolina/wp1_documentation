@@ -3,7 +3,7 @@ nav:
   - Home: index.md
 
   - Overview: dataflow.md
-  - LIVERAIM Database Structure: liveraim_database_structure.md
+  - LIVERAIM Database Structure: liveraim_data_warehouse_structure.md
 
   - Modules documentation:
     - File Reading utils: modules_documentation/file_reading_utils_doc.md

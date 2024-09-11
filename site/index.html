@@ -165,30 +165,69 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#mklorum">MKLorum</a></li>
-            <li class="second-level"><a href="#commands">Commands</a></li>
+        <li class="first-level active"><a href="#executive-summary">Executive Summary</a></li>
+        <li class="first-level "><a href="#table-of-contents">Table of Contents</a></li>
+            <li class="second-level"><a href="#overview">Overview</a></li>
                 
-            <li class="second-level"><a href="#project-layout">Project layout</a></li>
+            <li class="second-level"><a href="#liveraim-database-structure">LIVERAIM Database Structure</a></li>
+                
+            <li class="second-level"><a href="#modules-documentation">Modules Documentation</a></li>
+                
+            <li class="second-level"><a href="#quick-start-guide">Quick Start Guide</a></li>
                 
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="mklorum">MKLorum</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+<h1 id="executive-summary">Executive Summary<a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h1>
+<p>The LIVERAIM warehouse is a high-quality, scalable, and interoperable data warehouse specifically designed for research on liver disease. Built to support clinical and biomedical research, the data warehouse integrates patient data from multiple cohorts and standardizes it into a unified, homogeneous format. It follows a ETL (Extract, Transform, Load) type process, ensuring data quality, consistency, and interoperability across multiple patient cohorts. The warehouse is composed of various tables, including patient demographics, medical history, blood test results, and physical examination details, which are stored in either wide or long formats. </p>
+<p>By using modern data processing tools and complying with security standards, LIVERAIM warehouse ensures that sensitive patient data is protected while providing a flexible and scalable research environment. The datasets can be exported in multiple formats and is compatible with major data analysis platforms, making it a valuable tool for the scientific and clinical communities involved in liver disease research. </p>
+<h1 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h1>
+<h3 id="overview"><a href="dataflow/">Overview</a><a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<p>A brief description of the data flow and key concepts.</p>
+<h3 id="liveraim-database-structure"><a href="liveraim_database_structure/">LIVERAIM Database Structure</a><a class="headerlink" href="#liveraim-database-structure" title="Permanent link">&para;</a></h3>
+<p>Documentation about the LIVERAIM database structure.</p>
+<h3 id="modules-documentation">Modules Documentation<a class="headerlink" href="#modules-documentation" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><a href="modules_documentation/file_reading_utils_doc/">File Reading utils</a></p>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
+<li>Utilities for reading files.</li>
 </ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
-</code></pre></div>
+</li>
+<li>
+<p><a href="modules_documentation/data_processing_utils_doc/">Preprocessing utils</a></p>
+<ul>
+<li>Functions and utilities for data preprocessing.</li>
+</ul>
+</li>
+<li>
+<p><a href="modules_documentation/qc_checks_utils_doc/">Quality Control utils</a></p>
+<ul>
+<li>Tools for data quality control.</li>
+</ul>
+</li>
+<li>
+<p><a href="modules_documentation/file_exporting_utils_doc/">File Exporting utils</a></p>
+<ul>
+<li>Modules for exporting files in various formats.</li>
+</ul>
+</li>
+<li>
+<p><a href="modules_documentation/sql_exporting_utils_doc/">SQL Exporting utils</a></p>
+<ul>
+<li>Utilities for exporting data to SQL databases.</li>
+</ul>
+</li>
+<li>
+<p><a href="configuration/configuration_module/">Configuration module</a></p>
+<ul>
+<li>Documentation for the configuration module.</li>
+</ul>
+</li>
+</ol>
+<h3 id="quick-start-guide"><a href="quick_start_guide/">Quick Start Guide</a><a class="headerlink" href="#quick-start-guide" title="Permanent link">&para;</a></h3>
+<p>A guide to quickly get started with the documentation and modules.</p></div>
         
         
     </div>
@@ -293,5 +332,5 @@ docs/
 
 <!--
 MkDocs version : 1.6.0
-Build Date UTC : 2024-09-08 21:57:45.309356+00:00
+Build Date UTC : 2024-09-10 16:29:23.203474+00:00
 -->

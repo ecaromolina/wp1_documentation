@@ -189,8 +189,8 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="overview">Overview</h1>
-<h2 id="dataflow">Dataflow</h2>
+<h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
+<h2 id="dataflow">Dataflow<a class="headerlink" href="#dataflow" title="Permanent link">&para;</a></h2>
 <p>This section describes the data flow and ETL process, from the data reading to data export in various formats.</p>
 <p>The data processing follows these steps, which are explained in detail in this document:</p>
 <ul>
@@ -208,7 +208,7 @@
 </ul>
 <p>The following image describes schematically the ETL process:</p>
 <p><img alt="ETL-scheme" src="../images/ETL-scheme_v0.png" /></p>
-<h2 id="data-reading">Data Reading</h2>
+<h2 id="data-reading">Data Reading<a class="headerlink" href="#data-reading" title="Permanent link">&para;</a></h2>
 <p>Data reading is handled through the <a href="../modules_documentation/file_reading_utils_doc/"><code>DataReader</code></a> class. This class is responsible for reading the following files for each cohort:</p>
 <ul>
 <li><strong><code>var_data (.xlsx)</code></strong>: A .xlsx file that is loaded into the code as a <code>DataFrame</code>.</li>
@@ -238,7 +238,7 @@
 <p>These files are essential for the correct processing of the data. To see the structure of these files, refer to the section <a href="../initial_data_configuration/">initial_data_configuration</a>.</p>
 <p>The variables that store the filenames to be read, as well as the directories where these files are located, are defined in the module <a href="../configuration/configuration_module/#main_config-module"><code>main_config</code></a>.</p>
 <p>Refer to <a href="../modules_documentation/file_reading_utils_doc/"><code>data_reading_utils</code></a> for more details on the internal workings of <code>DataReader</code> and the data reading process.</p>
-<h2 id="data-preprocessing">Data Preprocessing</h2>
+<h2 id="data-preprocessing">Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permanent link">&para;</a></h2>
 <p>Once the initial data is loaded, an instance of the <code>DataPreprocessor</code> class is created for each cohort. This instance takes as parameters all the elements from <code>all_data[cohort_name]</code>, as well as the name of the respective cohort. This data is stored in the atributes <code>cohort_databases</code>, <code>vara_data</code>, <code>level_data</code>, <code>var_comb_data</code> and <code>cohort_name</code> respectively. </p>
 <p><code>DataPreprocessor</code> performs the following actions:</p>
 <ul>
@@ -247,7 +247,7 @@
 <li><a href="#combination-of-variables">Combination of variables</a></li>
 </ul>
 <p>The aim of this class is to prepare the data from each cohort for the formatting and homogenization process, which requires a specific structure. This class is designed to handle each cohort individually and allows for specific adjustments to be made for each cohort, adapting to the particularities of each one.</p>
-<h4 id="merging-database-versions">Merging database versions</h4>
+<h4 id="merging-database-versions">Merging database versions<a class="headerlink" href="#merging-database-versions" title="Permanent link">&para;</a></h4>
 <p>The dictionary containing the cohort database versions is stored in the attribute <code>DataPreprocessor.cohort_databases</code>. From the dataframes of each version, a <strong>single dataframe</strong> will be generated that contains, for each patient present in at least one of the versions, the latest available data (i.e., the data from the most recent version in which they appear).</p>
 <p>Additionally, the variable <code>status</code> is added. This categorical variable can take 3 values:</p>
 <ul>
@@ -269,7 +269,7 @@
 </ul>
 <p>Since <code>status</code> will be one of the core variables in the data warehouse, the <code>var_data</code> and <code>level_data</code> attributes are updated to include this variable.</p>
 <p>this new dataframe is stored in <code>data</code> atribute.</p>
-<h4 id="addition-of-new-variables">Addition of new variables</h4>
+<h4 id="addition-of-new-variables">Addition of new variables<a class="headerlink" href="#addition-of-new-variables" title="Permanent link">&para;</a></h4>
 <p>Once a single dataframe with the database is created, the following variables will be added to the <code>data</code> attribute:</p>
 <ul>
 <li><code>birth_date</code>: Obtained by combining the patient's age with the date of entry into the cohort.</li>
@@ -279,7 +279,7 @@
 <blockquote>
 <p><strong>Note</strong>: Just as with the <code>status</code> variable, since these new variables will be core variables, the <code>var_data</code> attribute will be updated (adding the metadata of the respective variable). In addittion if a categorical variable is added, the <code>level_data</code> attribute will also be updated accordingly.</p>
 </blockquote>
-<h4 id="combination-of-variables">Combination of variables</h4>
+<h4 id="combination-of-variables">Combination of variables<a class="headerlink" href="#combination-of-variables" title="Permanent link">&para;</a></h4>
 <p>If the <code>var_comb_data</code> parameter is passed during the initialization of <code>DataPreprocessor</code>, it will be used to combine the variables specified in that parameter. The primary goal here is to reduce the number of missing values by using variables that refer to the same magnitude but have different units.</p>
 <p>To achieve this, <code>DataPreprocessor</code> utilizes the <code>VarCombiner</code> class, which is instantiated with a dataframe (in this case, the <code>data</code> attribute) and a dictionary that defines the variable combinations (in this case the <code>var_comb_dict</code> attribute). It is recommended to consult the section <a href="../initial_data_configuration/#comb_var_data-file"><code>comb_var_data</code> file</a> for details on the internal structure of the dictionary. Additionally, refer to the section <a href="../modules_documentation/data_processing_utils_doc/#class-varcombiner"><code>Class VarCombiner</code></a> for more information on how the class works.</p>
 <p>For each variable to be combined, <code>VarCombiner</code> sequentially checks whether a variable with a certain magnitude is missing. If it is not missing, the value of that variable is taken as the final value (applying the appropriate conversion factor). If the value is missing, it moves on to the next variable referring to the same magnitude (but with different units) and performs the same check. If all variables in the iteration are missing, <code>NaN</code> is assigned as the final value.</p>
@@ -298,7 +298,7 @@
 <p>This indicates that two variables should be combined: <code>glc</code> (using <code>glc</code> and <code>glc_mg_dl</code>) and <code>crea_mg_dl</code> (using <code>creat</code> and <code>crea_mg_dl</code>). <code>VarCombiner</code> will first iterate over the pair <code>"glc": {"glc": 1, "glc_mg_dl": 0.055}</code>. The <code>glc</code> variable (the first key) will be calculated as described above: if <code>glc</code> (in this case, the key in the pair <code>"glc": 1</code>) is not missing, this value will be used for the <code>glc</code> variable. Otherwise, it will check if <code>glc_mg_dl</code> is missing. If it is not missing, the value of <code>glc_mg_dl</code> multiplied by 0.055 will be used as the final value (where 0.055 is the conversion factor to convert <code>glc_mg_dl</code> units to <code>glc</code> units).</p>
 <p>The processing for <code>crea_mg_dl</code> is entirely analogous.</p>
 <p>The final result is that in the <code>data</code> attribute, the <code>glc</code> and <code>crea_mg_dl</code> variables will be populated with values from other <em>compatible</em> variables.</p>
-<h2 id="cohort-instantiation-and-processing">Cohort Instantiation and Processing</h2>
+<h2 id="cohort-instantiation-and-processing">Cohort Instantiation and Processing<a class="headerlink" href="#cohort-instantiation-and-processing" title="Permanent link">&para;</a></h2>
 <p>Once the cohort data has been preprocessed, it is formatted so that all cohorts have a homogeneous structure and can be subsequently combined. The central element of this processing is the <code>Cohort</code> class, and the <code>var_data</code> and <code>level_data</code> objects mentioned earlier are essential for its correct operation.</p>
 <p>For each cohort, a <code>Cohort</code> object is instantiated, which uses the (already preprocessed) attributes of <code>DataPreprocessor</code>: <code>data</code> (as the <code>raw_data</code> parameter), <code>var_data</code>, and <code>level_data</code>. It is important to note that each row in the <code>var_data</code> DataFrame corresponds to one of the selected core variables. For each of these variables, this DataFrame contains metadata about how they should be transformed:</p>
 <ul>
@@ -321,9 +321,9 @@
 </ol>
 <p>The result for each cohort should be the same: a DataFrame with the same structure, variables, and format stored in the <code>homogeneous_data</code> attribute. The only difference between cohorts would be the number of patients.</p>
 <p>For more details on the specific implementation of the <code>Cohort</code> class and its methods, refer to the section dedicated to the <a href="../modules_documentation/cohort_utils_doc/">cohort_utils</a>.</p>
-<h2 id="cohort-quality-control">Cohort Quality Control</h2>
+<h2 id="cohort-quality-control">Cohort Quality Control<a class="headerlink" href="#cohort-quality-control" title="Permanent link">&para;</a></h2>
 <p>For more details on the specific implementation of the QC checks, refer to the section  <a href="../modules_documentation/qc_checks_utils_doc/">qc_checks_utils_doc</a>.</p>
-<h2 id="cohort-merging">Cohort Merging</h2>
+<h2 id="cohort-merging">Cohort Merging<a class="headerlink" href="#cohort-merging" title="Permanent link">&para;</a></h2>
 <p>Once all cohorts have been formatted, they are merged using the <code>merge_cohorts</code> function, defined in the <a href="../modules_documentation/cohort_utils_doc/"><code>cohort_utils</code></a> module. <code>merge_cohorts</code> takes a list of already instantiated cohorts (i.e., they contain the <code>homogeneous_data</code> attribute) and performs the following actions:</p>
 <ol>
 <li>Concatenates (vertically) the <code>homogeneous_data</code> attributes (DataFrames) from each cohort, ensuring that the resulting DataFrame combines all the data from the individual cohorts.</li>
@@ -333,9 +333,9 @@
 </ol>
 <p>For more details on the functionality of this process, refer to the section <a href="../modules_documentation/cohort_utils_doc/#merge_cohorts-function"><code>merge_cohorts</code> function</a>.</p>
 <p><span style="color:red">falta indicar que se añade la variable id</span></p>
-<h2 id="exportation-to-files">Exportation to Files</h2>
+<h2 id="exportation-to-files">Exportation to Files<a class="headerlink" href="#exportation-to-files" title="Permanent link">&para;</a></h2>
 <p>Si la variable <code>EXPORT_FILES</code> definida en el módulo <code>main_config</code> es True se procederá exportar los datos de cada uno de los paneles finales en formato de archivos. Para la versión actual, los datos se exportan a los formatos <code>.csv</code> y <code>.feather</code></p>
-<h2 id="exportation-to-mysql-database">Exportation to MySQL Database</h2>
+<h2 id="exportation-to-mysql-database">Exportation to MySQL Database<a class="headerlink" href="#exportation-to-mysql-database" title="Permanent link">&para;</a></h2>
 <p>After exporting the database as files, the MySQL database is created. The module responsible for handling this export is <a href="../modules_documentation/sql_exporting_utils_doc/"><code>sql_exporting_utils</code></a>. Specifically, the <code>SQLExporter</code> class, defined in this module, centralizes the connection to the database, the creation of tables, and the export of data.</p>
 <p>The <code>SQLExporter</code> class is initialized using the <code>panel_metadata</code> DataFrame dictionary (this object has not been modified at any point). This dictionary specifies the structure of each of the final panels in the database. For more information on the structure of the <code>panel_metadata</code> file (and the corresponding <code>panel_metadata</code> object), see the section <a href="../initial_data_configuration/#panel_data-file"><code>panel_data</code> file</a>.</p>
 <p><code>SQLExporter</code> performs the following actions sequentially:</p>

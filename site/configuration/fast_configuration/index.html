@@ -170,7 +170,7 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="fast-configuration">Fast Configuration</h1>
+<h1 id="fast-configuration">Fast Configuration<a class="headerlink" href="#fast-configuration" title="Permanent link">&para;</a></h1>
 <p>This section describes the necessary configuration to run the code and generate the database for WP1. For a comprehensive description of all configuration parameters, refer to the section <a href="../configuration_module/">Configuration Module</a>.</p>
 <blockquote>
 <p><strong>Important Notice</strong>: Before configuring the project, ensure that the prerequisites described in the <a href="../../enviroment_setup/">Environment Setup</a> section are met.</p>
@@ -180,7 +180,7 @@
 <li>Configure the MySQL DB connection parameters. See the section <a href="#mysql-connection-configuration">MySQL Connection Configuration</a>.</li>
 </ul>
 </blockquote>
-<h2 id="structure-of-the-project-directory">Structure of the Project Directory</h2>
+<h2 id="structure-of-the-project-directory">Structure of the Project Directory<a class="headerlink" href="#structure-of-the-project-directory" title="Permanent link">&para;</a></h2>
 <p>While the configuration allows some flexibility in the project directory structure, it is recommended to maintain the current structure to avoid errors. The project directory currently (as of 08/07/2024) has the following structure:</p>
 <pre><code>LIVERAIM_WP1/
 ├── config/
@@ -206,7 +206,7 @@
 ...
 other python modules
 </code></pre>
-<h3 id="structure-of-datacohort_name-directory">Structure of <code>data/cohort_name/</code> Directory</h3>
+<h3 id="structure-of-datacohort_name-directory">Structure of <code>data/cohort_name/</code> Directory<a class="headerlink" href="#structure-of-datacohort_name-directory" title="Permanent link">&para;</a></h3>
 <p>Each subdirectory within <code>data/</code> contains the databases and files related to each cohort. These subdirectories should have the following structure:</p>
 <pre><code>data/
 ├── cohort_name/
@@ -218,7 +218,7 @@ other python modules
 ...
 </code></pre>
 <p>The <code>cohort_name_level_data.xlsx</code> and <code>cohort_name_var_data.xlsx</code> files are described in the section <a href="../../initial_data_configuration/">Initial Data Configuration</a>. If you downloaded the repository from GitHub, you should not need to modify these files.</p>
-<h3 id="structure-of-datacohort_namedatabases-directory">Structure of <code>data/cohort_name/databases/</code> Directory</h3>
+<h3 id="structure-of-datacohort_namedatabases-directory">Structure of <code>data/cohort_name/databases/</code> Directory<a class="headerlink" href="#structure-of-datacohort_namedatabases-directory" title="Permanent link">&para;</a></h3>
 <p>The <code>/data/cohort_name/databases</code> directory should store the files containing the raw data for the databases of each cohort. Each file in the directory corresponds to one of the received database versions. For more information on how different versions are handled, see the section <a href="">Managing Raw Data Versions</a>. It is <strong>very important</strong> (for this particular case) that the file names follow this structure:</p>
 <pre><code>cohort_name_database_version_date.extension
 </code></pre>
@@ -230,7 +230,7 @@ other python modules
 <p><strong>Note</strong>: This folder may contain only one file. It is recommended that this corresponds to the latest version of the data.</p>
 </blockquote>
 <p>Since these data are not uploaded to GitHub, it is necessary to manually place them in the correct directory and format. Once this is done, the directory should be correctly configured.</p>
-<h2 id="mysql-connection-configuration">MySQL Connection Configuration</h2>
+<h2 id="mysql-connection-configuration">MySQL Connection Configuration<a class="headerlink" href="#mysql-connection-configuration" title="Permanent link">&para;</a></h2>
 <p>If you want to export the data warehouse to the MySQL DB (presumably yes), the MySQL connection parameters must be configured. Therefore, it is necessary to have MySQL installed (if you want to generate the DB locally) and to have a username and password. [A section explaining how to download MySQL and create a user is missing].</p>
 <p>Once these requirements are met, you need to configure the MySQL DB connection parameters. These are defined in the <code>config.connection_config</code> module, but for a quick configuration, you do not need to modify this file. Instead, you should create the following environment variables in your execution environment:</p>
 <ul>
@@ -244,7 +244,7 @@ other python modules
 <p>For more information on MySQL connection configuration, see the section <a href="../configuration_module/#connection-configuration-module">Connection Config Module</a>.</p>
 <p>Once this is done, you should be able to run the code without any problems. In the <a href="#outputs-configuration">Outputs Configuration</a> section, you can find some useful parameters to determine which outputs you want to generate.</p>
 <p><strong>[A section explaining how to download MySQL and create a user is missing]</strong></p>
-<h2 id="outputs-configuration">Outputs Configuration</h2>
+<h2 id="outputs-configuration">Outputs Configuration<a class="headerlink" href="#outputs-configuration" title="Permanent link">&para;</a></h2>
 <p>There are some parameters in the <code>config.main_config</code> module that may be useful for users to quickly customize the outputs of the code execution:</p>
 <ul>
 <li><code>EXPORT_QC_RECORD (bool)</code>: With a value of <code>True</code>, it exports the data generated during quality control. For more details, see the section <a href="../../quality_control/">Quality Control</a>. With a value of <code>False</code>, quality control is still performed, but the generated data is not saved after execution (except for those printed in the log).</li>
@@ -255,7 +255,7 @@ other python modules
 <blockquote>
 <p>Note: This list is not exhaustive. For more information, see the <a href="../configuration_module/">Configuration Module</a> section.</p>
 </blockquote>
-<h2 id="creating-environment-variables">Creating Environment Variables</h2></div>
+<h2 id="creating-environment-variables">Creating Environment Variables<a class="headerlink" href="#creating-environment-variables" title="Permanent link">&para;</a></h2></div>
         
         
     </div>
