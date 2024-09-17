@@ -82,7 +82,7 @@
                 
                 
                     <li >
-                        <a href="../../liveraim_data_warehouse_structure/">LIVERAIM Database Structure</a>
+                        <a href="../../liveraim_data_warehouse_specifications/">LIVERAIM Data Warehouse Specifications</a>
                     </li>
                 
                 
@@ -123,7 +123,7 @@
                         
                             
 <li >
-    <a href="../../configuration/configuration_module/">Configuration module</a>
+    <a href="../configuration_module/">Configuration module</a>
 </li>
 
                         
@@ -433,7 +433,7 @@ Returns all processed data, including the main dataset, <code>var_data</code>, a
 </ul>
 <h3 id="class-varcombiner">Class <code>VarCombiner</code><a class="headerlink" href="#class-varcombiner" title="Permanent link">&para;</a></h3>
 <h4 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">&para;</a></h4>
-<p>A class designed to combine variables in a DataFrame based on a reference dictionary (<code>comb_var_dict</code>). This class helps merge variables and apply conversion factors as needed. In this version, the main functionality of the class is to combine variables of the same magnitude that are expressed in different units so the count of missings is reduced. To do so, it uses the <code>var_combine_dict</code>, where the variables (and their conversion factor) to be combined are specified. For more information about the structure of this dictionary check the section <a href="../liveraim_database_structure.md#comb_var_data-file">comb_var_data file</a>. </p>
+<p>Combines variables in a DataFrame based on a reference dictionary (<code>comb_var_dict</code>). This class helps merge variables and apply conversion factors as needed. In this version, the main functionality of the class is to combine variables of the same magnitude that are expressed in different units so the count of missings is reduced. To do so, it uses the <code>var_combine_dict</code>, where the variables (and their conversion factor) to be combined are specified. For more information about the structure of this dictionary check the section <a href="../../liveraim_data_warehouse_specifications/#comb_var_data-file">comb_var_data file</a>. </p>
 <p>The <strong>process of combining the data</strong> works as follows (it's important to understand the structure of <code>comb_var_dict</code>). For each key-value pair in <code>comb_var_dict</code> with the following structure:</p>
 <pre><code>&lt;final_variable&gt;: {&lt;variable_to_combine_1&gt;: &lt;conversion_factor_1&gt;, &lt;variable_to_combine_2&gt;: &lt;conversion_factor_2&gt;, ...}
 </code></pre>
@@ -455,7 +455,7 @@ Returns all processed data, including the main dataset, <code>var_data</code>, a
 <p><strong><code>comb_var_dict (dict)</code></strong>: A dictionary where keys are reference variables (the name of the final variable to be obtained) and values are dictionaries with variables to combine and their respective conversion factors.</p>
 </li>
 <li>
-<p><strong><code>ref_vars (list[str])</code></strong>: A list of reference variables extracted from the keys of <code>comb_var_dict</code>, i.e. the final variables to be obtained.</p>
+<p><strong><code>ref_vars</code> (list[str])</strong>: A list of reference variables extracted from the keys of <code>comb_var_dict</code>, i.e. the final variables to be obtained.</p>
 </li>
 <li>
 <p><strong><code>original_data (pd.DataFrame)</code></strong>: A DataFrame containing the original data before any transformations. This is the raw data from each cohort. </p>
@@ -479,7 +479,7 @@ Initializes the <code>VarCombiner</code> class with a dictionary of reference va
 </li>
 <li>
 <p><strong><code>_combine_vars(self, row: pd.Series, ref_var: str, var_conv_factors: dict) -&gt; float</code></strong>
-Combines variables within a row by applying conversion factors if the reference variable is missing (using the algorithm described in the <a href="#description-1">class <em>Description</em></a>). This function is intended to be used inside the apply method from pandas, specifically in the method <code>_combine_data</code>. </p>
+Combines variables within a row by applying conversion factors if the reference variable is missing (using the algorithm described in the <a href="#description-1">class's <em>Description</em></a>). This function is intended to be used inside the apply method from pandas, specifically in the method <code>_combine_data</code>. </p>
 <ul>
 <li>
 <p><strong>Arguments</strong>:</p>
@@ -683,7 +683,7 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
 </ul>
 <h2 id="general-operation">General Operation<a class="headerlink" href="#general-operation" title="Permanent link">&para;</a></h2>
 <p>The data preprocessing is carried out iteratively for each cohort. Once completed, the resulting objects are used to create a <code>Cohort</code> class, responsible for homogenizing and formatting the data (see the section <a href="../cohort_utils_doc/"><code>cohort_utils</code></a>).</p>
-<p>The data preprocessing begins with the instantiation of the <code>DataPreprocessor</code> class, which requires as parameters (for each cohort) the <code>var_data</code>, <code>level_data</code>, and <code>databases</code> objects. Additionally, the <code>var_comb_data</code> parameter can be used to combine variables following the specifications of this object. These objects are read using the <code>DataReader</code> class from the <a href="../file_reading_utils_doc/"><code>file_reading_utils</code></a> module. For more details on the structure of these objects, see the section <a href="../../liveraim_data_warehouse_structure/#initial-data-and-configuration-data">Initial data and configuration data</a>.</p>
+<p>The data preprocessing begins with the instantiation of the <code>DataPreprocessor</code> class, which requires as parameters (for each cohort) the <code>var_data</code>, <code>level_data</code>, and <code>databases</code> objects. Additionally, the <code>var_comb_data</code> parameter can be used to combine variables following the specifications of this object. These objects are read using the <code>DataReader</code> class from the <a href="../file_reading_utils_doc/"><code>file_reading_utils</code></a> module. For more details on the structure of these objects, see the section <a href="../../liveraim_data_warehouse_specifications/#initial-data-and-configuration-data">Initial data and configuration data</a>.</p>
 <p>During preprocessing, three main modifications will be made:</p>
 <ul>
 <li>

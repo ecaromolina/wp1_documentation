@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>LIVERAIM Database Structure - WP1</title>
+    <title>LIVERAIM Data Warehouse Specifications - WP1</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -82,7 +82,7 @@
                 
                 
                     <li class="active">
-                        <a href="./">LIVERAIM Database Structure</a>
+                        <a href="./">LIVERAIM Data Warehouse Specifications</a>
                     </li>
                 
                 
@@ -123,7 +123,7 @@
                         
                             
 <li >
-    <a href="../configuration/configuration_module/">Configuration module</a>
+    <a href="../modules_documentation/configuration_module/">Configuration module</a>
 </li>
 
                         
@@ -188,7 +188,7 @@
                 <li class="third-level"><a href="#table-medical_history">Table: medical_history</a></li>
                 <li class="third-level"><a href="#table-blood_test_numerical">Table: blood_test_numerical</a></li>
                 <li class="third-level"><a href="#table-blood_test_categorical">Table: blood_test_categorical</a></li>
-            <li class="second-level"><a href="#b-metadata-tables-description">b. Metadata Tables Description</a></li>
+            <li class="second-level"><a href="#b-configuration-tables-description">b. Configuration Tables Description</a></li>
                 
         <li class="first-level "><a href="#general-relationships-in-the-schema">General Relationships in the Schema</a></li>
     </ul>
@@ -365,7 +365,7 @@ Transforming a wide table into a long table is a straightforward process (if the
 <p>Finally, an other file, <a href="#panel_data-file"><code>panel_data</code></a> is needed for the proper creation of the data warehouse. In this file the structure of the final panels is described. </p>
 <h2 id="database-files"><code>Database</code> files<a class="headerlink" href="#database-files" title="Permanent link">&para;</a></h2>
 <p>The files we refer to as <em>database</em> files contain the raw database of the cohort. These are the files that the partners responsible for each cohort have sent us with the patient data.</p>
-<p>The content of these files is never modified, neither manually nor through the code: all data processing is done after reading these files, which remain intact after each execution. The only modification they receive is a renaming necessary for their correct reading. For more details, see the section <a href="../configuration/fast_configuration/#structure-of-datacohort_namedatabases-directory">Structure of <code>data/cohort_name/databases/</code> directory</a>.</p>
+<p>The content of these files is never modified, neither manually nor through the code: all data processing is done after reading these files, which remain intact after each execution. The only modification they receive is a renaming necessary for their correct reading. For more details, see the section <a href="../quick_start_guide/#structure-of-datacohort_namedatabases-directory">Structure of <code>data/cohort_name/databases/</code> directory</a>.</p>
 <p>The format of these files varies depending on the cohort. For more information on reading the data, see the section <a href="../modules_documentation/file_reading_utils_doc/">File reading utils</a>. When this files are read, they are loaded into the code as <code>pandas.DataFrame</code> objects. </p>
 <blockquote>
 <p><strong>Note</strong>: For obvious data privacy reasons, these files are not uploaded to GitHub.</p>
@@ -461,7 +461,7 @@ Transforming a wide table into a long table is a straightforward process (if the
 <p>These files are tracked in GitHub like the rest of the scripts, so there is no need to create them from scratch, and they should work fine if the repository is cloned.</p>
 <p>When this file is read, since it is an .xlsx file with multiple sheets, it is loaded into the code as a dictionary of <code>pandas.DataFrames</code>. Each sheet name becomes a key, and the corresponding table becomes its value (a <code>DataFrame</code>). Throughout the documentation, we will refer to this dictionary as <code>panel_metadata</code>.</p>
 <p>It is important to maintain the structure of this file (and the previously described). Changes can be easily made to modify the final structure of the data warehouse by adding new sheets to the file (i.e., adding new panels), adding variables to a panel, or changing their structure (long or wide format).</p>
-<p>For more information about the structure of the final data, check the section <a href="data_warehouse_structure.md">Data Warehouse structure</a>.</p>
+<p>For more information about the structure of the final data, check the next section <a href="#liveraim-data-warehouse-structure-v01">LIVERAIM DATA WAREHOUSE STRUCTURE</a>.</p>
 <h1 id="liveraim-data-warehouse-structure-v01">LIVERAIM DATA WAREHOUSE STRUCTURE v0.1<a class="headerlink" href="#liveraim-data-warehouse-structure-v01" title="Permanent link">&para;</a></h1>
 <p>The <strong>LIVERAIM DATA WAREHOUSE v0.1</strong> is composed by the following tables:</p>
 <p>a. <strong>Database</strong></p>
@@ -1631,8 +1631,8 @@ Transforming a wide table into a long table is a straightforward process (if the
 </tr>
 </tbody>
 </table>
-<h2 id="b-metadata-tables-description">b. Metadata Tables Description<a class="headerlink" href="#b-metadata-tables-description" title="Permanent link">&para;</a></h2>
-<p>For further information about the structure of this metadata go to <a href="../initial_data_configuration/">initial data configuration</a>****</p>
+<h2 id="b-configuration-tables-description">b. Configuration Tables Description<a class="headerlink" href="#b-configuration-tables-description" title="Permanent link">&para;</a></h2>
+<p>For further information about the structure of this configuration data go to <a href="#initial-data-and-configuration-data">initial data configuration</a> section. </p>
 <h1 id="general-relationships-in-the-schema">General Relationships in the Schema<a class="headerlink" href="#general-relationships-in-the-schema" title="Permanent link">&para;</a></h1>
 <ul>
 <li><strong>Central Tables:</strong> The <code>population</code> table acts as the central table in the schema, relating to all other tables through <code>liveraim_id</code> and <code>cohort_id</code>.</li>

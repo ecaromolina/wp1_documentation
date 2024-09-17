@@ -82,7 +82,7 @@
                 
                 
                     <li >
-                        <a href="../liveraim_data_warehouse_structure/">LIVERAIM Database Structure</a>
+                        <a href="../liveraim_data_warehouse_specifications/">LIVERAIM Data Warehouse Specifications</a>
                     </li>
                 
                 
@@ -123,7 +123,7 @@
                         
                             
 <li >
-    <a href="../configuration/configuration_module/">Configuration module</a>
+    <a href="../modules_documentation/configuration_module/">Configuration module</a>
 </li>
 
                         
@@ -151,7 +151,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../liveraim_data_warehouse_structure/">
+                        <a rel="next" href="../liveraim_data_warehouse_specifications/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -194,7 +194,7 @@
 <p>This section describes the data flow and ETL process, from the data reading to data export in various formats.</p>
 <p>The data processing follows these steps, which are explained in detail in this document:</p>
 <ul>
-<li><a href="#data-reading"><strong>Data Reading</strong></a>: Reading of all data required for the creation of the data warehouse. Specifically, the files described in <a href="../initial_data_configuration/">initial_data_configuration</a> are read.</li>
+<li><a href="#data-reading"><strong>Data Reading</strong></a>: Reading of all data required for the creation of the data warehouse. Specifically, the files described in <a href="../liveraim_data_warehouse_specifications/#initial-data-and-configuration-data">initial_data_configuration</a> are read.</li>
 <li><a href="#data-preprocessing"><strong>Data Preprocessing</strong></a>: An initial transformation of the data is performed, where some variables are added and combined. This process allows each cohort to be treated individually and specific changes to be applied to that cohort.</li>
 <li><a href="#cohort-instantiation-and-processing"><strong>Cohort Instantiation and Processing</strong></a>: For each cohort, a <code>Cohort</code> object is created. This centralizes the formatting and homogenization of the cohorts to produce a curated database with a consistent format across all cohorts.</li>
 <li><a href="#cohort-quality-control"><strong>Cohort Quality Control</strong></a>: Quality control is performed for each cohort to validate the transformations carried out in the previous steps.</li>
@@ -235,8 +235,8 @@
 <blockquote>
 <p><strong>Note</strong>: The data warehouse will be created using all versions of the databases, up to the most recent one. This allows for more detailed tracking of patients who have entered and exited in each version. How the different versions are managed is explained in the next section, <a href="#data-preprocessing">Data Preprocessing</a>.</p>
 </blockquote>
-<p>These files are essential for the correct processing of the data. To see the structure of these files, refer to the section <a href="../initial_data_configuration/">initial_data_configuration</a>.</p>
-<p>The variables that store the filenames to be read, as well as the directories where these files are located, are defined in the module <a href="../configuration/configuration_module/#main_config-module"><code>main_config</code></a>.</p>
+<p>These files are essential for the correct processing of the data. To see the structure of these files, refer to the section <a href="../liveraim_data_warehouse_specifications/#initial-data-and-configuration-data">initial_data_configuration</a>.</p>
+<p>The variables that store the filenames to be read, as well as the directories where these files are located, are defined in the module <a href="../modules_documentation/configuration_module/#main_config-module"><code>main_config</code></a>.</p>
 <p>Refer to <a href="../modules_documentation/file_reading_utils_doc/"><code>data_reading_utils</code></a> for more details on the internal workings of <code>DataReader</code> and the data reading process.</p>
 <h2 id="data-preprocessing">Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permanent link">&para;</a></h2>
 <p>Once the initial data is loaded, an instance of the <code>DataPreprocessor</code> class is created for each cohort. This instance takes as parameters all the elements from <code>all_data[cohort_name]</code>, as well as the name of the respective cohort. This data is stored in the atributes <code>cohort_databases</code>, <code>vara_data</code>, <code>level_data</code>, <code>var_comb_data</code> and <code>cohort_name</code> respectively. </p>
@@ -281,7 +281,7 @@
 </blockquote>
 <h4 id="combination-of-variables">Combination of variables<a class="headerlink" href="#combination-of-variables" title="Permanent link">&para;</a></h4>
 <p>If the <code>var_comb_data</code> parameter is passed during the initialization of <code>DataPreprocessor</code>, it will be used to combine the variables specified in that parameter. The primary goal here is to reduce the number of missing values by using variables that refer to the same magnitude but have different units.</p>
-<p>To achieve this, <code>DataPreprocessor</code> utilizes the <code>VarCombiner</code> class, which is instantiated with a dataframe (in this case, the <code>data</code> attribute) and a dictionary that defines the variable combinations (in this case the <code>var_comb_dict</code> attribute). It is recommended to consult the section <a href="../initial_data_configuration/#comb_var_data-file"><code>comb_var_data</code> file</a> for details on the internal structure of the dictionary. Additionally, refer to the section <a href="../modules_documentation/data_processing_utils_doc/#class-varcombiner"><code>Class VarCombiner</code></a> for more information on how the class works.</p>
+<p>To achieve this, <code>DataPreprocessor</code> utilizes the <code>VarCombiner</code> class, which is instantiated with a dataframe (in this case, the <code>data</code> attribute) and a dictionary that defines the variable combinations (in this case the <code>var_comb_dict</code> attribute). It is recommended to consult the section <a href="../liveraim_data_warehouse_specifications/#comb_var_data-file"><code>comb_var_data</code> file</a> for details on the internal structure of the dictionary. Additionally, refer to the section <a href="../modules_documentation/data_processing_utils_doc/#class-varcombiner"><code>Class VarCombiner</code></a> for more information on how the class works.</p>
 <p>For each variable to be combined, <code>VarCombiner</code> sequentially checks whether a variable with a certain magnitude is missing. If it is not missing, the value of that variable is taken as the final value (applying the appropriate conversion factor). If the value is missing, it moves on to the next variable referring to the same magnitude (but with different units) and performs the same check. If all variables in the iteration are missing, <code>NaN</code> is assigned as the final value.</p>
 <p>To illustrate this, suppose the <code>var_comb_data</code> dictionary is as follows:</p>
 <pre><code>{
@@ -307,7 +307,7 @@
 <li>Final variable datatype.</li>
 <li>Conversion factor (if needed).</li>
 </ul>
-<p>Additionally, the cohort name (parameter <code>cohort_name</code>), the ID variable name (parameter <code>id_variable</code>), the inclusion date variable name (parameter <code>date_variable</code>), and the cohort status (parameter <code>status</code>) are introduced as parameters. Optionally, a dictionary with the structure of <code>comb_var_data</code> can also be provided. For more detailed information about these objects, refer to the section <a href="../initial_data_configuration/"><code>initial_data_configuration</code></a>.</p>
+<p>Additionally, the cohort name (parameter <code>cohort_name</code>), the ID variable name (parameter <code>id_variable</code>), the inclusion date variable name (parameter <code>date_variable</code>), and the cohort status (parameter <code>status</code>) are introduced as parameters. Optionally, a dictionary with the structure of <code>comb_var_data</code> can also be provided. For more detailed information about these objects, refer to the section <a href="../liveraim_data_warehouse_specifications/#comb_var_data-file"><code>initial_data_configuration</code></a>.</p>
 <p>The instantiation of the cohort concludes with a call to the <code>Cohort.homogenize_data</code> method. This method creates a copy of the <code>raw_data</code> attribute (which was initialized with the preprocessed cohort database, i.e., the <code>raw_data</code> parameter), formats it, and stores it in the <code>homogeneous_data</code> attribute. In general terms, the data formatting follows these steps:</p>
 <ol>
 <li><strong>Selection</strong> of the subset of <code>raw_data</code> with the core variables.</li>
@@ -337,10 +337,10 @@
 <p>Si la variable <code>EXPORT_FILES</code> definida en el módulo <code>main_config</code> es True se procederá exportar los datos de cada uno de los paneles finales en formato de archivos. Para la versión actual, los datos se exportan a los formatos <code>.csv</code> y <code>.feather</code></p>
 <h2 id="exportation-to-mysql-database">Exportation to MySQL Database<a class="headerlink" href="#exportation-to-mysql-database" title="Permanent link">&para;</a></h2>
 <p>After exporting the database as files, the MySQL database is created. The module responsible for handling this export is <a href="../modules_documentation/sql_exporting_utils_doc/"><code>sql_exporting_utils</code></a>. Specifically, the <code>SQLExporter</code> class, defined in this module, centralizes the connection to the database, the creation of tables, and the export of data.</p>
-<p>The <code>SQLExporter</code> class is initialized using the <code>panel_metadata</code> DataFrame dictionary (this object has not been modified at any point). This dictionary specifies the structure of each of the final panels in the database. For more information on the structure of the <code>panel_metadata</code> file (and the corresponding <code>panel_metadata</code> object), see the section <a href="../initial_data_configuration/#panel_data-file"><code>panel_data</code> file</a>.</p>
+<p>The <code>SQLExporter</code> class is initialized using the <code>panel_metadata</code> DataFrame dictionary (this object has not been modified at any point). This dictionary specifies the structure of each of the final panels in the database. For more information on the structure of the <code>panel_metadata</code> file (and the corresponding <code>panel_metadata</code> object), see the section <a href="../liveraim_data_warehouse_specifications/#panel_data-file"><code>panel_data</code> file</a>.</p>
 <p><code>SQLExporter</code> performs the following actions sequentially:</p>
 <ol>
-<li><strong>Creates an <code>engine</code> object</strong>, which establishes the connection to the database based on the configuration specified in the <code>connection_config</code> module. For more information on the connection parameters, see the section <a href="../configuration/configuration_module/#connection_config-module"><code>connection_config</code> module</a>.</li>
+<li><strong>Creates an <code>engine</code> object</strong>, which establishes the connection to the database based on the configuration specified in the <code>connection_config</code> module. For more information on the connection parameters, see the section <a href="../modules_documentation/configuration_module/#connection_config-module"><code>connection_config</code> module</a>.</li>
 <li><strong>Creates the database structure</strong>: It defines the tables, the format of each table (which variables each contains, whether it's in long or wide format, etc.), and the relationships between them. To do this, it uses the metadata present in the <code>panel_metadata</code> object.</li>
 <li>Establishes the connection to the database and generates the previously defined tables in the MySQL database.</li>
 <li>Iterates over each of the DataFrames in <code>liveraim.final_data</code> and inserts the data into the corresponding table.</li>
