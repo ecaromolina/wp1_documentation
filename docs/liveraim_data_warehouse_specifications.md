@@ -62,7 +62,7 @@ Finally, an other file, [`panel_data`](#panel_data-file) is needed for the prope
 
 The files we refer to as *database* files contain the raw database of the cohort. These are the files that the partners responsible for each cohort have sent us with the patient data.
 
-The content of these files is never modified, neither manually nor through the code: all data processing is done after reading these files, which remain intact after each execution. The only modification they receive is a renaming necessary for their correct reading. For more details, see the section [Structure of `data/cohort_name/databases/` directory](configuration/fast_configuration.md#structure-of-datacohort_namedatabases-directory).
+The content of these files is never modified, neither manually nor through the code: all data processing is done after reading these files, which remain intact after each execution. The only modification they receive is a renaming necessary for their correct reading. For more details, see the section [Structure of `data/cohort_name/databases/` directory](quick_start_guide.md#structure-of-datacohort_namedatabases-directory).
 
 The format of these files varies depending on the cohort. For more information on reading the data, see the section [File reading utils](modules_documentation/file_reading_utils_doc.md). When this files are read, they are loaded into the code as `pandas.DataFrame` objects. 
 
@@ -173,7 +173,7 @@ When this file is read, since it is an .xlsx file with multiple sheets, it is lo
 
 It is important to maintain the structure of this file (and the previously described). Changes can be easily made to modify the final structure of the data warehouse by adding new sheets to the file (i.e., adding new panels), adding variables to a panel, or changing their structure (long or wide format).
 
-For more information about the structure of the final data, check the section [Data Warehouse structure](data_warehouse_structure.md).
+For more information about the structure of the final data, check the next section [LIVERAIM DATA WAREHOUSE STRUCTURE](#liveraim-data-warehouse-structure-v01).
 
 
 # LIVERAIM DATA WAREHOUSE STRUCTURE v0.1
@@ -477,9 +477,9 @@ A summary of the data sources is presented below:
 | hcv               | hcv                  | HCVAb_V1         | hcv               | hcv             | VARCHAR(255)      | category      | applied a mapping (to homogenize level codification) defined in `level_data` |
 
 
-## b. Metadata Tables Description
+## b. Configuration Tables Description
 
-For further information about the structure of this metadata go to [initial data configuration](initial_data_configuration.md)****
+For further information about the structure of this configuration data go to [initial data configuration](#initial-data-and-configuration-data) section. 
 
 # General Relationships in the Schema
 - **Central Tables:** The `population` table acts as the central table in the schema, relating to all other tables through `liveraim_id` and `cohort_id`.

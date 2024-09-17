@@ -3,7 +3,7 @@ nav:
   - Home: index.md
 
   - Overview: dataflow.md
-  - LIVERAIM Database Structure: liveraim_data_warehouse_structure.md
+  - LIVERAIM Data Warehouse Specifications: liveraim_data_warehouse_specifications.md
 
   - Modules documentation:
     - File Reading utils: modules_documentation/file_reading_utils_doc.md
@@ -11,7 +11,7 @@ nav:
     - Quality Control utils: modules_documentation/qc_checks_utils_doc.md
     - File Exporting utils: modules_documentation/file_exporting_utils_doc.md
     - SQL Exporting utils: modules_documentation/sql_exporting_utils_doc.md
-    - Configuration module: configuration/configuration_module.md
+    - Configuration module: modules_documentation/configuration_module.md
     
   
   - Quick Start Guide: quick_start_guide.md

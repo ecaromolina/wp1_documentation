@@ -25,7 +25,7 @@ The module has the following general structure, based on the following classes:
 Specific Checker Classes:
 
 + [`NonNumericChecker`](#nonnumericchecker): Responsible for checking the presence of non-numeric values in the numeric variables of the cohort's homogeneous data. Inherits from `GeneralChecker`.
-+ [`NaNChecker`](#checker-nanchecker): Analyzes the presence of NaN values in both raw and homogeneous data and records the differences between them. Inherits from `GeneralChecker`.
++ [`NaNChecker`](#nanchecker): Analyzes the presence of NaN values in both raw and homogeneous data and records the differences between them. Inherits from `GeneralChecker`.
 + [`ConversionChecker`](#conversionchecker): Checks for errors that may have occurred during the conversion of numeric and categorical variables in the homogenization process. Inherits from `GeneralChecker`.
 + [`ConsistencyChecker`](#consistancychecker): Reviews the consistency of the final data by comparing it with the structure of the original metadata defined in the configuration files. Inherits from `GeneralChecker`.
 
@@ -306,7 +306,7 @@ The `QCChecker` class centralizes the quality control (QC) checks for the cohort
 
 ## Output Description
 
-Several results generated during quality controls are exported if the `QC_EXPORT_RECORD` variable (declared in the [`main_config`](../configuration/configuration_module.md#main_config-module) module) is set to `True`.
+Several results generated during quality controls are exported if the `QC_EXPORT_RECORD` variable (declared in the [`main_config`](configuration_module.md#main_config-module) module) is set to `True`.
 
 The `QC_REPORT_FOLDER` directory stores all results related to quality control. This directory contains the code (<span style="color: red">still to be implemented</span>) necessary to create the QC report if desired. `QC_REPORT_FOLDER` also contains a subfolder, defined by the `QC_DATA_FOLDER` variable, where all the raw outputs generated during QC are saved. Each execution (if `QC_EXPORT_RECORD` is set to `True`) will generate a directory within `QC_DATA_FOLDER` named:
 
@@ -407,11 +407,11 @@ The resulting files for each cohort are as follows:
 
 ## Usage in main execution
 
-The use of this module during the main execution of the code is through the instantiation of the `QCChecker`. Each time a `Cohort` class is instantiated (and the database is internally processed to obtain the `homogeneous_data`), a `QCChecker` object is created for that cohort (i.e., for each cohort listed in `COHORT_NAME_LIST` from the [`cohort_config`](../configuration/configuration_module.md#cohort_config-module) module).
+The use of this module during the main execution of the code is through the instantiation of the `QCChecker`. Each time a `Cohort` class is instantiated (and the database is internally processed to obtain the `homogeneous_data`), a `QCChecker` object is created for that cohort (i.e., for each cohort listed in `COHORT_NAME_LIST` from the [`cohort_config`](configuration_module.md#cohort_config-module) module).
 
-When `QCChecker` is instantiated, it automatically creates instances of all the classes responsible for various validations and checks as its attributes (see [`QCChecker` class](#class-qcchecker)). Each of these attributes will execute its respective validation and check methods automatically, storing the generated records in their own attributes. (<span style="color:red">Revisar docu de métodos init </span>)
+When `QCChecker` is instantiated, it automatically creates instances of all the classes responsible for various validations and checks as its attributes (see [`QCChecker` class](#qcchecker)). Each of these attributes will execute its respective validation and check methods automatically, storing the generated records in their own attributes. (<span style="color:red">Revisar docu de métodos init </span>)
 
-If the `QC_EXPORT_RECORD` variable from the [`main_config`](../configuration/configuration_module.md/#main_config-module) module is set to `True`, the `export_qc_reports` method of the `QCChecker` will be executed in the main code and quality control records for this specific cohort will be exported (see [output descrption](#output-description)). 
+If the `QC_EXPORT_RECORD` variable from the [`main_config`](configuration_module.md/#main_config-module) module is set to `True`, the `export_qc_reports` method of the `QCChecker` will be executed in the main code and quality control records for this specific cohort will be exported (see [output descrption](#output-description)). 
 
 After all the cohorts have been created and merged into the final *Liveraim* cohort, another instance of the `QCChecker` class is created to perform a quality control check on this final cohort. In this case, quality control checks related to the structure of the final panels will also be applied through the `panel_consistancy_datatypes_check` method of the `ConsistancyChecker` class.
 

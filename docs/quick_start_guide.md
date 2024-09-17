@@ -1,8 +1,8 @@
 # Fast Configuration
 
-This section describes the necessary configuration to run the code and generate the database for WP1. For a comprehensive description of all configuration parameters, refer to the section [Configuration Module](configuration_module.md).
+This section describes the necessary configuration to run the code and generate the database for WP1. For a comprehensive description of all configuration parameters, refer to the section [Configuration Module](modules_documentation/configuration_module.md).
 
-> **Important Notice**: Before configuring the project, ensure that the prerequisites described in the [Environment Setup](../enviroment_setup.md) section are met.
+> **Important Notice**: Before configuring the project, ensure that the prerequisites described in the [Environment Setup](#enviroment-setup) section are met.
 
 > **Note**: If you have downloaded the repository from GitHub, the structure of the entire repository should be correct. In this case, and if you want to run the code with the default configuration, only the following modifications would be needed:
 >
@@ -50,7 +50,7 @@ Each subdirectory within `data/` contains the databases and files related to eac
     │   └── cohort_name_var_data.xlsx
     ...
 
-The `cohort_name_level_data.xlsx` and `cohort_name_var_data.xlsx` files are described in the section [Initial Data Configuration](../initial_data_configuration.md). If you downloaded the repository from GitHub, you should not need to modify these files.
+The `cohort_name_level_data.xlsx` and `cohort_name_var_data.xlsx` files are described in the section [Initial Data and Configuration data](liveraim_data_warehouse_specifications.md#initial-data-and-configuration-data). If you downloaded the repository from GitHub, you should not need to modify these files.
 
 ### Structure of `data/cohort_name/databases/` Directory
 
@@ -82,7 +82,7 @@ Once these requirements are met, you need to configure the MySQL DB connection p
 
 For information on setting environment variables, see the section [Creating Environment Variables](#creating-environment-variables).
 
-For more information on MySQL connection configuration, see the section [Connection Config Module](configuration_module.md#connection-configuration-module).
+For more information on MySQL connection configuration, see the section [Connection Config Module](modules_documentation/configuration_module.md#connection_config-module).
 
 Once this is done, you should be able to run the code without any problems. In the [Outputs Configuration](#outputs-configuration) section, you can find some useful parameters to determine which outputs you want to generate.
 
@@ -92,13 +92,13 @@ Once this is done, you should be able to run the code without any problems. In t
 
 There are some parameters in the `config.main_config` module that may be useful for users to quickly customize the outputs of the code execution:
 
-* `EXPORT_QC_RECORD (bool)`: With a value of `True`, it exports the data generated during quality control. For more details, see the section [Quality Control](../quality_control.md). With a value of `False`, quality control is still performed, but the generated data is not saved after execution (except for those printed in the log).
-* `EXPORT_FILES (bool)`: With a value of `True`, it exports the final data (the data warehouse, with the panel structure described in [???]()) in .csv and .feather format files. With a value of `False`, these files are not generated. For more details, see the section [File Exporting Utils Module](../modules_documentation/file_exporting_utils_doc.md).
+* `EXPORT_QC_RECORD (bool)`: With a value of `True`, it exports the data generated during quality control. For more details, see the section [Quality Control Utils](modules_documentation/qc_checks_utils_doc.md). With a value of `False`, quality control is still performed, but the generated data is not saved after execution (except for those printed in the log).
+* `EXPORT_FILES (bool)`: With a value of `True`, it exports the final data (the data warehouse, with the panel structure described in [???]()) in .csv and .feather format files. With a value of `False`, these files are not generated. For more details, see the section [File Exporting Utils Module](modules_documentation/file_exporting_utils_doc.md).
 * `CREATE_SQL_DB (bool)`: With a value of `True`, it exports the data to a MySQL database (i.e., the data warehouse is created). With a value of `False`, the data is not exported to MySQL.
 
 Access the `config.main_config` file and modify these variables according to your needs.
 
-> Note: This list is not exhaustive. For more information, see the [Configuration Module](configuration_module.md) section.
+> Note: This list is not exhaustive. For more information, see the [Configuration Module](modules_documentation/configuration_module.md) section.
 
 ## Creating Environment Variables
 
@@ -188,6 +188,11 @@ This is a way to verify that the packages have been installed correctly.
 
 ## Installing requirements
 
+If you don't have `python` (or `pip`), you can use the following resources:
+
+- **Installing Python**: You can download Python from the [official Python website](https://www.python.org/). To install it correctly, follow the instructions in the [Python Installation Guide](https://docs.python-guide.org/starting/installation/#installation).
+- **Installing pip**: If you have installed Python correctly from python.org, you should already have `pip`. To ensure it is installed or to fix any errors, you can check the guide [Installing Packages](https://packaging.python.org/en/latest/tutorials/installing-packages/).
+
 ## Set Up and Activate a Virtual Environment
 
 To create and set up a Python virtual environment, we will use the `venv` module, which is included by default in Python starting from version 3.3. Other tools (e.g., the `virtualenv` module or the `conda` package manager) also allow you to create virtual environments, but they will not be covered in this documentation. The steps are as follows:
@@ -230,3 +235,28 @@ To deactivate the virtual environment and return to the *global environment* or 
 
 
 ## Cloning GitHub repository
+
+
+The GitHub repository that contains the code and configuration files to create the Data Warehouse is private. To clone it, your GitHub account must have access permissions to the repository.
+
+To clone the repository, open your terminal and navigate to the directory where you want to clone the repository. You can clone it using either an HTTPS or SSH connection:
+
+- **HTTPS**: run the following command in the terminal:
+
+        git clone https://github.com/ecaromolina/LiverAim_WP1.git
+
+- **SSH**: run the following command in the terminal:
+
+        git clone git@github.com:ecaromolina/LiverAim_WP1.git
+
+After cloning, you can navigate to the newly created directory named after the repository. For example:
+    
+    cd LiverAim_WP1
+
+These commands will only copy the branch set as the 'Default Branch'. In general, this will correspond to the code of the latest version of the database. To check all the available branches in the remote repository, you can run the following command:
+
+    git branch -r
+
+To switch to a specific branch after cloning, use:
+
+    git checkout branch-name

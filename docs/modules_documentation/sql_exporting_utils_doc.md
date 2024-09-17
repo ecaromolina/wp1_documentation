@@ -74,6 +74,20 @@ The `SQLExporter` class handles the creation of MySQL tables based on the cohort
     - **Arguments**:
         - `final_data` (dict[str, pd.DataFrame]): A dictionary where keys are panel names and values are pandas DataFrames representing the panel data.
         - `if_exists` (Literal['fail', 'replace', 'append']): Determines what happens if the table already exists in the database. Default is 'append'.
+  - **`export_df_to_sql(self, df: pd.DataFrame,`
+                         `table_name: str,`
+                         `if_exists: Literal['fail', 'replace', 'append'] ="append") -> None:`**
+    A simple method to dump a single dataframe into the database. Uses the pandas method pd.to_sql and the engine created in the class.
+
+    - **Arguments**:  
+            - `df` (pd.DataFrame): dataframe to be dumped in the MySQL database
+            - `table_name` (str): name of the table where the dataframe should be dumped. 
+            - `if_exists` (Literal['fail', 'replace', 'append'], optional): 
+                Specifies the behavior if the table already exists in the database:
+                    - '*fail*': If the table exists, an error is raised.
+                    - '*replace*': The existing table is dropped, and a new one is created.
+                    - '*append*': The new data is appended to the existing table.
+                Default is 'append'.
 
 - **`drop_all() -> None`**:  
     Drops all the tables from the MySQL database.
@@ -96,7 +110,9 @@ The `SQLExporter` class handles the creation of MySQL tables based on the cohort
     - Logs an error if there are two or more different datatypes in the variables that have to be melted (transformed into long format) in a specific panel.
     - Logs an error if there are no variables to be melted. 
 - In `export_data_to_sql`:
-    - Logs if everte panel has been exported to MySQL properly or if, on the contrary, an error ocurred while exporting the data.  
+    - Logs if everte panel has been exported to MySQL properly or if, on the contrary, an error ocurred while exporting the data. 
+- In `export_df_to_sql`:
+    - Logs if the dataframe has been exported to MySQL properly or if, on the contrary, an error ocurred while exporting the data. 
 - In `drop_all`:
     - If no tables are found in the database, it logs an info message. 
     - For every dropped table, it logs an info message. 

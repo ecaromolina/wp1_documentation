@@ -140,7 +140,7 @@ These files will be named based on the prefix LIVERAIM_DATA followed by the user
     LIVERAIM_DATA_population.csv
     LIVERAIM_DATA_population.feather
 
-During the main execution, the name `common_export_folder` is imported from the variable `DATAWAREHOUSE_PATH`, declared in the [`main_config` module](../configuration/configuration_module.md#main_config-module).
+During the main execution, the name `common_export_folder` is imported from the variable `DATAWAREHOUSE_PATH`, declared in the [`main_config` module](configuration_module.md#main_config-module).
 
 ## Error Handling
 

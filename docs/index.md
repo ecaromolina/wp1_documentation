@@ -9,7 +9,7 @@ By using modern data processing tools and complying with security standards, LIV
 - ### [Overview](dataflow.md)
       A brief description of the data flow and key concepts.
 
-- ### [LIVERAIM Database Structure](liveraim_database_structure.md)
+- ### [LIVERAIM Database Specifications](liveraim_data_warehouse_specifications.md)
       Documentation about the LIVERAIM database structure.
 
   - ### Modules Documentation
@@ -29,7 +29,7 @@ By using modern data processing tools and complying with security standards, LIV
       5. [SQL Exporting utils](modules_documentation/sql_exporting_utils_doc.md)
             - Utilities for exporting data to SQL databases.
 
-      6. [Configuration module](configuration/configuration_module.md)
+      6. [Configuration module](modules_documentation/configuration_module.md)
             - Documentation for the configuration module.
 
 - ### [Quick Start Guide](quick_start_guide.md)

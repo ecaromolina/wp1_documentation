@@ -82,7 +82,7 @@
                 
                 
                     <li >
-                        <a href="../../liveraim_database_structure/">LIVERAIM Database Structure</a>
+                        <a href="../../liveraim_data_warehouse_structure/">LIVERAIM Database Structure</a>
                     </li>
                 
                 
@@ -177,6 +177,7 @@
                 <li class="third-level"><a href="#classes">Classes:</a></li>
                 <li class="third-level"><a href="#class-datapreprocessor">Class DataPreprocessor</a></li>
                 <li class="third-level"><a href="#class-varcombiner">Class VarCombiner</a></li>
+                <li class="third-level"><a href="#class-configdatamanager">Class ConfigDataManager</a></li>
             <li class="second-level"><a href="#general-operation">General Operation</a></li>
                 
             <li class="second-level"><a href="#usage-example">Usage Example</a></li>
@@ -235,6 +236,33 @@
 <p>This class centralizes data preprocessing tasks for cohort databases. It processes the dataframe columns/variables, updates configuration data (<code>var_data</code> and <code>level_data</code>), and handles cohort-specific transformations. In particular, it first merges all the database versions into a single DataFrame, keeping the data of each patient from the las version. This single dataframe will be stored in the attribute <code>data</code>. Then new calculated/secundary variables are added to it, such as <code>status</code>, <code>exit_date</code>, etc. Moreover, it combines variables using the <code>var_combine_data</code> atrribute (if it exists). During the preprocessing, the configuration data (<code>var_data</code> and <code>level_data</code> dataframes) are updated to fit the structure of <code>data</code>. </p>
 <p>Once the preprocessing is finished, <code>data</code>, <code>var_data</code> and <code>level_data</code> is returned so they can be used, for example, to instantiate a <code>Cohort</code>. </p>
 <h4 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong><code>cohort_databases</code> (dict[str, pd.DataFrame]):</strong><br />
+  A dictionary containing the cohort databases (all available versions). The keys are the version dates, and the values are the corresponding pandas DataFrames.<br />
+<em>(See the format specified in <a href="../../quick_start_guide/#structure-of-datacohort_namedatabases-directory">Structure of data/cohort_name/databases/ Directory</a>)</em></p>
+</li>
+<li>
+<p><strong><code>var_data</code> (pd.DataFrame):</strong><br />
+  A DataFrame with variable configuration data, which contains metadata and other information about the variables in the cohort.</p>
+</li>
+<li>
+<p><strong><code>level_data</code> (pd.DataFrame):</strong><br />
+  A DataFrame with level configuration data. This stores information about the levels or categories within variables (e.g., categorical variables).</p>
+</li>
+<li>
+<p><strong><code>cohort_name</code> (str):</strong><br />
+  The name of the cohort being processed. This name is used to identify the cohort in various operations, including variable configuration updates and transformations.</p>
+</li>
+<li>
+<p><strong><code>data</code> (pd.DataFrame):</strong><br />
+  A pandas DataFrame that stores the merged cohort data. This attribute is generated after merging all versions of the cohort databases and applying preprocessing steps.</p>
+</li>
+<li>
+<p><strong><code>comb_var_data</code> (pd.DataFrame, optional):</strong><br />
+  A DataFrame containing metadata about the variables that need to be combined. If this attribute exists, it will be used to combine variables in the cohort during preprocessing.</p>
+</li>
+</ul>
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
@@ -405,7 +433,7 @@ Returns all processed data, including the main dataset, <code>var_data</code>, a
 </ul>
 <h3 id="class-varcombiner">Class <code>VarCombiner</code><a class="headerlink" href="#class-varcombiner" title="Permanent link">&para;</a></h3>
 <h4 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">&para;</a></h4>
-<p>A class designed to combine variables in a DataFrame based on a reference dictionary (<code>comb_var_dict</code>). This class helps merge variables and apply conversion factors as needed. In this version, the main functionality of the class is to combine variables of the same magnitude that are expressed in different units so the count of missings is reduced. To do so, it uses the <code>var_combine_dict</code>, where the variables (and their conversion factor) to be combined are specified. For more information about the structure of this dictionary check the section <a href="../../liveraim_database_structure/#comb_var_data-file">comb_var_data file</a>. </p>
+<p>A class designed to combine variables in a DataFrame based on a reference dictionary (<code>comb_var_dict</code>). This class helps merge variables and apply conversion factors as needed. In this version, the main functionality of the class is to combine variables of the same magnitude that are expressed in different units so the count of missings is reduced. To do so, it uses the <code>var_combine_dict</code>, where the variables (and their conversion factor) to be combined are specified. For more information about the structure of this dictionary check the section <a href="../liveraim_database_structure.md#comb_var_data-file">comb_var_data file</a>. </p>
 <p>The <strong>process of combining the data</strong> works as follows (it's important to understand the structure of <code>comb_var_dict</code>). For each key-value pair in <code>comb_var_dict</code> with the following structure:</p>
 <pre><code>&lt;final_variable&gt;: {&lt;variable_to_combine_1&gt;: &lt;conversion_factor_1&gt;, &lt;variable_to_combine_2&gt;: &lt;conversion_factor_2&gt;, ...}
 </code></pre>
@@ -509,7 +537,190 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
 </ul>
 </li>
 </ul>
+<h3 id="class-configdatamanager">Class <code>ConfigDataManager</code><a class="headerlink" href="#class-configdatamanager" title="Permanent link">&para;</a></h3>
+<h4 id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">&para;</a></h4>
+<p>This class is responsible for rearranging and transforming configuration objects listed in the <code>CONFIG_OBJ_NAMES</code> list (e.g., <code>var_data</code>, <code>level_data</code>, <code>comb_var_data</code>) from the <code>main_config</code> module. It generates DataFrames with configuration data that can be exported to SQL. Specifically, the class performs the following actions:</p>
+<ul>
+<li>Transforms configuration objects from a dictionary format into DataFrames.</li>
+<li>Merges all configuration objects (converted to DataFrames when needed) into a single DataFrame, adding a 'Cohort' column indicating the cohort each configuration row refers to. This makes it easy to access the data from SQL queries.</li>
+</ul>
+<p>Once the data has been processed, the combined configuration data is stored and can be easily exported to a MySQL database through the the SQLExporter class.</p>
+<h4 id="attributes_2">Attributes<a class="headerlink" href="#attributes_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong><code>config_obj_names</code> (list[str]):</strong><br />
+  List of the names of the configuration objects that need to be transformed (e.g., <code>var_data</code>, <code>level_data</code>, <code>comb_var_data</code>).</p>
+</li>
+<li>
+<p><strong><code>config_data</code> (dict):</strong><br />
+  Dictionary with the configuration data used to create the database. The keys are each type of configuration data (e.g., <code>var_data</code>, <code>level_data</code>), and the values are dictionaries containing configuration data for each cohort.</p>
+</li>
+<li>
+<p><strong><code>combined_config_data</code> (dict[str, pd.DataFrame]):</strong><br />
+  Dictionary storing the combined configuration data for each configuration type in DataFrame format, ready for export.</p>
+</li>
+</ul>
+<h4 id="methods_2">Methods<a class="headerlink" href="#methods_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong><code>__init__(self, all_data: dict = None)</code></strong>:<br />
+  Initializes the <code>ConfigDataManager</code> class. If provided, <code>all_data</code> is used to populate the <code>config_data</code> attribute.</p>
+<ul>
+<li><strong>Arguments</strong>:<ul>
+<li><code>all_data</code> (dict, optional): A dictionary containing all the data used to create the data warehouse.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>instantiate_config_data(self) -&gt; None</code></strong>:<br />
+  Initializes the <code>config_data</code> attribute as an empty dictionary, with keys corresponding to the configuration object names. This prepares the structure for storing configuration data.</p>
+</li>
+<li>
+<p><strong><code>append_config_data(self, cohort: str, **kwargs) -&gt; None</code></strong>:<br />
+  Appends configuration data for a specific cohort to the <code>config_data</code> attribute.</p>
+<ul>
+<li><strong>Arguments</strong>:<ul>
+<li><code>cohort</code>  (str): The name of the cohort to which the configuration data belongs.</li>
+<li><code>**kwargs</code>: Keyword arguments representing the configuration types (e.g., <code>var_data</code>, <code>level_data</code>) and their corresponding data.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Notes</strong>:
+      Only configuration types present in <code>config_obj_names</code> are accepted. If a key in <code>kwargs</code> is not in <code>config_obj_names</code>, a warning is logged.</p>
+</li>
+<li>
+<p><strong><code>set_config_data_with_all_data(self, all_data: dict) -&gt; ConfigDataManager</code></strong>:<br />
+  Rearranges the configuration data from <code>all_data</code> into the <code>config_data</code> attribute, ignoring any <code>panel_data</code>.</p>
+<p>-<strong>Arguments</strong>:
+    - <code>all_data</code> (dict): Dictionary containing all the configuration data needed to create the database.</p>
+<ul>
+<li><strong>Returns</strong>: <ul>
+<li><code>ConfigDataManager</code>: The instance with the updated <code>config_data</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>_combine_config_data_dfs(self, config_data_dict: dict) -&gt; pd.DataFrame</code></strong>:<br />
+  Combines the configuration data for each cohort into a single DataFrame, adding a 'Cohort' column to indicate the cohort each row belongs to.</p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>config_data_dict</code> (dict): Dictionary where keys are cohort names and values are DataFrames containing the configuration data for each cohort.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>: </p>
+<ul>
+<li><code>pd.DataFrame</code>: The combined configuration data for all cohorts.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>_comb_var_data_to_df(self) -&gt; ConfigDataManager</code></strong>:<br />
+  Converts the <code>comb_var_data</code> dictionaries in <code>config_data</code> to DataFrames using the <code>_dict_to_df</code> method.</p>
+<ul>
+<li><strong>Returns</strong>: <ul>
+<li><code>ConfigDataManager</code>: The instance with transformed <code>comb_var_data</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>combine_panel_data(self) -&gt; pd.DataFrame</code></strong>:<br />
+  Combines the <code>panel_data</code> for all cohorts into a single DataFrame, adding a 'panel' column.</p>
+<ul>
+<li><strong>Returns</strong>: <ul>
+<li><code>pd.DataFrame</code>: The combined <code>panel_data</code> for all cohorts. If no <code>panel_data</code> is present, a warning is logged, and the method returns <code>None</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>_dict_to_df(self, config_dict: dict) -&gt; pd.DataFrame</code></strong>:<br />
+  Converts a configuration dictionary into a pandas DataFrame.</p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>config_dict</code> (dict): Dictionary to be transformed into a DataFrame.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>: </p>
+<ul>
+<li><code>pd.DataFrame</code>: DataFrame containing the configuration data.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>combine_config_data(self) -&gt; ConfigDataManager</code></strong>:<br />
+  Iterates through all the configuration object types in <code>config_data</code> and applies the <code>_combine_config_data_dfs</code> method to combine the data for each configuration type.</p>
+<ul>
+<li><strong>Returns</strong>: <ul>
+<li><code>ConfigDataManager</code>: The instance with the combined configuration data in <code>combined_config_data</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>_combine_cohort_config_data(self, config_obj_type: str, config_data: dict)</code></strong>:<br />
+  Combines configuration data for individual cohorts based on the configuration object type (e.g., <code>var_data</code>, <code>level_data</code>, <code>comb_var_data</code>, <code>panel_data</code>).</p>
+<ul>
+<li><strong>Arguments</strong>:<ul>
+<li><code>config_obj_type</code> (str): The type of configuration object to combine.</li>
+<li><code>config_data</code> (dict): Dictionary containing the configuration data for the specified type.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="general-operation">General Operation<a class="headerlink" href="#general-operation" title="Permanent link">&para;</a></h2>
+<p>The data preprocessing is carried out iteratively for each cohort. Once completed, the resulting objects are used to create a <code>Cohort</code> class, responsible for homogenizing and formatting the data (see the section <a href="../cohort_utils_doc/"><code>cohort_utils</code></a>).</p>
+<p>The data preprocessing begins with the instantiation of the <code>DataPreprocessor</code> class, which requires as parameters (for each cohort) the <code>var_data</code>, <code>level_data</code>, and <code>databases</code> objects. Additionally, the <code>var_comb_data</code> parameter can be used to combine variables following the specifications of this object. These objects are read using the <code>DataReader</code> class from the <a href="../file_reading_utils_doc/"><code>file_reading_utils</code></a> module. For more details on the structure of these objects, see the section <a href="../../liveraim_data_warehouse_structure/#initial-data-and-configuration-data">Initial data and configuration data</a>.</p>
+<p>During preprocessing, three main modifications will be made:</p>
+<ul>
+<li>
+<p><strong>Merging of the different versions </strong>of the database. Duplicates will be removed, resulting in a single dataframe with the latest version of data for each patient.</p>
+</li>
+<li>
+<p><strong>New variables will be added</strong>, and the configuration data will be updated accordingly.</p>
+</li>
+<li>
+<p><strong>Variables will be combined</strong> following the specifications of <code>var_comb_data</code>.</p>
+</li>
+</ul>
+<p>The preprocessing pipeline follows these steps:</p>
+<ul>
+<li>
+<p>The necessary attributes for preprocessing are initialized. See the <code>__init__</code> method explained in the section <a href="#methods">class <code>DataPreprocessor</code>/methods</a>. In particular, the attributes <code>cohort_name</code>, <code>age_column</code>, <code>inclusion_date_column</code>, <code>id_var</code>, and <code>status</code> are initialized, which represent the name of the variable referring to age, inclusion date, etc. Additionally, if the <code>comb_var_dict</code> argument is included, it is also initialized as an attribute.</p>
+</li>
+<li>
+<p>The <code>preprocess</code> method is called, centralizing the data processing. In this method, the cohort being processed is identified (using the <code>cohort_name</code> attribute), and the method responsible for applying the specific transformations for that cohort is called.</p>
+</li>
+<li>
+<p>Within the methods specific to each cohort, named according to the rule <code>preprocess_cohort-name</code>, the specific modifications for each cohort are applied. Generally, in the current version, the <code>set_new_variables</code> method is called (for all cohorts). This method performs the following actions:</p>
+<ul>
+<li>
+<p>Calls the <code>get_last_version</code> and <code>set_status_metadata</code> methods. The first merges the dataframes from each version of the same cohort into a single dataframe, which is stored in the <code>data</code> attribute. It adds the <code>version_date</code> variable and removes duplicates for each patient, keeping only the data from the latest version for each patient (the available data, i.e., the databases, are wide-format dataframes, so ther e should be no repetitions in the <code>id_var</code> column). Once duplicates are removed, this method creates the <code>status</code> column/variable, assigning the values <em>ongoing</em>, <em>finished</em>, or <em>withdrawn</em> based on the <code>version_date</code> variable. 
+The second method updates the <code>var_data</code> and <code>level_data</code> dataframes with the new information about the <code>status</code> variable. This method returns the updated dataframes, which are stored in the corresponding attributes.</p>
+</li>
+<li>
+<p>Calls the <code>set_birth_date_column</code>, <code>set_exit_date_column</code>, and <code>set_cohort_column</code> methods. These create the respective variables in the <code>data</code> dataframe, and each returns the updated <code>var_data</code> and <code>level_data</code> dataframes, ensuring the respective attributes are updated with the new information.</p>
+</li>
+<li>
+<p>If the <code>DataPreprocessor</code> class is initialized with the <code>var_comb_data</code> parameter, the combination of the variables specified in this object is carried out. For this, the <code>VarCombiner</code> class is instantiated, which requires <code>var_comb_data</code> and <code>data</code> as parameters. For more information on the variable combination process, see the sections <a href="#description-1">Class <code>VarCombiner</code>/description</a> or <a href="../../dataflow/#combination-of-variables">Combination of variables</a>. In this case, the <code>transformed_data</code> attribute of <code>VarCombiner</code> is used (after the combination is applied) to update <code>data</code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Once all preprocessing is completed, the preprocessed data can be accessed using the <code>get_data</code> method.</p>
 <h2 id="usage-example">Usage Example<a class="headerlink" href="#usage-example" title="Permanent link">&para;</a></h2>
 <pre><code class="language-python">from data_processing_utils import DataPreprocessor
 

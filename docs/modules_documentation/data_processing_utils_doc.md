@@ -73,7 +73,6 @@ Once the preprocessing is finished, `data`, `var_data` and `level_data` is retur
   A DataFrame containing metadata about the variables that need to be combined. If this attribute exists, it will be used to combine variables in the cohort during preprocessing.
 
 
-
 #### Methods
 
 - **`__init__(self,`
@@ -184,7 +183,7 @@ Returns all processed data, including the main dataset, `var_data`, and `level_d
 
 #### Description
 
-A class designed to combine variables in a DataFrame based on a reference dictionary (`comb_var_dict`). This class helps merge variables and apply conversion factors as needed. In this version, the main functionality of the class is to combine variables of the same magnitude that are expressed in different units so the count of missings is reduced. To do so, it uses the `var_combine_dict`, where the variables (and their conversion factor) to be combined are specified. For more information about the structure of this dictionary check the section [comb_var_data file](../liveraim_database_structure.md#comb_var_data-file). 
+Combines variables in a DataFrame based on a reference dictionary (`comb_var_dict`). This class helps merge variables and apply conversion factors as needed. In this version, the main functionality of the class is to combine variables of the same magnitude that are expressed in different units so the count of missings is reduced. To do so, it uses the `var_combine_dict`, where the variables (and their conversion factor) to be combined are specified. For more information about the structure of this dictionary check the section [comb_var_data file](../liveraim_data_warehouse_specifications.md#comb_var_data-file). 
 
 The **process of combining the data** works as follows (it's important to understand the structure of `comb_var_dict`). For each key-value pair in `comb_var_dict` with the following structure:
 
@@ -203,7 +202,7 @@ The process performs the following steps:
 
 - **`comb_var_dict (dict)`**: A dictionary where keys are reference variables (the name of the final variable to be obtained) and values are dictionaries with variables to combine and their respective conversion factors.
   
-- **`ref_vars (list[str])`**: A list of reference variables extracted from the keys of `comb_var_dict`, i.e. the final variables to be obtained.
+- **`ref_vars` (list[str])**: A list of reference variables extracted from the keys of `comb_var_dict`, i.e. the final variables to be obtained.
   
 - **`original_data (pd.DataFrame)`**: A DataFrame containing the original data before any transformations. This is the raw data from each cohort. 
   
@@ -219,7 +218,7 @@ Initializes the `VarCombiner` class with a dictionary of reference variables and
     - `df` (pd.DataFrame): The DataFrame containing the data to be combined.
 
 - **`_combine_vars(self, row: pd.Series, ref_var: str, var_conv_factors: dict) -> float`**
-Combines variables within a row by applying conversion factors if the reference variable is missing (using the algorithm described in the [class *Description*](#description-1)). This function is intended to be used inside the apply method from pandas, specifically in the method `_combine_data`. 
+Combines variables within a row by applying conversion factors if the reference variable is missing (using the algorithm described in the [class's *Description*](#description-1)). This function is intended to be used inside the apply method from pandas, specifically in the method `_combine_data`. 
 
     - **Arguments**:
         - `row` (pd.Series): A row of the DataFrame.
@@ -353,7 +352,7 @@ Once the data has been processed, the combined configuration data is stored and 
 
 The data preprocessing is carried out iteratively for each cohort. Once completed, the resulting objects are used to create a `Cohort` class, responsible for homogenizing and formatting the data (see the section [`cohort_utils`](cohort_utils_doc.md)).
 
-The data preprocessing begins with the instantiation of the `DataPreprocessor` class, which requires as parameters (for each cohort) the `var_data`, `level_data`, and `databases` objects. Additionally, the `var_comb_data` parameter can be used to combine variables following the specifications of this object. These objects are read using the `DataReader` class from the [`file_reading_utils`](file_reading_utils_doc.md) module. For more details on the structure of these objects, see the section [Initial data and configuration data](../liveraim_data_warehouse_structure.md#initial-data-and-configuration-data).
+The data preprocessing begins with the instantiation of the `DataPreprocessor` class, which requires as parameters (for each cohort) the `var_data`, `level_data`, and `databases` objects. Additionally, the `var_comb_data` parameter can be used to combine variables following the specifications of this object. These objects are read using the `DataReader` class from the [`file_reading_utils`](file_reading_utils_doc.md) module. For more details on the structure of these objects, see the section [Initial data and configuration data](../liveraim_data_warehouse_specifications.md#initial-data-and-configuration-data).
 
 During preprocessing, three main modifications will be made:
 

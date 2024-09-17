@@ -20,7 +20,7 @@ The following sections describe the variables contained in each of these files, 
 
 #### Quality control paramenters
 * `ALPHA (str)`: Error threshold used during the numeric QC checks.
-* `EXPORT_QC_RECORD (bool)`: With a value of `True`, it exports the data generated during the quality control process. For more details, see the section [Quality Control](../quality_control.md). With a value of `False`, quality control is still performed, but the generated data is not saved after execution (except for what is printed in the log). 
+* `EXPORT_QC_RECORD (bool)`: With a value of `True`, it exports the data generated during the quality control process. For more details, see the section [Quality Control Utils](qc_checks_utils_doc.md). With a value of `False`, quality control is still performed, but the generated data is not saved after execution (except for what is printed in the log). 
 * `QC_REPORT_FOLDER (str)`: name of the folder taht centralizes the QC: it will contain the QC output and the code for processing this data and the rendered report.
 * `QC_DATA_FOLDER (str)`: name of the folder where all the data generated during the quality control checks will be dumped (if `EXPORT_QC_RECORD` is set to true). This folder is itended to be a subdirectory fo the directory above `QC_REPORT_FOLDER`
 
@@ -95,7 +95,7 @@ This module defines:
 
 #### Connection Parameters
 
-It's important to understand how the connection parameters for the MySQL database are managed. To connect to the database (as explained in the [MySQL connection configuration](fast_configuration.md/#mysql-connection-configuration) section), five parameters are required:
+It's important to understand how the connection parameters for the MySQL database are managed. To connect to the database (as explained in the [MySQL connection configuration](../quick_start_guide.md#mysql-connection-configuration) section), five parameters are required:
 
 + **USER**: The username used to connect to the database (must have appropriate permissions).
 + **PASSWORD**: The user's password to access the database.
@@ -121,7 +121,7 @@ Next, access the `connection_config.py` file in the `config` module and assign t
     PORT="PORT"
     HOST="HOST"
 
-If the values of the environment variables are correct, the connection should work. See the section [Testing my connection](../modules_documentation/file_exporting_utils_doc.md#testing-my-connection) for more details to check your connection.
+If the values of the environment variables are correct, the connection should work. See the section [Testing the connection](../modules_documentation/sql_exporting_utils_doc.md#testing-the-connection) for more details to check your connection.
 
 Although this configuration may seem unnecessarily complicated, it has been implemented this way for two reasons:
 
@@ -220,7 +220,7 @@ Next, a dictionary must be created to map the levels of this variable, following
 
 #### Creation of New `level_data` Rows
 
-Finally, a list of dictionaries is created (each dictionary corresponds to a row in `level_data`, where the key is the column name and the value is the value of that row for that column). This list will be imported wherever these metadata need to be included in the `level_data` object. (For more information on the structure of this object, you can refer to the [Initial data configuration](../initial_data_configuration.md) section). In summary, for each level, a row must be included in the `level_data` object. Each row should contain the corresponding information for each of the columns in that object (to do this, as in the `var_data` module, the `reference_names` module is used to reference the column names), specifically:
+Finally, a list of dictionaries is created (each dictionary corresponds to a row in `level_data`, where the key is the column name and the value is the value of that row for that column). This list will be imported wherever these metadata need to be included in the `level_data` object. (For more information on the structure of this object, you can refer to the [Initial data and configuration data](../liveraim_data_warehouse_specifications.md#initial-data-and-configuration-data) section). In summary, for each level, a row must be included in the `level_data` object. Each row should contain the corresponding information for each of the columns in that object (to do this, as in the `var_data` module, the `reference_names` module is used to reference the column names), specifically:
 
 + `rf.LEVEL_ORIGINAL_NAME_COLUMN`: Column with the original cohort name of the variable to which the level belongs.
 + `rf.LEVEL_LIVERAIM_NAME_COLUMN`: Column with the final name of the variable to which the level belongs.
@@ -249,7 +249,7 @@ To create the list of dictionaries, the variable `VARIABLE-NAME_LEVEL_DATA_ROW` 
 
 ## `reference_names` module
 
-> **Note**: Es recomendable haber consultado al menos la sección [initial data configuration](../initial_data_configuration.md) antes de seguir leyendo este apartado. 
+> **Note**: Es recomendable haber consultado al menos la sección [initial data and configuration](../liveraim_data_warehouse_specifications.md#initial-data-and-configuration-data) antes de seguir leyendo este apartado. 
 
 En este módulo se listan las variables que hacen referencia a los nombres de las columnas de los tres archivos de metadatos iniciales, a saber:
 
