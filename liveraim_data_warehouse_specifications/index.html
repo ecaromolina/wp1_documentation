@@ -105,6 +105,12 @@
                         
                             
 <li >
+    <a href="../modules_documentation/cohort_utils_doc/">Cohort utils</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../modules_documentation/qc_checks_utils_doc/">Quality Control utils</a>
 </li>
 
@@ -197,7 +203,7 @@
 
 <h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
 <p>This section describes the structure, tables, and relationships within the data warehouse.</p>
-<p>The data warehouse is composed of several tables that can be divided into two groups: the database itself, which we will simply call <code>database</code>, and the <code>metadata</code> tables, where information about the variables, the structure of the database, mapping dictionaries, etc., is stored. The database, in its first version (prior to receiving biomarker data), consists of the following tables:</p>
+<p>The data warehouse is composed of several tables that can be divided into two groups: the database itself, which we will simply call <code>database</code>, and the <code>configuration data</code> tables, where information about the variables, the structure of the database, mapping dictionaries, etc., is stored. The database, in its first version (prior to receiving biomarker data), consists of the following tables:</p>
 <ul>
 <li><code>population</code>: Contains basic information about each patient, such as gender, status, cohort membership, etc.</li>
 <li><code>blood_test_categorical</code>: Contains categorical variables extracted from the blood test (at <code>dat_0</code>).</li>
@@ -358,8 +364,8 @@ Transforming a wide table into a long table is a straightforward process (if the
 <p>This section describes the initial data recieved from the partners and teh configuration files that the program needs to build the database. For each cohort, there are four types of files, which are described below:</p>
 <ul>
 <li><a href="#database-files"><code>database</code></a>: contains the raw data of the cohort</li>
-<li><a href="#var_data-files"><code>var_data</code></a>: contains metadata about the core variables needed to create the data warehouse</li>
-<li><a href="#level_data-files"><code>level_data</code></a>: contains metadata about the levels of categorical core variables needed to create the data warehouse</li>
+<li><a href="#var_data-files"><code>var_data</code></a>: contains configuration data about the core variables needed to create the data warehouse</li>
+<li><a href="#level_data-files"><code>level_data</code></a>: contains configuration data about the levels of categorical core variables needed to create the data warehouse</li>
 <li><a href="#comb_var_data-file"><code>comb_var_data</code></a>: For the variables that need to be combined, it contains the necessary data to perform this process.</li>
 </ul>
 <p>Finally, an other file, <a href="#panel_data-file"><code>panel_data</code></a> is needed for the proper creation of the data warehouse. In this file the structure of the final panels is described. </p>
@@ -474,7 +480,7 @@ Transforming a wide table into a long table is a straightforward process (if the
 <li><code>physical_exam</code></li>
 <li><code>medical_history</code></li>
 </ul>
-<p>b. <strong>Metadata</strong></p>
+<p>b. <strong>Configuration Data</strong></p>
 <ul>
 <li><code>panel_metadata</code></li>
 <li><code>var_data</code></li>

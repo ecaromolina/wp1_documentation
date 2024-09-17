@@ -105,6 +105,12 @@
                         
                             
 <li >
+    <a href="../modules_documentation/cohort_utils_doc/">Cohort utils</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../modules_documentation/qc_checks_utils_doc/">Quality Control utils</a>
 </li>
 
@@ -300,7 +306,7 @@
 <p>The final result is that in the <code>data</code> attribute, the <code>glc</code> and <code>crea_mg_dl</code> variables will be populated with values from other <em>compatible</em> variables.</p>
 <h2 id="cohort-instantiation-and-processing">Cohort Instantiation and Processing<a class="headerlink" href="#cohort-instantiation-and-processing" title="Permanent link">&para;</a></h2>
 <p>Once the cohort data has been preprocessed, it is formatted so that all cohorts have a homogeneous structure and can be subsequently combined. The central element of this processing is the <code>Cohort</code> class, and the <code>var_data</code> and <code>level_data</code> objects mentioned earlier are essential for its correct operation.</p>
-<p>For each cohort, a <code>Cohort</code> object is instantiated, which uses the (already preprocessed) attributes of <code>DataPreprocessor</code>: <code>data</code> (as the <code>raw_data</code> parameter), <code>var_data</code>, and <code>level_data</code>. It is important to note that each row in the <code>var_data</code> DataFrame corresponds to one of the selected core variables. For each of these variables, this DataFrame contains metadata about how they should be transformed:</p>
+<p>For each cohort, a <code>Cohort</code> object is instantiated, which uses the (already preprocessed) attributes of <code>DataPreprocessor</code>: <code>data</code> (as the <code>raw_data</code> parameter), <code>var_data</code>, and <code>level_data</code>. It is important to note that each row in the <code>var_data</code> DataFrame corresponds to one of the selected core variables. For each of these variables, this DataFrame contains configuration data about how they should be transformed:</p>
 <ul>
 <li>Initial variable name in the cohort.</li>
 <li>Final variable name in the common database.</li>
@@ -341,7 +347,7 @@
 <p><code>SQLExporter</code> performs the following actions sequentially:</p>
 <ol>
 <li><strong>Creates an <code>engine</code> object</strong>, which establishes the connection to the database based on the configuration specified in the <code>connection_config</code> module. For more information on the connection parameters, see the section <a href="../modules_documentation/configuration_module/#connection_config-module"><code>connection_config</code> module</a>.</li>
-<li><strong>Creates the database structure</strong>: It defines the tables, the format of each table (which variables each contains, whether it's in long or wide format, etc.), and the relationships between them. To do this, it uses the metadata present in the <code>panel_metadata</code> object.</li>
+<li><strong>Creates the database structure</strong>: It defines the tables, the format of each table (which variables each contains, whether it's in long or wide format, etc.), and the relationships between them. To do this, it uses the configuration data  present in the <code>panel_metadata</code> object.</li>
 <li>Establishes the connection to the database and generates the previously defined tables in the MySQL database.</li>
 <li>Iterates over each of the DataFrames in <code>liveraim.final_data</code> and inserts the data into the corresponding table.</li>
 </ol>
