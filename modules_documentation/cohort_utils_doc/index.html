@@ -179,12 +179,9 @@
             <li class="second-level"><a href="#functions-and-classes">Functions and Classes</a></li>
                 
                 <li class="third-level"><a href="#functions">Functions</a></li>
-                <li class="third-level"><a href="#merge_cohorts-function">merge_cohorts function</a></li>
                 <li class="third-level"><a href="#classes">Classes</a></li>
                 <li class="third-level"><a href="#class-cohort">Class Cohort</a></li>
             <li class="second-level"><a href="#general-operation">General Operation</a></li>
-                
-            <li class="second-level"><a href="#usage-example">Usage Example</a></li>
                 
             <li class="second-level"><a href="#usage-in-main-execution">Usage in main execution</a></li>
                 
@@ -194,22 +191,21 @@
 
 <h1 id="cohorts_utils-documentation"><code>cohorts_utils</code> Documentation<a class="headerlink" href="#cohorts_utils-documentation" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>En este módulo se define la clase <code>Cohort</code>, que centralliza el proceso de homogeneización de los datos de las distintas cohortes en un formato comón, determinado por la configuration data. </p>
-<p>...</p>
+<p>This module defines the <code>Cohort</code> class, which centralizes the process of homogenizing data from different cohorts into a common format, determined by the configuration data. Additionally, it is responsible for distributing the selected variables into different panels and formatting them appropriately (as specified in <code>panel_data</code>) to allow for export in various formats.</p>
 <h2 id="general-sturcture">General Sturcture<a class="headerlink" href="#general-sturcture" title="Permanent link">&para;</a></h2>
 <p>The module consists of the following key components:</p>
 <ul>
-<li><strong>Funciones encargadas de la transformación y homogeneización</strong> de las databases (en formato <code>pd.DataFrame</code>) de cada una de las cohortes. </li>
-<li><strong>Clase <code>Cohort</code></strong>: esta clase centraliza los datos de una cohorte (tanto la databse en crudo, los datos de configuración etc.), así como el proceso de homogeneización de los datos y, finalmente, la distribución de las variables en cada uno de los paneles. Cabe destacar que los argumentos que necesita <code>Cohort</code> para inicializarse, son el producto del preprocesamiento llevado a cabo por <code>DataPreprocessor</code>. </li>
-<li><strong>Funciones auxiliares</strong> usadas por cohort para inicializar atributos. </li>
+<li><strong>Functions responsible for the transformation and homogenization</strong> of the cohort databases (in <code>pd.DataFrame</code> format).</li>
+<li><strong><code>Cohort</code> class</strong>: This class centralizes cohort data (both the raw database, configuration data, etc.) as well as the process of data homogenization and, finally, the distribution of variables into each panel. It is important to note that the arguments required to initialize <code>Cohort</code> are the result of preprocessing carried out by <code>DataPreprocessor</code>.</li>
+<li><strong>Auxiliary functions</strong> used by <code>Cohort</code> to initialize attributes.</li>
 </ul>
 <h2 id="functions-and-classes">Functions and Classes<a class="headerlink" href="#functions-and-classes" title="Permanent link">&para;</a></h2>
 <p>In this sections are described the classes and functions defined in the module: </p>
 <h3 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p><strong><code>manage_string_type(df: pd.DataFrame, var: str) -&gt; None</code></strong>
-    Converts the specified column <code>var</code> in the DataFrame <code>df</code> to string type.</p>
+<p><strong><code>manage_string_type(df: pd.DataFrame, var: str) -&gt; None</code></strong></p>
+<p>Converts the specified column <code>var</code> in the DataFrame <code>df</code> to string type.</p>
 <ul>
 <li>
 <p><strong>Arguments</strong>:</p>
@@ -235,8 +231,8 @@
 </ul>
 </li>
 <li>
-<p><strong><code>manage_category_type(...) -&gt; None</code></strong>
-    Converts the specified column <code>var</code> in the DataFrame <code>df</code> to the category data type, using a mapping provided in <code>level_data_json</code>.</p>
+<p><strong><code>manage_category_type(...) -&gt; None</code></strong></p>
+<p>Converts the specified column <code>var</code> in the DataFrame <code>df</code> to the category data type, using a mapping provided in <code>level_data_json</code>.</p>
 <ul>
 <li>
 <p><strong>Arguments</strong>:</p>
@@ -290,15 +286,15 @@
 <ul>
 <li>If a <strong>ValueError</strong> occurs during conversion (e.g., invalid data), an error is logged.</li>
 <li>If a <strong>KeyError</strong> occurs (e.g., the column does not exist in the DataFrame), an error is logged.</li>
-<li>If any other unexpected <strong>Exception</strong> occurs, an error is logged: `"An error occurred while converting variable '%s' to data type '%s' <br />
+<li>If any other unexpected <strong>Exception</strong> occurs, an error is logged.
 <br><br></li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
-<p><strong><code>manage_datetime_type(var: str, data_type: str, df: pd.DataFrame) -&gt; None</code></strong>
-    Converts the specified column <code>var</code> in the DataFrame <code>df</code> to a datetime format, normalizing the date (removing time components).</p>
+<p><strong><code>manage_datetime_type(var: str, data_type: str, df: pd.DataFrame) -&gt; None</code></strong></p>
+<p>Converts the specified column <code>var</code> in the DataFrame <code>df</code> to a datetime format, normalizing the date (removing time components).</p>
 <ul>
 <li>
 <p><strong>Arguments</strong>:</p>
@@ -333,8 +329,8 @@
 </ul>
 </li>
 <li>
-<p><strong><code>set_liveraim_format(df: pd.DataFrame, var_data_json: dict, level_data_json: dict) -&gt; None</code></strong>
-    Converts the columns (variables) in the DataFrame <code>df</code> to the proper format for liveraim. The format (data types, categories codification, etc.) is configured in <code>var_data_json</code> and <code>level_data_json</code> dictionaries.</p>
+<p><strong><code>set_liveraim_format(df: pd.DataFrame, var_data_json: dict, level_data_json: dict) -&gt; None</code></strong></p>
+<p>Converts the columns (variables) in the DataFrame <code>df</code> to the proper format for liveraim. The format (data types, categories codification, etc.) is configured in <code>var_data_json</code> and <code>level_data_json</code> dictionaries. Uses the functions defined above to transform each column according to its data type defined in <code>var_data_json</code>. </p>
 <ul>
 <li>
 <p><strong>Arguments</strong>:</p>
@@ -354,16 +350,15 @@
 <p><strong>Logs</strong></p>
 <ul>
 <li>Logs an info message when the data formatting process begins.</li>
-<li>Logs a warning if the variables in the DataFrame are not a subset of the variables described in <code>var_data_json</code> or <code>level_data_json</code>.</li>
-<li>Uses the appropriate conversion function (<code>manage_category_type</code>, <code>manage_datetime_type</code>, <code>manage_numerical_type</code>, <code>manage_string_type</code>) based on the <code>data_type</code> of each variable in the DataFrame. 
+<li>Logs a warning if the variables in the DataFrame are not a subset of the variables described in <code>var_data_json</code> or <code>level_data_json</code>.
 <br><br></li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
-<p><strong><code>type_converter(value, data_type: str, dictionary: dict) -&gt; any</code></strong>
-    Converts a value to a specified data type using a provided converter map.</p>
+<p><strong><code>type_converter(value, data_type: str, dictionary: dict) -&gt; any</code></strong></p>
+<p>Converts a value to a specified data type using a provided converter map.</p>
 <ul>
 <li>
 <p><strong>Arguments</strong>:</p>
@@ -387,9 +382,12 @@
 </li>
 </ul>
 </li>
+</ul>
+<p><br><br></p>
+<ul>
 <li>
-<p><strong><code>levels_data_to_json(...) -&gt; dict</code></strong>
-    Converts a DataFrame containing metadata about categorical variable levels into a dictionary and saves it as a JSON file if a path is provided. This dictionary will be used as a lighter object to format the variables.</p>
+<p><strong><code>levels_data_to_json(...) -&gt; dict</code></strong></p>
+<p>Converts a DataFrame containing configuration data about categorical variable levels into a dictionary and saves it as a JSON file if a path is provided. This dictionary will be used as a lighter object to format the variables.</p>
 <ul>
 <li>
 <p><strong>Arguments</strong>:</p>
@@ -416,21 +414,402 @@
 <ul>
 <li>Logs an error if the Excel file is not found (<code>FileNotFoundError</code>), if there's an issue with the format (<code>ValueError</code>), or if an unexpected exception occurs while reading the Excel file.</li>
 <li>During the dictionary creation process, no specific logs are recorded, but the function handles type conversion using the <code>type_converter</code> function and logs errors accordingly.</li>
-<li>If a JSON file is saved, a confirmation message is printed after saving the file.</li>
+<li>If a JSON file is saved, a confirmation message is printed after saving the file.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>var_data_to_json(var_data: pd.DataFrame) -&gt; dict</code></strong></p>
+<p>Converts a DataFrame containing configuration data about core variables into a dictionary. This dictionary will be used as a lighter object to convert cohort databases into a homogeneous format.</p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>var_data</code> (pd.DataFrame): DataFrame containing the metadata about the core variables needed to set a common format between cohorts.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>dict</code>: A dictionary containing the variables metadata stored in the DataFrame <code>var_data</code>.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>panel_data_to_json(panel_data: pd.DataFrame, var_data_json: dict) -&gt; dict</code></strong></p>
+<p>Converts a DataFrame containing information about the distribution of variables in panels into a JSON dictionary. It adds information from <code>var_data_json</code> to allow the building of the panels.</p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>panel_data</code> (pd.DataFrame): DataFrame containing the distribution of the variables in the chosen panels.</li>
+<li><code>var_data_json</code> (dict): Dictionary containing relevant information about the variables needed to build the panels, such as bounds for numerical variables and units.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>dict</code>: A dictionary containing the information from <code>panel_data</code> with additional data needed to build the panels, such as bounds and units for numerical variables.</li>
+</ul>
+</li>
+<li>
+<p><strong>Logs</strong></p>
+<ul>
+<li>Logs an error if <code>panel_data</code> is empty and will not proceed with the conversion.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>var_data_merge(cohort_list: list[Cohort]) -&gt; tuple[pd.DataFrame, dict, bool]</code></strong></p>
+<p>Merges the <code>var_data</code> DataFrames of each cohort and creates a new common <code>var_data</code> DataFrame to be used in the instantiation of the merged cohort (Liveraim). It selects a subset of columns in the <code>var_data</code> DataFrames from the different cohorts, using the <code>var_data</code> from the first cohort as a reference to check for discrepancies. Only the selected columns will be taken into account for merging. It also checks for any unmatched variables across cohorts and reports discrepancies.</p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>cohort_list</code> (list[Cohort]): A list of cohorts whose <code>var_data</code> DataFrames will be merged.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>pd.DataFrame</code>: The merged <code>var_data</code> DataFrame containing the selected columns from all cohorts.</li>
+<li><code>dict[str, tuples]</code>: A dictionary (<code>merge_meta</code>) containing rows (in tuple format) from each cohort’s <code>var_data</code> that have at least one discrepant value in a selected column (i.e., this row does not exist in the reference <code>var_data</code> DataFrame).</li>
+<li><code>bool</code>: <code>True</code> if the merging process was successful without discrepancies. <code>False</code> if there were discrepancies or if the input format was incorrect.</li>
+</ul>
+</li>
+<li>
+<p><strong>Logs</strong></p>
+<ul>
+<li>Logs an error if there is an issue with the <code>cohort_list</code>, such as being empty or not containing a list of valid <code>Cohort</code> objects.</li>
+<li>No specific logs are recorded during the comparison of <code>var_data</code> rows, but discrepancies are recorded in <code>merge_meta</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Additional Information</strong>:</p>
+<ul>
+<li>The function defines an internal <code>compare_tuples</code> function to handle tuple comparison, especially in cases where NaN values are present.</li>
+<li>If any cohort has rows in <code>var_data</code> that do not match the reference cohort, <code>correct_merge</code> is set to <code>False</code>.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>merge_cohorts(cohorts_list: list[Cohort], cohort_name: str) -&gt; Cohort</code></strong></p>
+<p>Merges the cohorts in <code>cohorts_list</code>. First, it merges the <code>raw_data</code> of each cohort, the <code>var_data</code> DataFrame (using the <code>var_data_merge</code> method), and the <code>level_data</code> DataFrame. It then processes the merged data to add the appropriate columns, drop duplicates, and finally creates a new instance of a <code>Cohort</code> using the merged data.</p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>cohorts_list</code> (list[Cohort]): A list of cohorts to be merged into a new cohort.</li>
+<li><code>cohort_name</code> (str): The name of the new merged cohort.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>Cohort</code>: The new <code>merged_cohort</code> initialized with the merged data from the cohorts in <code>cohorts_list</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Logs</strong></p>
+<ul>
+<li>Logs an info message indicating the start of the cohort merging process.</li>
+<li>Logs an error if there is a problem during the merging of <code>var_data</code>, including information about discrepancies recorded in <code>merge_meta</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Additional Information</strong>:</p>
+<ul>
+<li>The function concatenates the <code>raw_data</code>, <code>var_data</code>, and <code>level_data</code> from each cohort.</li>
+<li>After merging, it removes duplicates in the merged <code>var_data</code> and <code>level_data</code>.</li>
+<li>The <code>level_data</code> is processed to ensure the correct mapping between original and final values, and the description column is dropped.</li>
+<li>The resulting merged cohort is initialized with the merged data, using <code>'id'</code> as the ID variable and <code>'inclusion_date'</code> as the date variable.</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h3 id="merge_cohorts-function"><code>merge_cohorts</code> function<a class="headerlink" href="#merge_cohorts-function" title="Permanent link">&para;</a></h3>
 <h3 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h3>
 <h3 id="class-cohort">Class <code>Cohort</code><a class="headerlink" href="#class-cohort" title="Permanent link">&para;</a></h3>
+<h4 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h4>
+<p>This class is the main object for data processing and export in the LiverAim project. It takes <code>raw_data</code> (presumably preprocessed) as input, along with configuration data about the selected/core variables (<code>var_data</code>), configuration data about the levels of the selected/core categorical variables (<code>level_data</code>), and other relevant parameters that define each cohort. It then centralizes the process of homogenization and formatting of the cohort, creating the attribute <code>homogenized_data</code>, which has a common format across cohorts.</p>
+<p>It also includes a method to distribute the variables in the final panels according to the configuration data in <code>panel_metadata</code> (see <a href="../../liveraim_data_warehouse_specifications/#initial-data-and-configuration-data">initial data and configuration data</a> section for more specifications about this object).</p>
 <h4 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong><code>cohort_name</code> (str):</strong><br />
+  The name of the cohort being processed.</p>
+</li>
+<li>
+<p><strong><code>status</code> (str):</strong><br />
+  The status of the cohort. Set to <code>"ongoing"</code> by default.</p>
+</li>
+<li>
+<p><strong><code>raw_data</code> (pd.DataFrame):</strong><br />
+  Preprocessed data extracted from the <code>DataPreprocessor</code> class. This contains all the variables in the cohort in their original format, along with additional variables added in the preprocessor class.</p>
+</li>
+<li>
+<p><strong><code>var_data</code> (pd.DataFrame):</strong><br />
+  Preprocessed variable configuration data extracted from the <code>DataPreprocessor</code> class. This DataFrame contains the original variable information along with additional metadata added during preprocessing.</p>
+</li>
+<li>
+<p><strong><code>var_data_json</code> (dict):</strong><br />
+  A dictionary containing the same information as <code>var_data</code>, in a JSON-like format.</p>
+</li>
+<li>
+<p><strong><code>level_data</code> (pd.DataFrame):</strong><br />
+  Preprocessed level configuration data extracted from the <code>DataPreprocessor</code> class. This DataFrame contains original categorical variable information along with additional configuration data.</p>
+</li>
+<li>
+<p><strong><code>level_data_json</code> (dict):</strong><br />
+  A dictionary containing the same information as <code>level_data</code>, in a JSON-like format.</p>
+</li>
+<li>
+<p><strong><code>id_variable</code> (str):</strong><br />
+  The name of the variable used for patient IDs.</p>
+</li>
+<li>
+<p><strong><code>date_variable</code> (str):</strong><br />
+  The name of the variable representing the inclusion date for patients.</p>
+</li>
+<li>
+<p><strong><code>selected_variables</code> (list):</strong><br />
+  A list of the selected/core variables of the cohort. These are the original variable names from the cohort data.</p>
+</li>
+<li>
+<p><strong><code>panel_data</code> (pd.DataFrame, optional):</strong><br />
+  Configuration data about panels and the distribution of variables in each panel.</p>
+</li>
+<li>
+<p><strong><code>panel_data_json</code> (dict, optional):</strong><br />
+  A JSON-like dictionary containing the same information as <code>panel_data</code>.</p>
+</li>
+<li>
+<p><strong><code>var_translate_dict</code> (dict):</strong><br />
+  A dictionary used to translate specific cohort variable names to the common format names.</p>
+</li>
+<li>
+<p><strong><code>homogeneous_data</code> (pd.DataFrame, optional):</strong><br />
+  A DataFrame containing the selected variables, processed to fit the common LiverAim format.</p>
+</li>
+<li>
+<p><strong><code>final_data</code> (dict[str, pd.DataFrame], optional):</strong><br />
+  A dictionary where each key is a panel name, and the corresponding value is a DataFrame with the panel's data.</p>
+</li>
+</ul>
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong><code>__init__(self, cohort_name: str,</code>
+  <code>raw_data: pd.DataFrame,</code>
+  <code>var_data: pd.DataFrame,</code>
+  <code>level_data: pd.DataFrame,</code>
+  <code>id_variable: str,</code> 
+  <code>date_variable: str,</code>
+  <code>status: str = "ongoing")</code>:</strong></p>
+<p>Initializes the <code>Cohort</code> class with cohort data, variable and level configuration data, and relevant parameters such as ID and inclusion date variables. In particular it calls the <code>setup</code> method, responsible of creating the main attributes. Then, it initializes the attributes <code>_homogeneous_data</code> and <code>fina_data</code> as <code>None</code>, so the class can check if they have been instantiatied or not. </p>
+<ul>
+<li><strong>Arguments</strong>:<ul>
+<li><code>cohort_name</code> (str): The name of the cohort.</li>
+<li><code>raw_data</code> (pd.DataFrame): The preprocessed cohort data.</li>
+<li><code>var_data</code> (pd.DataFrame): The preprocessed variable metadata.</li>
+<li><code>level_data</code> (pd.DataFrame): The preprocessed level metadata.</li>
+<li><code>id_variable</code> (str): The patient ID variable.</li>
+<li><code>date_variable</code> (str): The inclusion date variable.</li>
+<li><code>status</code> (str, optional): The status of the cohort, defaults to <code>"ongoing"</code>.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>setup(self, cohort_name: str,</code>
+  <code>raw_data: pd.DataFrame,</code>
+  <code>var_data: pd.DataFrame,</code>
+  <code>level_data: pd.DataFrame,</code>
+  <code>id_variable: str,</code>
+  <code>date_variable: str,</code>
+  <code>status: str = "ongoing")</code>:</strong></p>
+<p>Sets up the main attributes of the cohort. This method is called within <code>__init__</code> but can also be used for updating data and configuration data.</p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li>Same as <code>__init__</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>None</code>.
+  <br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>homogenize_data(self) -&gt; Cohort</code>:</strong></p>
+<p>Processes the raw data, selecting core variables, translating them to the final common name (using the <code>var_translate_dict</code> attribute) and formatting them according to the common LiverAim structure. It calls the function <code>set_liveraim_format</code> described in the section <a href="#functions">Functions</a>. Sets the <code>homogeneous_data</code> attribute.</p>
+<ul>
+<li><strong>Returns</strong>:<ul>
+<li><code>Cohort</code>: Returns the <code>Cohort</code> instance with the <code>homogeneous_data</code> attribute set.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>set_final_data(self, panel_data: dict[str, pd.DataFrame]) -&gt; Cohort</code>:</strong></p>
+<p>Creates and sets the final dataset structure based on panel data. The <code>panel_data</code> provides information on which variables belong to each panel and which should be "melted". </p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>panel_data</code> (dict[str, pd.DataFrame]): A dictionary with panel names as keys and DataFrames describing the panel structure as values.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>Cohort</code>: Returns the updated <code>Cohort</code> instance.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>set_var_translate_dict(self) -&gt; None</code>:</strong></p>
+<p>Sets the <code>var_translate_dict</code> attribute using the data in <code>var_data</code> to translate variable names to the common LiverAim format.</p>
+<ul>
+<li><strong>Returns</strong>:<ul>
+<li><code>None</code>.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>set_selected_variables(self) -&gt; None</code>:</strong></p>
+<p>Sets the <code>selected_variables</code> attribute, which is a list of core variables based on the configuration data in <code>var_data</code>.</p>
+<ul>
+<li><strong>Returns</strong>:<ul>
+<li><code>None</code>.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>set_panel_data(self, panel_data: pd.DataFrame) -&gt; None</code>:</strong></p>
+<p>Sets the <code>panel_data</code> and <code>panel_data_json</code> attributes using the provided panel data.</p>
+<ul>
+<li><strong>Returns</strong>:<ul>
+<li><code>None</code>.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>set_id(self, id_name: str = "liveraim_id") -&gt; Cohort</code>:</strong></p>
+<p>Sets a new <code>liveraim_id</code> variable, a commmon-format identifier for each patient, and updates the cohort data with the new variable.</p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>id_name</code> (str, optional): The name of the new ID variable, defaults to <code>"liveraim_id"</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>Cohort</code>: Returns the updated <code>Cohort</code> instance.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h4 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>In <code>__init__</code>:  </p>
+<ul>
+<li>Logs the initialization process and any errors related to setting up the cohort attributes.</li>
+</ul>
+</li>
+<li>
+<p>In <code>homogenize_data</code>:  </p>
+<ul>
+<li>Logs the start and completion of the data homogenization process.</li>
+</ul>
+</li>
+<li>
+<p>In <code>set_final_data</code>:  </p>
+<ul>
+<li>Logs the start and completion of the final data structuring process.</li>
+</ul>
+</li>
+<li>
+<p>In <code>set_id</code>:  </p>
+<ul>
+<li>Logs the start and completion of the process to set the common ID (<code>liveraim_id</code>).</li>
+</ul>
+</li>
+</ul>
 <h2 id="general-operation">General Operation<a class="headerlink" href="#general-operation" title="Permanent link">&para;</a></h2>
-<h2 id="usage-example">Usage Example<a class="headerlink" href="#usage-example" title="Permanent link">&para;</a></h2>
-<h2 id="usage-in-main-execution">Usage in main execution<a class="headerlink" href="#usage-in-main-execution" title="Permanent link">&para;</a></h2></div>
+<p>The instantiation of a <code>Cohort</code> requires three fundamental elements (in addition to other less critical parameters) that come from preprocessing by the <code>DataPreprocessor</code> class (see <a href="../data_processing_utils_doc/">Data Processing utils</a>):</p>
+<ul>
+<li><strong><code>raw_data</code></strong>: The cohort database, which is the result of merging different versions of the database for the same cohort.</li>
+<li><strong><code>var_data</code></strong>: A DataFrame containing configuration data for the selected variables, along with those added during preprocessing.</li>
+<li><strong><code>level_data</code></strong>: A DataFrame containing configuration data for the levels of selected categorical variables, as well as those added during preprocessing.</li>
+</ul>
+<p>During instantiation, the attributes described in the class are created. Specifically, for the <code>var_data</code> and <code>level_data</code> DataFrames, an attribute with the same data is created but in dictionary format. This facilitates access to the information and subtly improves performance. Variables used as the <strong>ID</strong> and <strong>inclusion date</strong> are also defined, as they are particularly important. Additionally, a list of selected variables for the final dataset and a dictionary for translating their respective names into the common format are created.</p>
+<p>Once the class is instantiated, the <code>homogenize_data</code> method can be called. This method uses <code>raw_data</code> to select, translate, and transform variables, creating a new DataFrame. This new DataFrame is stored in the <code>homogenized_data</code> attribute. These transformations (e.g., data type assignment, unit conversion, and level mapping for categorical variables) are centralized in the <code>set_liveraim_format</code> function.</p>
+<p>After the data for all cohorts is homogenized, the <code>merge_cohorts</code> function takes a list of cohorts and merges them, returning a <code>Cohort</code> object in the common format. It does so by concatenating the <code>homogenized_data</code> DataFrames from each cohort and using them as the <code>raw_data</code> parameter to instantiate a new cohort. Similarly, the <code>level_data</code> and <code>var_data</code> files from each cohort are correctly "merged" for use as parameters in this new cohort instantiation. As a result, a new <code>Cohort</code> object is created, containing as raw_data the homogenized data from all the cohorts. </p>
+<p>The <code>set_id</code> method allows the creation of a new identifier variable in the <code>raw_data</code> attribute while updating the configuration data. This is useful for creating a common identifier across all cohorts once they have been merged (after homogenization).</p>
+<p>Although the <code>raw_data</code> produced by <code>merge_cohorts</code> has the correct format, merging DataFrames can sometimes alter some of the data types. To prevent this, it is recommended to call the <code>homogenize_data</code> method again, which ensures that the data types are correct.</p>
+<p>If you wish to create the final tables or panels (presumably after homogenizing, merging cohorts, and creating a new common ID variable), the <code>set_final_data</code> method generates a dictionary containing the different DataFrames, each representing a panel. It requires the <code>panel_data</code> dictionary as a parameter, which contains the configuration data for the panels. This method selects the variables that should appear in each panel and transforms the DataFrames to long format if necessary. The dictionary with the final DataFrames is stored in the <code>final_data</code> attribute.</p>
+<h2 id="usage-in-main-execution">Usage in main execution<a class="headerlink" href="#usage-in-main-execution" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">...
+
+# Create a list with the names of the cohorts to be used. 
+cohort_name_list: list[str] = [cc.LIVERSCREEN_NAME, cc.GLUCOFIB_NAME, cc.ALCOFIB_NAME]
+
+# Create an empty list to store all the cohort objects. 
+cohort_list = []
+
+# Iterates throgh all the cohort names to creat a cohort object for each cohort. 
+for cohort_name in cohort_name_list:
+
+    ...
+
+    # Preprocess the configuration data and the databases with an instance of DataPreprocessor,
+    #in this case cohort_preprocessor
+    data, var_data, level_data = cohort_preprocessor.get_data()
+
+    # Intantiate a Cohort object using the config data and call the homogenize_data method. 
+    cohort = Cohort (cohort_name=cohort_name, 
+                    raw_data=data,
+                    var_data=var_data, 
+                    level_data=level_data,
+                    id_variable ='id',
+                    date_variable='date_0').homogenize_data()
+
+    cohort_list.append(cohort)
+
+# Creates a cohort by merging all cohorts in cohort list
+liverscreen_cohort = merge_cohorts(cohort_list).set_id().homogenize_data()
+
+# Sets the attribute final_data, with all the final panels. 
+liverscreen_cohort.set_final_data(panel_data)
+</code></pre></div>
         
         
     </div>

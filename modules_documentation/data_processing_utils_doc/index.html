@@ -287,6 +287,9 @@
 </li>
 </ul>
 </li>
+</ul>
+<p><br><br></p>
+<ul>
 <li>
 <p><strong><code>set_new_variables(self) -&gt; tuple</code></strong>:
   Sets new variables for the cohort, including status, birth date, exit date, and cohort name. Updates the variable and level configuration objects accordingly. To do so, it calls an specific method for each variable, such as: <code>set_status_metadata</code>, <code>set_birth_date_columns</code>, etc. </p>
@@ -301,6 +304,9 @@
 </li>
 </ul>
 </li>
+</ul>
+<p><br><br></p>
+<ul>
 <li>
 <p><strong><code>preprocess(self) -&gt; self</code></strong>:
 Centralizes the preprocessing logic for different cohorts by identifying the cohort and applying the corresponding cohort-specific method.</p>
@@ -311,18 +317,24 @@ Centralizes the preprocessing logic for different cohorts by identifying the coh
 </li>
 </ul>
 </li>
-<li>
-<p><strong><code>preprocess_alcofib(self)</code></strong>:
-Preprocesses the ALCOFIB cohort data by applying transformations specific to that cohort.</p>
-</li>
-<li>
-<p><strong><code>preprocess_glucofib(self)</code></strong>:
-Preprocesses the GLUCOFIB cohort data by applying transformations specific to that cohort.</p>
-</li>
-<li>
-<p><strong><code>preprocess_liverscreen(self)</code></strong>:
-Preprocesses the LIVERSCREEN cohort data. If a combination dictionary (<code>comb_var_dict</code>) is provided, it combines variables according to that configuration.</p>
-</li>
+</ul>
+<p><br><br></p>
+<ul>
+<li><strong><code>preprocess_alcofib(self)</code></strong>:
+Preprocesses the ALCOFIB cohort data by applying transformations specific to that cohort.</li>
+</ul>
+<p><br><br></p>
+<ul>
+<li><strong><code>preprocess_glucofib(self)</code></strong>:
+Preprocesses the GLUCOFIB cohort data by applying transformations specific to that cohort.</li>
+</ul>
+<p><br><br></p>
+<ul>
+<li><strong><code>preprocess_liverscreen(self)</code></strong>:
+Preprocesses the LIVERSCREEN cohort data. If a combination dictionary (<code>comb_var_dict</code>) is provided, it combines variables according to that configuration.</li>
+</ul>
+<p><br><br></p>
+<ul>
 <li>
 <p><strong><code>preprocess_decide(self)</code></strong>:
 Preprocesses the DECIDE cohort data by applying transformations specific to that cohort.</p>
@@ -337,7 +349,8 @@ Method to update the configuration objects <code>var_data</code> and <code>level
 <ul>
 <li><strong>Returns</strong>:<ul>
 <li><code>var_data</code> (pd.DataFrame): The updated DataFrame with metadata for the status variable.</li>
-<li><code>level_data</code> (pd.DataFrame): The updated DataFrame with metadata for the status levels.</li>
+<li><code>level_data</code> (pd.DataFrame): The updated DataFrame with metadata for the status levels.
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -347,7 +360,8 @@ Method to update the configuration objects <code>var_data</code> and <code>level
 Calculates and adds a "<code>birth_date</code>" column to the dataset based on the inclusion date and age varaibles (specified during the instantiation of the class). Updates the <code>var_data</code> DataFrame with the new configuration data for the birth date variable. If first checks if both columns, age and inclusion date, are in the raw data dataframe. Then, for those patients with values in both columns, computes the <code>birth_date</code>. </p>
 <ul>
 <li><strong>Returns</strong>:<ul>
-<li><code>var_data</code> (pd.DataFrame): The updated DataFrame with configuration data for the birth date variable.</li>
+<li><code>var_data</code> (pd.DataFrame): The updated DataFrame with configuration data for the birth date variable.
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -357,7 +371,8 @@ Calculates and adds a "<code>birth_date</code>" column to the dataset based on t
 Adds the "<code>exit_date</code>" column to the dataset, which represents the date a patient leaves the cohort or the end of the study. If the study is ongoing, the current date is used.</p>
 <ul>
 <li><strong>Returns</strong>:<ul>
-<li><code>var_data</code> (pd.DataFrame): The updated DataFrame with metadata for the exit date variable.</li>
+<li><code>var_data</code> (pd.DataFrame): The updated DataFrame with metadata for the exit date variable.
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -367,7 +382,8 @@ Adds the "<code>exit_date</code>" column to the dataset, which represents the da
 Adds the "cohort" column to the dataset, representing the cohort name for each patient. Uses the <code>cohort_name</code> attribute to do so. Updates the <code>var_data</code> DataFrame with metadata for this variable.</p>
 <ul>
 <li><strong>Returns</strong>:<ul>
-<li><code>var_data</code> (pd.DataFrame): The updated DataFrame with metadata for the cohort variable.</li>
+<li><code>var_data</code> (pd.DataFrame): The updated DataFrame with metadata for the cohort variable.
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -385,7 +401,8 @@ Merges all versions of the cohort databases and assigns the patient status based
 <li>
 <p><strong>Returns</strong>:</p>
 <ul>
-<li><code>pd.DataFrame</code>: The final version of the cohort data, with the status variable updated.</li>
+<li><code>pd.DataFrame</code>: The final version of the cohort data, with the status variable updated.
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -480,7 +497,8 @@ Initializes the <code>VarCombiner</code> class with a dictionary of reference va
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>comb_var_dict</code> (dict): A dictionary with reference variables and their corresponding conversion factors.</li>
-<li><code>df</code> (pd.DataFrame): The DataFrame containing the data to be combined.</li>
+<li><code>df</code> (pd.DataFrame): The DataFrame containing the data to be combined.
+<br><br></li>
 </ul>
 </li>
 <li>
@@ -500,7 +518,7 @@ Combines variables within a row by applying conversion factors if the reference 
 <p><strong>Returns</strong>:</p>
 <ul>
 <li><code>float</code>: The combined value for the reference variable or NaN if no valid variables are found.
-"""</li>
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -520,7 +538,8 @@ Applies the variable combination logic (i.e. the _combine_vars method) across al
 <li>
 <p><strong>Returns</strong>:</p>
 <ul>
-<li><code>pd.DataFrame</code>: The DataFrame with the combined variables.</li>
+<li><code>pd.DataFrame</code>: The DataFrame with the combined variables.
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -573,14 +592,16 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
   Initializes the <code>ConfigDataManager</code> class. If provided, <code>all_data</code> is used to populate the <code>config_data</code> attribute.</p>
 <ul>
 <li><strong>Arguments</strong>:<ul>
-<li><code>all_data</code> (dict, optional): A dictionary containing all the data used to create the data warehouse.</li>
+<li><code>all_data</code> (dict, optional): A dictionary containing all the data used to create the data warehouse.
+<br><br></li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><strong><code>instantiate_config_data(self) -&gt; None</code></strong>:<br />
-  Initializes the <code>config_data</code> attribute as an empty dictionary, with keys corresponding to the configuration object names. This prepares the structure for storing configuration data.</p>
+  Initializes the <code>config_data</code> attribute as an empty dictionary, with keys corresponding to the configuration object names. This prepares the structure for storing configuration data.
+<br><br></p>
 </li>
 <li>
 <p><strong><code>append_config_data(self, cohort: str, **kwargs) -&gt; None</code></strong>:<br />
@@ -595,7 +616,8 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
 </li>
 <li>
 <p><strong>Notes</strong>:
-      Only configuration types present in <code>config_obj_names</code> are accepted. If a key in <code>kwargs</code> is not in <code>config_obj_names</code>, a warning is logged.</p>
+      Only configuration types present in <code>config_obj_names</code> are accepted. If a key in <code>kwargs</code> is not in <code>config_obj_names</code>, a warning is logged.
+<br><br></p>
 </li>
 <li>
 <p><strong><code>set_config_data_with_all_data(self, all_data: dict) -&gt; ConfigDataManager</code></strong>:<br />
@@ -604,7 +626,8 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
     - <code>all_data</code> (dict): Dictionary containing all the configuration data needed to create the database.</p>
 <ul>
 <li><strong>Returns</strong>: <ul>
-<li><code>ConfigDataManager</code>: The instance with the updated <code>config_data</code>.</li>
+<li><code>ConfigDataManager</code>: The instance with the updated <code>config_data</code>.
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -622,7 +645,8 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
 <li>
 <p><strong>Returns</strong>: </p>
 <ul>
-<li><code>pd.DataFrame</code>: The combined configuration data for all cohorts.</li>
+<li><code>pd.DataFrame</code>: The combined configuration data for all cohorts.
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -632,7 +656,8 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
   Converts the <code>comb_var_data</code> dictionaries in <code>config_data</code> to DataFrames using the <code>_dict_to_df</code> method.</p>
 <ul>
 <li><strong>Returns</strong>: <ul>
-<li><code>ConfigDataManager</code>: The instance with transformed <code>comb_var_data</code>.</li>
+<li><code>ConfigDataManager</code>: The instance with transformed <code>comb_var_data</code>.
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -642,7 +667,8 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
   Combines the <code>panel_data</code> for all cohorts into a single DataFrame, adding a 'panel' column.</p>
 <ul>
 <li><strong>Returns</strong>: <ul>
-<li><code>pd.DataFrame</code>: The combined <code>panel_data</code> for all cohorts. If no <code>panel_data</code> is present, a warning is logged, and the method returns <code>None</code>.</li>
+<li><code>pd.DataFrame</code>: The combined <code>panel_data</code> for all cohorts. If no <code>panel_data</code> is present, a warning is logged, and the method returns <code>None</code>.
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -660,7 +686,8 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
 <li>
 <p><strong>Returns</strong>: </p>
 <ul>
-<li><code>pd.DataFrame</code>: DataFrame containing the configuration data.</li>
+<li><code>pd.DataFrame</code>: DataFrame containing the configuration data.
+<br><br></li>
 </ul>
 </li>
 </ul>
@@ -670,7 +697,8 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
   Iterates through all the configuration object types in <code>config_data</code> and applies the <code>_combine_config_data_dfs</code> method to combine the data for each configuration type.</p>
 <ul>
 <li><strong>Returns</strong>: <ul>
-<li><code>ConfigDataManager</code>: The instance with the combined configuration data in <code>combined_config_data</code>.</li>
+<li><code>ConfigDataManager</code>: The instance with the combined configuration data in <code>combined_config_data</code>.
+<br><br></li>
 </ul>
 </li>
 </ul>
