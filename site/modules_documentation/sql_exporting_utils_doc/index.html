@@ -82,7 +82,7 @@
                 
                 
                     <li >
-                        <a href="../../liveraim_data_warehouse_structure/">LIVERAIM Database Structure</a>
+                        <a href="../../liveraim_data_warehouse_specifications/">LIVERAIM Data Warehouse Specifications</a>
                     </li>
                 
                 
@@ -100,6 +100,12 @@
                             
 <li >
     <a href="../data_processing_utils_doc/">Preprocessing utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../cohort_utils_doc/">Cohort utils</a>
 </li>
 
                         
@@ -123,7 +129,7 @@
                         
                             
 <li >
-    <a href="../../configuration/configuration_module/">Configuration module</a>
+    <a href="../configuration_module/">Configuration module</a>
 </li>
 
                         
@@ -151,7 +157,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../../configuration/configuration_module/">
+                        <a rel="next" href="../configuration_module/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -301,6 +307,23 @@
 </ul>
 </li>
 <li>
+<p><strong><code>export_df_to_sql(self, df: pd.DataFrame,</code>
+                         <code>table_name: str,</code>
+                         <code>if_exists: Literal['fail', 'replace', 'append'] ="append") -&gt; None:</code></strong>
+    A simple method to dump a single dataframe into the database. Uses the pandas method pd.to_sql and the engine created in the class.</p>
+<ul>
+<li><strong>Arguments</strong>:<br />
+        - <code>df</code> (pd.DataFrame): dataframe to be dumped in the MySQL database
+        - <code>table_name</code> (str): name of the table where the dataframe should be dumped. 
+        - <code>if_exists</code> (Literal['fail', 'replace', 'append'], optional): 
+            Specifies the behavior if the table already exists in the database:
+                - '<em>fail</em>': If the table exists, an error is raised.
+                - '<em>replace</em>': The existing table is dropped, and a new one is created.
+                - '<em>append</em>': The new data is appended to the existing table.
+            Default is 'append'.</li>
+</ul>
+</li>
+<li>
 <p><strong><code>drop_all() -&gt; None</code></strong>:<br />
     Drops all the tables from the MySQL database.</p>
 </li>
@@ -331,7 +354,11 @@
 </ul>
 </li>
 <li>In <code>export_data_to_sql</code>:<ul>
-<li>Logs if everte panel has been exported to MySQL properly or if, on the contrary, an error ocurred while exporting the data.  </li>
+<li>Logs if everte panel has been exported to MySQL properly or if, on the contrary, an error ocurred while exporting the data. </li>
+</ul>
+</li>
+<li>In <code>export_df_to_sql</code>:<ul>
+<li>Logs if the dataframe has been exported to MySQL properly or if, on the contrary, an error ocurred while exporting the data. </li>
 </ul>
 </li>
 <li>In <code>drop_all</code>:<ul>

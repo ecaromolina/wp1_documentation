@@ -82,7 +82,7 @@
                 
                 
                     <li >
-                        <a href="../../liveraim_data_warehouse_structure/">LIVERAIM Database Structure</a>
+                        <a href="../../liveraim_data_warehouse_specifications/">LIVERAIM Data Warehouse Specifications</a>
                     </li>
                 
                 
@@ -93,31 +93,37 @@
                         
                             
 <li >
-    <a href="../../modules_documentation/file_reading_utils_doc/">File Reading utils</a>
+    <a href="../file_reading_utils_doc/">File Reading utils</a>
 </li>
 
                         
                             
 <li >
-    <a href="../../modules_documentation/data_processing_utils_doc/">Preprocessing utils</a>
+    <a href="../data_processing_utils_doc/">Preprocessing utils</a>
 </li>
 
                         
                             
 <li >
-    <a href="../../modules_documentation/qc_checks_utils_doc/">Quality Control utils</a>
+    <a href="../cohort_utils_doc/">Cohort utils</a>
 </li>
 
                         
                             
 <li >
-    <a href="../../modules_documentation/file_exporting_utils_doc/">File Exporting utils</a>
+    <a href="../qc_checks_utils_doc/">Quality Control utils</a>
 </li>
 
                         
                             
 <li >
-    <a href="../../modules_documentation/sql_exporting_utils_doc/">SQL Exporting utils</a>
+    <a href="../file_exporting_utils_doc/">File Exporting utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../sql_exporting_utils_doc/">SQL Exporting utils</a>
 </li>
 
                         
@@ -146,7 +152,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../../modules_documentation/sql_exporting_utils_doc/">
+                        <a rel="prev" href="../sql_exporting_utils_doc/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -216,14 +222,15 @@
 <h4 id="quality-control-paramenters">Quality control paramenters<a class="headerlink" href="#quality-control-paramenters" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>ALPHA (str)</code>: Error threshold used during the numeric QC checks.</li>
-<li><code>EXPORT_QC_RECORD (bool)</code>: With a value of <code>True</code>, it exports the data generated during the quality control process. For more details, see the section <a href="../../quality_control/">Quality Control</a>. With a value of <code>False</code>, quality control is still performed, but the generated data is not saved after execution (except for what is printed in the log). </li>
+<li><code>EXPORT_QC_RECORD (bool)</code>: With a value of <code>True</code>, it exports the data generated during the quality control process. For more details, see the section <a href="../qc_checks_utils_doc/">Quality Control Utils</a>. With a value of <code>False</code>, quality control is still performed, but the generated data is not saved after execution (except for what is printed in the log). </li>
 <li><code>QC_REPORT_FOLDER (str)</code>: name of the folder taht centralizes the QC: it will contain the QC output and the code for processing this data and the rendered report.</li>
 <li><code>QC_DATA_FOLDER (str)</code>: name of the folder where all the data generated during the quality control checks will be dumped (if <code>EXPORT_QC_RECORD</code> is set to true). This folder is itended to be a subdirectory fo the directory above <code>QC_REPORT_FOLDER</code></li>
 </ul>
 <h4 id="variables-used-to-read-data-files-databases-var_data-level_data-panel_metadata">Variables used to read data files (databases, var_data, level_data, panel_metadata)<a class="headerlink" href="#variables-used-to-read-data-files-databases-var_data-level_data-panel_metadata" title="Permanent link">&para;</a></h4>
-<p>The following variables are mainly used in the module <a href="../../modules_documentation/file_reading_utils_doc/"><code>file_reading_utils</code></a>. </p>
+<p>The following variables are mainly used in the module <a href="../file_reading_utils_doc/"><code>file_reading_utils</code></a>. </p>
 <ul>
 <li><code>PANEL_DATA_FILE_NAME (str)</code>: Name of the file containing the panel data (should be an .xlsx file).</li>
+<li><code>CONFIG_DATA_METADATA_FILE_PATH (str)</code>: Path of the file containing the metadata of the config data tables (i.e. data types of each column) that will be exported to the database. </li>
 <li><code>LIVERSCREEN_VAR_FILE_NAME (str)</code>: Name of the file containing the <code>var_data</code> for the <em>Liverscreen</em> cohort (should be an .xlsx file).</li>
 <li><code>GLUCOFIB_VAR_FILE_NAME (str)</code>: Name of the file containing the <code>var_data</code> for the <em>Glucofib</em> cohort (should be an .xlsx file).</li>
 <li><code>ALCOFIB_VAR_FILE_NAME (str)</code>: Name of the file containing the <code>var_data</code> for the <em>Alcofib</em> cohort (should be an .xlsx file).</li>
@@ -256,7 +263,7 @@
 </ul>
 <h4 id="variables-used-to-export-data">Variables used to export data<a class="headerlink" href="#variables-used-to-export-data" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>EXPORT_FILES (bool)</code>: With a value of <code>True</code>, it exports the final data (the data warehouse, with the panel structure described in <a href="">???</a>) to .csv and .feather files. With a value of <code>False</code>, these files are not generated. For more details, see the section <a href="../../modules_documentation/file_exporting_utils_doc/">File Exporting Utils Module</a>.</li>
+<li><code>EXPORT_FILES (bool)</code>: With a value of <code>True</code>, it exports the final data (the data warehouse, with the panel structure described in <a href="">???</a>) to .csv and .feather files. With a value of <code>False</code>, these files are not generated. For more details, see the section <a href="../file_exporting_utils_doc/">File Exporting Utils Module</a>.</li>
 <li><code>CREATE_SQL_DB (bool)</code>: Con un valor de <code>True</code> se exporta los datos a una base de datos MySQL (i.e. se crea el datawarehouse). Con un valor de <code>False</code> no se exportan los datos a MySQL.</li>
 <li><code>DATAWAREHOUSE_PATH (str)</code>: Name of the folder where the data warehouse in .csv and .feather will be exported.</li>
 </ul>
@@ -297,7 +304,7 @@
 <li><a href="#mapping-types-dictionaries">Dictionaries for mapping variable types</a> across platforms/languages.</li>
 </ul>
 <h4 id="connection-parameters">Connection Parameters<a class="headerlink" href="#connection-parameters" title="Permanent link">&para;</a></h4>
-<p>It's important to understand how the connection parameters for the MySQL database are managed. To connect to the database (as explained in the <a href="../fast_configuration/#mysql-connection-configuration">MySQL connection configuration</a> section), five parameters are required:</p>
+<p>It's important to understand how the connection parameters for the MySQL database are managed. To connect to the database (as explained in the <a href="../../quick_start_guide/#mysql-connection-configuration">MySQL connection configuration</a> section), five parameters are required:</p>
 <ul>
 <li><strong>USER</strong>: The username used to connect to the database (must have appropriate permissions).</li>
 <li><strong>PASSWORD</strong>: The user's password to access the database.</li>
@@ -320,7 +327,7 @@ DATABASE_NAME="DATABASE_NAME"
 PORT="PORT"
 HOST="HOST"
 </code></pre>
-<p>If the values of the environment variables are correct, the connection should work. See the section <a href="../../modules_documentation/file_exporting_utils_doc/#testing-my-connection">Testing my connection</a> for more details to check your connection.</p>
+<p>If the values of the environment variables are correct, the connection should work. See the section <a href="../sql_exporting_utils_doc/#testing-the-connection">Testing the connection</a> for more details to check your connection.</p>
 <p>Although this configuration may seem unnecessarily complicated, it has been implemented this way for two reasons:</p>
 <ol>
 <li>
@@ -356,7 +363,7 @@ HOST="REMOTE_HOST"
 </code></pre>
 </blockquote>
 <h2 id="new_var_config-module"><code>new_var_config</code> module<a class="headerlink" href="#new_var_config-module" title="Permanent link">&para;</a></h2>
-<p>During data preprocessing (see the <a href="../../modules_documentation/data_processing_utils_doc/"><code>data_processing_utils</code> module</a> section), some variables are added that do not appear in the initial <code>row_data</code> of the cohorts. These can be calculated or secondary variables, cohort indicators, etc. This module stores the data for these variables necessary to include them in the <code>var_data</code> object (refer to the <a href="../../modules_documentation/cohort_utils_doc/"><code>cohort_utils</code> module</a> for more information), which is essential for the creation of the database.</p>
+<p>During data preprocessing (see the <a href="../data_processing_utils_doc/"><code>data_processing_utils</code> module</a> section), some variables are added that do not appear in the initial <code>row_data</code> of the cohorts. These can be calculated or secondary variables, cohort indicators, etc. This module stores the data for these variables necessary to include them in the <code>var_data</code> object (refer to the <a href="../cohort_utils_doc/"><code>cohort_utils</code> module</a> for more information), which is essential for the creation of the database.</p>
 <p>For each new variable, the following parameters corresponding to the columns of the <code>var_data</code> object need to be added. The column names (defined in the <a href="#reference_names-module"><code>reference_names</code> module</a>) are used for this purpose. This module is usually imported in the code with the alias <code>rf</code>. The parameters to be added are as follows:</p>
 <ul>
 <li><code>rf.VAR_ORIGINAL_NAME_COLUMN</code>: The name of the variable in the original cohort (presumably the same as the final name of the variable since it is a new variable added 'after the fact').</li>
@@ -408,7 +415,7 @@ STATUS_WITHDRAWN = '2'
                 STATUS_WITHDRAWN: 'withdrawn'}
 </code></pre>
 <h4 id="creation-of-new-level_data-rows">Creation of New <code>level_data</code> Rows<a class="headerlink" href="#creation-of-new-level_data-rows" title="Permanent link">&para;</a></h4>
-<p>Finally, a list of dictionaries is created (each dictionary corresponds to a row in <code>level_data</code>, where the key is the column name and the value is the value of that row for that column). This list will be imported wherever these metadata need to be included in the <code>level_data</code> object. (For more information on the structure of this object, you can refer to the <a href="../../initial_data_configuration/">Initial data configuration</a> section). In summary, for each level, a row must be included in the <code>level_data</code> object. Each row should contain the corresponding information for each of the columns in that object (to do this, as in the <code>var_data</code> module, the <code>reference_names</code> module is used to reference the column names), specifically:</p>
+<p>Finally, a list of dictionaries is created (each dictionary corresponds to a row in <code>level_data</code>, where the key is the column name and the value is the value of that row for that column). This list will be imported wherever these metadata need to be included in the <code>level_data</code> object. (For more information on the structure of this object, you can refer to the <a href="../../liveraim_data_warehouse_specifications/#initial-data-and-configuration-data">Initial data and configuration data</a> section). In summary, for each level, a row must be included in the <code>level_data</code> object. Each row should contain the corresponding information for each of the columns in that object (to do this, as in the <code>var_data</code> module, the <code>reference_names</code> module is used to reference the column names), specifically:</p>
 <ul>
 <li><code>rf.LEVEL_ORIGINAL_NAME_COLUMN</code>: Column with the original cohort name of the variable to which the level belongs.</li>
 <li><code>rf.LEVEL_LIVERAIM_NAME_COLUMN</code>: Column with the final name of the variable to which the level belongs.</li>
@@ -435,7 +442,7 @@ STATUS_WITHDRAWN = '2'
 </blockquote>
 <h2 id="reference_names-module"><code>reference_names</code> module<a class="headerlink" href="#reference_names-module" title="Permanent link">&para;</a></h2>
 <blockquote>
-<p><strong>Note</strong>: Es recomendable haber consultado al menos la sección <a href="../../initial_data_configuration/">initial data configuration</a> antes de seguir leyendo este apartado. </p>
+<p><strong>Note</strong>: Es recomendable haber consultado al menos la sección <a href="../../liveraim_data_warehouse_specifications/#initial-data-and-configuration-data">initial data and configuration</a> antes de seguir leyendo este apartado. </p>
 </blockquote>
 <p>En este módulo se listan las variables que hacen referencia a los nombres de las columnas de los tres archivos de metadatos iniciales, a saber:</p>
 <ul>

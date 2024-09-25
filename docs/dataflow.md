@@ -140,7 +140,7 @@ The final result is that in the `data` attribute, the `glc` and `crea_mg_dl` var
 
 Once the cohort data has been preprocessed, it is formatted so that all cohorts have a homogeneous structure and can be subsequently combined. The central element of this processing is the `Cohort` class, and the `var_data` and `level_data` objects mentioned earlier are essential for its correct operation.
 
-For each cohort, a `Cohort` object is instantiated, which uses the (already preprocessed) attributes of `DataPreprocessor`: `data` (as the `raw_data` parameter), `var_data`, and `level_data`. It is important to note that each row in the `var_data` DataFrame corresponds to one of the selected core variables. For each of these variables, this DataFrame contains metadata about how they should be transformed:
+For each cohort, a `Cohort` object is instantiated, which uses the (already preprocessed) attributes of `DataPreprocessor`: `data` (as the `raw_data` parameter), `var_data`, and `level_data`. It is important to note that each row in the `var_data` DataFrame corresponds to one of the selected core variables. For each of these variables, this DataFrame contains configuration data about how they should be transformed:
 
 + Initial variable name in the cohort.
 + Final variable name in the common database.
@@ -191,7 +191,7 @@ The `SQLExporter` class is initialized using the `panel_metadata` DataFrame dict
 `SQLExporter` performs the following actions sequentially:
 
 1. **Creates an `engine` object**, which establishes the connection to the database based on the configuration specified in the `connection_config` module. For more information on the connection parameters, see the section [`connection_config` module](modules_documentation/configuration_module.md#connection_config-module).
-2. **Creates the database structure**: It defines the tables, the format of each table (which variables each contains, whether it's in long or wide format, etc.), and the relationships between them. To do this, it uses the metadata present in the `panel_metadata` object.
+2. **Creates the database structure**: It defines the tables, the format of each table (which variables each contains, whether it's in long or wide format, etc.), and the relationships between them. To do this, it uses the configuration data  present in the `panel_metadata` object.
 3. Establishes the connection to the database and generates the previously defined tables in the MySQL database.
 4. Iterates over each of the DataFrames in `liveraim.final_data` and inserts the data into the corresponding table.
 

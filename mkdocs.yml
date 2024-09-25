@@ -8,6 +8,7 @@ nav:
   - Modules documentation:
     - File Reading utils: modules_documentation/file_reading_utils_doc.md
     - Preprocessing utils: modules_documentation/data_processing_utils_doc.md
+    - Cohort utils: modules_documentation/cohort_utils_doc.md
     - Quality Control utils: modules_documentation/qc_checks_utils_doc.md
     - File Exporting utils: modules_documentation/file_exporting_utils_doc.md
     - SQL Exporting utils: modules_documentation/sql_exporting_utils_doc.md

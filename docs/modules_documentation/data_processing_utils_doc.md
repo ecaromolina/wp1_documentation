@@ -88,7 +88,8 @@ Once the preprocessing is finished, `data`, `var_data` and `level_data` is retur
         - `level_data` (pd.DataFrame): A DataFrame with level configuration data.
         - `cohort_name` (str): The name of the cohort being processed.
      
-     
+<br><br>
+
 - **`set_new_variables(self) -> tuple`**:
   Sets new variables for the cohort, including status, birth date, exit date, and cohort name. Updates the variable and level configuration objects accordingly. To do so, it calls an specific method for each variable, such as: `set_status_metadata`, `set_birth_date_columns`, etc. 
 
@@ -97,6 +98,7 @@ Once the preprocessing is finished, `data`, `var_data` and `level_data` is retur
             - `var_data`: the `var_data` object updated with the information about the new variables added. 
             - `level_data`: the `level_data` object updated with the information aobut the new variable levels added. 
 
+<br><br>
 
 - **`preprocess(self) -> self`**:
 Centralizes the preprocessing logic for different cohorts by identifying the cohort and applying the corresponding cohort-specific method.
@@ -104,14 +106,22 @@ Centralizes the preprocessing logic for different cohorts by identifying the coh
     - **Returns**: 
         - **self (PreProcessor)**: Returns the updated class itself. 
 
+<br><br>
+
 - **`preprocess_alcofib(self)`**:
 Preprocesses the ALCOFIB cohort data by applying transformations specific to that cohort.
+
+<br><br>
 
 - **`preprocess_glucofib(self)`**:
 Preprocesses the GLUCOFIB cohort data by applying transformations specific to that cohort.
 
+<br><br>
+
 - **`preprocess_liverscreen(self)`**:
 Preprocesses the LIVERSCREEN cohort data. If a combination dictionary (`comb_var_dict`) is provided, it combines variables according to that configuration.
+
+<br><br>
 
 - **`preprocess_decide(self)`**:
 Preprocesses the DECIDE cohort data by applying transformations specific to that cohort.
@@ -125,24 +135,28 @@ Method to update the configuration objects `var_data` and `level_data` with the 
     - **Returns**:
         - `var_data` (pd.DataFrame): The updated DataFrame with metadata for the status variable.
         - `level_data` (pd.DataFrame): The updated DataFrame with metadata for the status levels.
+<br><br>
 
 - **`set_birth_date_column(self) -> pd.DataFrame`**:
 Calculates and adds a "`birth_date`" column to the dataset based on the inclusion date and age varaibles (specified during the instantiation of the class). Updates the `var_data` DataFrame with the new configuration data for the birth date variable. If first checks if both columns, age and inclusion date, are in the raw data dataframe. Then, for those patients with values in both columns, computes the `birth_date`. 
 
     - **Returns**:
         - `var_data` (pd.DataFrame): The updated DataFrame with configuration data for the birth date variable.
+<br><br>
 
 - **`set_exit_date_column(self)`**:
 Adds the "`exit_date`" column to the dataset, which represents the date a patient leaves the cohort or the end of the study. If the study is ongoing, the current date is used.
 
      - **Returns**:
          - `var_data` (pd.DataFrame): The updated DataFrame with metadata for the exit date variable.
+<br><br>
 
 - **`set_cohort_column(self)`**:
 Adds the "cohort" column to the dataset, representing the cohort name for each patient. Uses the `cohort_name` attribute to do so. Updates the `var_data` DataFrame with metadata for this variable.
 
     - **Returns**:
         - `var_data` (pd.DataFrame): The updated DataFrame with metadata for the cohort variable.
+<br><br>
 
 - **`get_last_version(self, cohort_databases: dict[str, pd.DataFrame]) -> pd.DataFrame`**:
 Merges all versions of the cohort databases and assigns the patient status based on whether they appear in the latest version. Removes duplicates, keeping only the oldest data for each patient. If incompatibilites are found that might prevent the databases to merge properly (this is checked using the function [`check_df_formats`](#check_df_formatsdf_dict-dictstr-pddataframe---bool)) only the last version is returned and a warning is logged. 
@@ -152,6 +166,7 @@ Merges all versions of the cohort databases and assigns the patient status based
 
     - **Returns**:
         - `pd.DataFrame`: The final version of the cohort data, with the status variable updated.
+<br><br>
 
 - **`get_data(self)`**
 Returns all processed data, including the main dataset, `var_data`, and `level_data`. This is a sort of a getter for all the processed data. 
@@ -216,6 +231,7 @@ Initializes the `VarCombiner` class with a dictionary of reference variables and
   - **Arguments**:
     - `comb_var_dict` (dict): A dictionary with reference variables and their corresponding conversion factors.
     - `df` (pd.DataFrame): The DataFrame containing the data to be combined.
+<br><br>
 
 - **`_combine_vars(self, row: pd.Series, ref_var: str, var_conv_factors: dict) -> float`**
 Combines variables within a row by applying conversion factors if the reference variable is missing (using the algorithm described in the [class's *Description*](#description-1)). This function is intended to be used inside the apply method from pandas, specifically in the method `_combine_data`. 
@@ -228,7 +244,7 @@ Combines variables within a row by applying conversion factors if the reference 
 
     - **Returns**:
           - `float`: The combined value for the reference variable or NaN if no valid variables are found.
-        """
+<br><br>
 
 - **`_combine_data(self, df:pd.DataFrame, comb_var_dict: dict) -> pd.DataFrame:`**
 Applies the variable combination logic (i.e. the _combine_vars method) across all the variables in the comb_var_dict keys.
@@ -240,12 +256,13 @@ Applies the variable combination logic (i.e. the _combine_vars method) across al
 
     - **Returns**:
         - `pd.DataFrame`: The DataFrame with the combined variables.
+<br><br>
 
 - **`combine_all_data(self) -> 'VarCombiner'`**
 Combines all data according to the `comb_var_dict` and returns the updated instance of the `VarCombiner` class.
 
-  - **Returns**:
-    - `VarCombiner`: The updated instance of the class with combined data.
+    - **Returns**:
+        - `VarCombiner`: The updated instance of the class with combined data.
 
 #### Logs
 
@@ -256,96 +273,108 @@ Combines all data according to the `comb_var_dict` and returns the updated insta
 ### Class `ConfigDataManager`
 
 #### Description
-This class is responsible for rearranging and transforming configuration objects listed in the `CONFIG_OBJ_NAMES` list (e.g., `var_data`, `level_data`, `comb_var_data`) from the `main_config` module. It generates DataFrames with configuration data that can be exported to SQL. Specifically, the class performs the following actions:
-
-- Transforms configuration objects from a dictionary format into DataFrames.
-- Merges all configuration objects (converted to DataFrames when needed) into a single DataFrame, adding a 'Cohort' column indicating the cohort each configuration row refers to. This makes it easy to access the data from SQL queries.
-
-Once the data has been processed, the combined configuration data is stored and can be easily exported to a MySQL database through the the SQLExporter class.
+This class is responsible for transforming and combining configuration objects defined in the `CONFIG_OBJ_NAMES` list (`var_data`, `level_data`, `comb_var_data`, and `panel_data`) from the `main_config`. The class prepares the configuration data in a format suitable for export to SQL by converting the objects into pandas DataFrames and merging them as needed.
 
 #### Attributes
 
 - **`config_obj_names` (list[str]):**  
-  List of the names of the configuration objects that need to be transformed (e.g., `var_data`, `level_data`, `comb_var_data`).
-  
+  List of the names of the configuration objects that need to be transformed (e.g., `var_data`, `level_data`, `comb_var_data`, `panel_data`).
+
 - **`config_data` (dict):**  
-  Dictionary with the configuration data used to create the database. The keys are each type of configuration data (e.g., `var_data`, `level_data`), and the values are dictionaries containing configuration data for each cohort.
-  
+  Dictionary holding the configuration data used to create the database. The keys correspond to each type of configuration data, and the values are dictionaries that store configuration data for each cohort.
+
 - **`combined_config_data` (dict[str, pd.DataFrame]):**  
-  Dictionary storing the combined configuration data for each configuration type in DataFrame format, ready for export.
+  Dictionary that holds combined configuration data for each configuration type in DataFrame format, suitable for export.
 
 #### Methods
 
 - **`__init__(self, all_data: dict = None)`**:  
-  Initializes the `ConfigDataManager` class. If provided, `all_data` is used to populate the `config_data` attribute.
+  Initializes the `ConfigDataManager` class by setting up the structure for storing configuration data and optionally rearranging the configuration data if provided through `all_data`.
 
     - **Arguments**:
-        - `all_data` (dict, optional): A dictionary containing all the data used to create the data warehouse.
+        - `all_data` (dict, optional): A dictionary containing all the configuration data. If provided, it will be used to populate the `config_data` attribute.
 
 - **`instantiate_config_data(self) -> None`**:  
-  Initializes the `config_data` attribute as an empty dictionary, with keys corresponding to the configuration object names. This prepares the structure for storing configuration data.
+  Initializes an empty dictionary structure for storing configuration data based on `config_obj_names`.
 
-- **`append_config_data(self, cohort: str, **kwargs) -> None`**:  
-  Appends configuration data for a specific cohort to the `config_data` attribute.
+- **`append_config_data(self, cohort: str = None, **kwargs) -> None`**:  
+Appends configuration data for a specific cohort and configuration type to the config_data attribute. To add data for a particular cohort, you must pass the cohort's name using the cohort parameter. The configuration data is then appended by specifying the configuration type as a keyword argument (e.g., var_data=var_data_object), where the argument's name corresponds to the type of configuration data (such as var_data, level_data), and its value contains the actual data for that cohort.
 
     - **Arguments**:
-        - `cohort`  (str): The name of the cohort to which the configuration data belongs.
-        - `**kwargs`: Keyword arguments representing the configuration types (e.g., `var_data`, `level_data`) and their corresponding data.
+        - `cohort` (str): The name of the cohort to which the configuration data belongs.
+        - `**kwargs`: Keyword arguments where keys represent the configuration type (e.g., `var_data`, `level_data`, `comb_var_data`, `panel_data`) and values are the configuration data to append.
 
-  - **Notes**:
-      Only configuration types present in `config_obj_names` are accepted. If a key in `kwargs` is not in `config_obj_names`, a warning is logged.
+    - **Notes**:  
+      Only configuration types present in `config_obj_names` will be accepted. If a key in `kwargs` is not in `config_obj_names`, a warning is logged.
 
 - **`set_config_data_with_all_data(self, all_data: dict) -> ConfigDataManager`**:  
-  Rearranges the configuration data from `all_data` into the `config_data` attribute, ignoring any `panel_data`.
-
-    -**Arguments**:
-        - `all_data` (dict): Dictionary containing all the configuration data needed to create the database.
-    
-    - **Returns**: 
-        - `ConfigDataManager`: The instance with the updated `config_data`.
-
-- **`_combine_config_data_dfs(self, config_data_dict: dict) -> pd.DataFrame`**:  
-  Combines the configuration data for each cohort into a single DataFrame, adding a 'Cohort' column to indicate the cohort each row belongs to.
+  Rearranges the configuration data from `all_data` into the `config_data` attribute, creating a key for each config data type.
 
     - **Arguments**:
-        - `config_data_dict` (dict): Dictionary where keys are cohort names and values are DataFrames containing the configuration data for each cohort.
+        - `all_data` (dict): Dictionary containing all the configuration data needed to create the database.
     
-    - **Returns**: 
-        - `pd.DataFrame`: The combined configuration data for all cohorts.
+    - **Returns**:  
+      `ConfigDataManager`: The instance with the updated `config_data`.
 
-- **`_comb_var_data_to_df(self) -> ConfigDataManager`**:  
-  Converts the `comb_var_data` dictionaries in `config_data` to DataFrames using the `_dict_to_df` method.
+- **`_combine_config_data_dfs(self, config_data_dict: dict) -> pd.DataFrame`**:  
+  Takes the dataframes containing configuration data for each cohort, adds the 'Cohort' column, and concatenates them into a single DataFrame. The result is a single datafarme containing all the config data related to a specific config data type. 
 
-    - **Returns**: 
-        - `ConfigDataManager`: The instance with transformed `comb_var_data`.
+    - **Arguments**:
+        - `config_data_dict` (dict): Dictionary with all the dataframes from each cohort that need to be merged.
+    
+    - **Returns**:  
+      `pd.DataFrame`: Concatenation of all the configuration dataframes for a specific configuration data type.
+
+- **`_comb_var_data_to_df(self) -> dict[str, pd.DataFrame]`**:  
+  Converts the `comb_var_data` dictionaries in `config_data` into pandas DataFrames and returns a dictionary where keys are the cohort names and values are the dataframes (result of the conversion of the dictionaries).
+
+    - **Returns**:  
+      `dict[str, pd.DataFrame]`: A dictionary with `comb_var_data` transformed into DataFrames.
 
 - **`combine_panel_data(self) -> pd.DataFrame`**:  
-  Combines the `panel_data` for all cohorts into a single DataFrame, adding a 'panel' column.
+  Combines the `panel_data` for all cohorts into a single DataFrame, adding a 'panel' column to indicate the corresponding panel that the data is referring to. 
 
-    - **Returns**: 
-        - `pd.DataFrame`: The combined `panel_data` for all cohorts. If no `panel_data` is present, a warning is logged, and the method returns `None`.
+    - **Returns**:  
+      `pd.DataFrame`: The combined `panel_data` for all cohorts. If no `panel_data` is present, a warning is logged, and the method returns `None`.
 
 - **`_dict_to_df(self, config_dict: dict) -> pd.DataFrame`**:  
-  Converts a configuration dictionary into a pandas DataFrame.
+  Converts a dictionary with the structure of `comb_var_data` into a pandas DataFrame.
 
     - **Arguments**:
         - `config_dict` (dict): Dictionary to be transformed into a DataFrame.
     
-    - **Returns**: 
-        - `pd.DataFrame`: DataFrame containing the configuration data.
+    - **Returns**:  
+      `pd.DataFrame`: DataFrame containing the configuration data.
 
-- **`combine_config_data(self) -> ConfigDataManager`**:  
-  Iterates through all the configuration object types in `config_data` and applies the `_combine_config_data_dfs` method to combine the data for each configuration type.
+- **`combine_config_data(self) -> ConfigDataManager`**:
+  Iterates through all the configuration object types in `config_data` and applies the `_combine_config_data_dfs` method to combine the data for each type. It then calls `transform_all_config_data_datatypes` to ensure the columns have the proper data types for exporting to a MySQL database.
 
-    - **Returns**: 
-        - `ConfigDataManager`: The instance with the combined configuration data in `combined_config_data`.
+    - **Returns**:  
+      `ConfigDataManager`: The instance with the combined configuration data in `combined_config_data`.
 
-- **`_combine_cohort_config_data(self, config_obj_type: str, config_data: dict)`**:  
+- **`_combine_config_obj_type(self, config_obj_type: str, config_data: dict)`**:  
   Combines configuration data for individual cohorts based on the configuration object type (e.g., `var_data`, `level_data`, `comb_var_data`, `panel_data`).
 
     - **Arguments**:
         - `config_obj_type` (str): The type of configuration object to combine.
         - `config_data` (dict): Dictionary containing the configuration data for the specified type.
+
+- **`transform_column_data_types(self, config_data: pd.DataFrame, data_types_map: dict) -> pd.DataFrame`**:  
+  Maps the datatypes of `config_data` columns following the mapping in `data_types_map` and returns the updated DataFrame.
+
+    - **Arguments**:
+        - `config_data` (pd.DataFrame): The DataFrame whose column types need to be converted.
+        - `data_types_map` (dict): A mapping of column names to their corresponding data types.
+    
+    - **Returns**:  
+      `pd.DataFrame`: The DataFrame with updated column types.
+
+- **`transform_all_config_data_datatypes(self) -> None`**:  
+  Iterates through all the configuration data DataFrames and applies `transform_column_data_types` to ensure the columns have the correct data types for export to MySQL.
+
+    - **Notes**:  
+      The method reads the datatype mapping from a metadata file and applies it to the combined configuration data.
+
 
 
 ## General Operation

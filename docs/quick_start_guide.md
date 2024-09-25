@@ -1,6 +1,6 @@
 # Fast Configuration
 
-This section describes the necessary configuration to run the code and generate the database for WP1. For a comprehensive description of all configuration parameters, refer to the section [Configuration Module](modules_documentation/configuration_module.md).
+This section describes the necessary configuration to run the code and generate the data warehouse for WP1. For a comprehensive description of all configuration parameters, refer to the section [Configuration Module](modules_documentation/configuration_module.md).
 
 > **Important Notice**: Before configuring the project, ensure that the prerequisites described in the [Environment Setup](#enviroment-setup) section are met.
 
@@ -102,6 +102,7 @@ Access the `config.main_config` file and modify these variables according to you
 
 ## Creating Environment Variables
 
+<span style="color:red"> *Pending* </span>
 
 # Enviroment setup
 

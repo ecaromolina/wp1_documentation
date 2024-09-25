@@ -82,7 +82,7 @@
                 
                 
                     <li >
-                        <a href="../../liveraim_data_warehouse_structure/">LIVERAIM Database Structure</a>
+                        <a href="../../liveraim_data_warehouse_specifications/">LIVERAIM Data Warehouse Specifications</a>
                     </li>
                 
                 
@@ -100,6 +100,12 @@
                             
 <li >
     <a href="../data_processing_utils_doc/">Preprocessing utils</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../cohort_utils_doc/">Cohort utils</a>
 </li>
 
                         
@@ -123,7 +129,7 @@
                         
                             
 <li >
-    <a href="../../configuration/configuration_module/">Configuration module</a>
+    <a href="../configuration_module/">Configuration module</a>
 </li>
 
                         
@@ -146,7 +152,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../data_processing_utils_doc/">
+                        <a rel="prev" href="../cohort_utils_doc/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -209,7 +215,7 @@
 <p>Specific Checker Classes:</p>
 <ul>
 <li><a href="#nonnumericchecker"><code>NonNumericChecker</code></a>: Responsible for checking the presence of non-numeric values in the numeric variables of the cohort's homogeneous data. Inherits from <code>GeneralChecker</code>.</li>
-<li><a href="#checker-nanchecker"><code>NaNChecker</code></a>: Analyzes the presence of NaN values in both raw and homogeneous data and records the differences between them. Inherits from <code>GeneralChecker</code>.</li>
+<li><a href="#nanchecker"><code>NaNChecker</code></a>: Analyzes the presence of NaN values in both raw and homogeneous data and records the differences between them. Inherits from <code>GeneralChecker</code>.</li>
 <li><a href="#conversionchecker"><code>ConversionChecker</code></a>: Checks for errors that may have occurred during the conversion of numeric and categorical variables in the homogenization process. Inherits from <code>GeneralChecker</code>.</li>
 <li>
 <p><a href="#consistancychecker"><code>ConsistencyChecker</code></a>: Reviews the consistency of the final data by comparing it with the structure of the original metadata defined in the configuration files. Inherits from <code>GeneralChecker</code>.</p>
@@ -638,7 +644,7 @@
 </li>
 </ul>
 <h2 id="output-description">Output Description<a class="headerlink" href="#output-description" title="Permanent link">&para;</a></h2>
-<p>Several results generated during quality controls are exported if the <code>QC_EXPORT_RECORD</code> variable (declared in the <a href="../../configuration/configuration_module/#main_config-module"><code>main_config</code></a> module) is set to <code>True</code>.</p>
+<p>Several results generated during quality controls are exported if the <code>QC_EXPORT_RECORD</code> variable (declared in the <a href="../configuration_module/#main_config-module"><code>main_config</code></a> module) is set to <code>True</code>.</p>
 <p>The <code>QC_REPORT_FOLDER</code> directory stores all results related to quality control. This directory contains the code (<span style="color: red">still to be implemented</span>) necessary to create the QC report if desired. <code>QC_REPORT_FOLDER</code> also contains a subfolder, defined by the <code>QC_DATA_FOLDER</code> variable, where all the raw outputs generated during QC are saved. Each execution (if <code>QC_EXPORT_RECORD</code> is set to <code>True</code>) will generate a directory within <code>QC_DATA_FOLDER</code> named:</p>
 <pre><code>qc_execution_yyyy-mm-dd_hh-mm-ss
 </code></pre>
@@ -878,9 +884,9 @@
 }
 </code></pre>
 <h2 id="usage-in-main-execution">Usage in main execution<a class="headerlink" href="#usage-in-main-execution" title="Permanent link">&para;</a></h2>
-<p>The use of this module during the main execution of the code is through the instantiation of the <code>QCChecker</code>. Each time a <code>Cohort</code> class is instantiated (and the database is internally processed to obtain the <code>homogeneous_data</code>), a <code>QCChecker</code> object is created for that cohort (i.e., for each cohort listed in <code>COHORT_NAME_LIST</code> from the <a href="../../configuration/configuration_module/#cohort_config-module"><code>cohort_config</code></a> module).</p>
-<p>When <code>QCChecker</code> is instantiated, it automatically creates instances of all the classes responsible for various validations and checks as its attributes (see <a href="#class-qcchecker"><code>QCChecker</code> class</a>). Each of these attributes will execute its respective validation and check methods automatically, storing the generated records in their own attributes. (<span style="color:red">Revisar docu de métodos init </span>)</p>
-<p>If the <code>QC_EXPORT_RECORD</code> variable from the <a href="../../configuration/configuration_module/#main_config-module"><code>main_config</code></a> module is set to <code>True</code>, the <code>export_qc_reports</code> method of the <code>QCChecker</code> will be executed in the main code and quality control records for this specific cohort will be exported (see <a href="#output-description">output descrption</a>). </p>
+<p>The use of this module during the main execution of the code is through the instantiation of the <code>QCChecker</code>. Each time a <code>Cohort</code> class is instantiated (and the database is internally processed to obtain the <code>homogeneous_data</code>), a <code>QCChecker</code> object is created for that cohort (i.e., for each cohort listed in <code>COHORT_NAME_LIST</code> from the <a href="../configuration_module/#cohort_config-module"><code>cohort_config</code></a> module).</p>
+<p>When <code>QCChecker</code> is instantiated, it automatically creates instances of all the classes responsible for various validations and checks as its attributes (see <a href="#qcchecker"><code>QCChecker</code> class</a>). Each of these attributes will execute its respective validation and check methods automatically, storing the generated records in their own attributes. (<span style="color:red">Revisar docu de métodos init </span>)</p>
+<p>If the <code>QC_EXPORT_RECORD</code> variable from the <a href="../configuration_module/#main_config-module"><code>main_config</code></a> module is set to <code>True</code>, the <code>export_qc_reports</code> method of the <code>QCChecker</code> will be executed in the main code and quality control records for this specific cohort will be exported (see <a href="#output-description">output descrption</a>). </p>
 <p>After all the cohorts have been created and merged into the final <em>Liveraim</em> cohort, another instance of the <code>QCChecker</code> class is created to perform a quality control check on this final cohort. In this case, quality control checks related to the structure of the final panels will also be applied through the <code>panel_consistancy_datatypes_check</code> method of the <code>ConsistancyChecker</code> class.</p>
 <h2 id="other-complementary-functions">Other complementary functions<a class="headerlink" href="#other-complementary-functions" title="Permanent link">&para;</a></h2>
 <p><em>Not yet implemented</em></p></div>

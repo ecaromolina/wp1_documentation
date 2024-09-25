@@ -2,7 +2,7 @@
 
 This section describes the structure, tables, and relationships within the data warehouse.
 
-The data warehouse is composed of several tables that can be divided into two groups: the database itself, which we will simply call `database`, and the `metadata` tables, where information about the variables, the structure of the database, mapping dictionaries, etc., is stored. The database, in its first version (prior to receiving biomarker data), consists of the following tables:
+The data warehouse is composed of several tables that can be divided into two groups: the database itself, which we will simply call `database`, and the `configuration data` tables, where information about the variables, the structure of the database, mapping dictionaries, etc., is stored. The database, in its first version (prior to receiving biomarker data), consists of the following tables:
 
 - `population`: Contains basic information about each patient, such as gender, status, cohort membership, etc.
 - `blood_test_categorical`: Contains categorical variables extracted from the blood test (at `dat_0`).
@@ -52,8 +52,8 @@ It is important to clarify the difference between `cohort_id` and `liveraim_id`.
 This section describes the initial data recieved from the partners and teh configuration files that the program needs to build the database. For each cohort, there are four types of files, which are described below:
 
 * [`database`](#database-files): contains the raw data of the cohort
-* [`var_data`](#var_data-files): contains metadata about the core variables needed to create the data warehouse
-* [`level_data`](#level_data-files): contains metadata about the levels of categorical core variables needed to create the data warehouse
+* [`var_data`](#var_data-files): contains configuration data about the core variables needed to create the data warehouse
+* [`level_data`](#level_data-files): contains configuration data about the levels of categorical core variables needed to create the data warehouse
 * [`comb_var_data`](#comb_var_data-file): For the variables that need to be combined, it contains the necessary data to perform this process.
 
 Finally, an other file, [`panel_data`](#panel_data-file) is needed for the proper creation of the data warehouse. In this file the structure of the final panels is described. 
@@ -190,7 +190,7 @@ a. **Database**
   - `physical_exam`
   - `medical_history`
 
-b. **Metadata**
+b. **Configuration Data**
 
   - `panel_metadata`
   - `var_data`

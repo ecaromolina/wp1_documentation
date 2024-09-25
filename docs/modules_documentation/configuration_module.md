@@ -29,6 +29,7 @@ The following sections describe the variables contained in each of these files, 
 The following variables are mainly used in the module [`file_reading_utils`](../modules_documentation/file_reading_utils_doc.md). 
 
 * `PANEL_DATA_FILE_NAME (str)`: Name of the file containing the panel data (should be an .xlsx file).
+* `CONFIG_DATA_METADATA_FILE_PATH (str)`: Path of the file containing the metadata of the config data tables (i.e. data types of each column) that will be exported to the database. 
 * `LIVERSCREEN_VAR_FILE_NAME (str)`: Name of the file containing the `var_data` for the *Liverscreen* cohort (should be an .xlsx file).
 * `GLUCOFIB_VAR_FILE_NAME (str)`: Name of the file containing the `var_data` for the *Glucofib* cohort (should be an .xlsx file).
 * `ALCOFIB_VAR_FILE_NAME (str)`: Name of the file containing the `var_data` for the *Alcofib* cohort (should be an .xlsx file).
