@@ -376,7 +376,6 @@ Appends configuration data for a specific cohort and configuration type to the c
       The method reads the datatype mapping from a metadata file and applies it to the combined configuration data.
 
 
-
 ## General Operation
 
 The data preprocessing is carried out iteratively for each cohort. Once completed, the resulting objects are used to create a `Cohort` class, responsible for homogenizing and formatting the data (see the section [`cohort_utils`](cohort_utils_doc.md)).

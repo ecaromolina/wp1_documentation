@@ -547,11 +547,11 @@ Applies the variable combination logic (i.e. the _combine_vars method) across al
 <li>
 <p><strong><code>combine_all_data(self) -&gt; 'VarCombiner'</code></strong>
 Combines all data according to the <code>comb_var_dict</code> and returns the updated instance of the <code>VarCombiner</code> class.</p>
-</li>
-<li>
-<p><strong>Returns</strong>:</p>
 <ul>
+<li><strong>Returns</strong>:<ul>
 <li><code>VarCombiner</code>: The updated instance of the class with combined data.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -564,118 +564,106 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
 </ul>
 <h3 id="class-configdatamanager">Class <code>ConfigDataManager</code><a class="headerlink" href="#class-configdatamanager" title="Permanent link">&para;</a></h3>
 <h4 id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">&para;</a></h4>
-<p>This class is responsible for rearranging and transforming configuration objects listed in the <code>CONFIG_OBJ_NAMES</code> list (e.g., <code>var_data</code>, <code>level_data</code>, <code>comb_var_data</code>) from the <code>main_config</code> module. It generates DataFrames with configuration data that can be exported to SQL. Specifically, the class performs the following actions:</p>
-<ul>
-<li>Transforms configuration objects from a dictionary format into DataFrames.</li>
-<li>Merges all configuration objects (converted to DataFrames when needed) into a single DataFrame, adding a 'Cohort' column indicating the cohort each configuration row refers to. This makes it easy to access the data from SQL queries.</li>
-</ul>
-<p>Once the data has been processed, the combined configuration data is stored and can be easily exported to a MySQL database through the the SQLExporter class.</p>
+<p>This class is responsible for transforming and combining configuration objects defined in the <code>CONFIG_OBJ_NAMES</code> list (<code>var_data</code>, <code>level_data</code>, <code>comb_var_data</code>, and <code>panel_data</code>) from the <code>main_config</code>. The class prepares the configuration data in a format suitable for export to SQL by converting the objects into pandas DataFrames and merging them as needed.</p>
 <h4 id="attributes_2">Attributes<a class="headerlink" href="#attributes_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
 <p><strong><code>config_obj_names</code> (list[str]):</strong><br />
-  List of the names of the configuration objects that need to be transformed (e.g., <code>var_data</code>, <code>level_data</code>, <code>comb_var_data</code>).</p>
+  List of the names of the configuration objects that need to be transformed (e.g., <code>var_data</code>, <code>level_data</code>, <code>comb_var_data</code>, <code>panel_data</code>).</p>
 </li>
 <li>
 <p><strong><code>config_data</code> (dict):</strong><br />
-  Dictionary with the configuration data used to create the database. The keys are each type of configuration data (e.g., <code>var_data</code>, <code>level_data</code>), and the values are dictionaries containing configuration data for each cohort.</p>
+  Dictionary holding the configuration data used to create the database. The keys correspond to each type of configuration data, and the values are dictionaries that store configuration data for each cohort.</p>
 </li>
 <li>
 <p><strong><code>combined_config_data</code> (dict[str, pd.DataFrame]):</strong><br />
-  Dictionary storing the combined configuration data for each configuration type in DataFrame format, ready for export.</p>
+  Dictionary that holds combined configuration data for each configuration type in DataFrame format, suitable for export.</p>
 </li>
 </ul>
 <h4 id="methods_2">Methods<a class="headerlink" href="#methods_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
 <p><strong><code>__init__(self, all_data: dict = None)</code></strong>:<br />
-  Initializes the <code>ConfigDataManager</code> class. If provided, <code>all_data</code> is used to populate the <code>config_data</code> attribute.</p>
+  Initializes the <code>ConfigDataManager</code> class by setting up the structure for storing configuration data and optionally rearranging the configuration data if provided through <code>all_data</code>.</p>
 <ul>
 <li><strong>Arguments</strong>:<ul>
-<li><code>all_data</code> (dict, optional): A dictionary containing all the data used to create the data warehouse.
-<br><br></li>
+<li><code>all_data</code> (dict, optional): A dictionary containing all the configuration data. If provided, it will be used to populate the <code>config_data</code> attribute.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
 <p><strong><code>instantiate_config_data(self) -&gt; None</code></strong>:<br />
-  Initializes the <code>config_data</code> attribute as an empty dictionary, with keys corresponding to the configuration object names. This prepares the structure for storing configuration data.
-<br><br></p>
+  Initializes an empty dictionary structure for storing configuration data based on <code>config_obj_names</code>.</p>
 </li>
 <li>
-<p><strong><code>append_config_data(self, cohort: str, **kwargs) -&gt; None</code></strong>:<br />
-  Appends configuration data for a specific cohort to the <code>config_data</code> attribute.</p>
+<p><strong><code>append_config_data(self, cohort: str = None, **kwargs) -&gt; None</code></strong>:<br />
+Appends configuration data for a specific cohort and configuration type to the config_data attribute. To add data for a particular cohort, you must pass the cohort's name using the cohort parameter. The configuration data is then appended by specifying the configuration type as a keyword argument (e.g., var_data=var_data_object), where the argument's name corresponds to the type of configuration data (such as var_data, level_data), and its value contains the actual data for that cohort.</p>
 <ul>
-<li><strong>Arguments</strong>:<ul>
-<li><code>cohort</code>  (str): The name of the cohort to which the configuration data belongs.</li>
-<li><code>**kwargs</code>: Keyword arguments representing the configuration types (e.g., <code>var_data</code>, <code>level_data</code>) and their corresponding data.</li>
-</ul>
-</li>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>cohort</code> (str): The name of the cohort to which the configuration data belongs.</li>
+<li><code>**kwargs</code>: Keyword arguments where keys represent the configuration type (e.g., <code>var_data</code>, <code>level_data</code>, <code>comb_var_data</code>, <code>panel_data</code>) and values are the configuration data to append.</li>
 </ul>
 </li>
 <li>
-<p><strong>Notes</strong>:
-      Only configuration types present in <code>config_obj_names</code> are accepted. If a key in <code>kwargs</code> is not in <code>config_obj_names</code>, a warning is logged.
-<br><br></p>
+<p><strong>Notes</strong>:<br />
+  Only configuration types present in <code>config_obj_names</code> will be accepted. If a key in <code>kwargs</code> is not in <code>config_obj_names</code>, a warning is logged.</p>
+</li>
+</ul>
 </li>
 <li>
 <p><strong><code>set_config_data_with_all_data(self, all_data: dict) -&gt; ConfigDataManager</code></strong>:<br />
-  Rearranges the configuration data from <code>all_data</code> into the <code>config_data</code> attribute, ignoring any <code>panel_data</code>.</p>
-<p>-<strong>Arguments</strong>:
-    - <code>all_data</code> (dict): Dictionary containing all the configuration data needed to create the database.</p>
+  Rearranges the configuration data from <code>all_data</code> into the <code>config_data</code> attribute, creating a key for each config data type.</p>
 <ul>
-<li><strong>Returns</strong>: <ul>
-<li><code>ConfigDataManager</code>: The instance with the updated <code>config_data</code>.
-<br><br></li>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>all_data</code> (dict): Dictionary containing all the configuration data needed to create the database.</li>
 </ul>
+</li>
+<li>
+<p><strong>Returns</strong>:<br />
+<code>ConfigDataManager</code>: The instance with the updated <code>config_data</code>.</p>
 </li>
 </ul>
 </li>
 <li>
 <p><strong><code>_combine_config_data_dfs(self, config_data_dict: dict) -&gt; pd.DataFrame</code></strong>:<br />
-  Combines the configuration data for each cohort into a single DataFrame, adding a 'Cohort' column to indicate the cohort each row belongs to.</p>
+  Takes the dataframes containing configuration data for each cohort, adds the 'Cohort' column, and concatenates them into a single DataFrame. The result is a single datafarme containing all the config data related to a specific config data type. </p>
 <ul>
 <li>
 <p><strong>Arguments</strong>:</p>
 <ul>
-<li><code>config_data_dict</code> (dict): Dictionary where keys are cohort names and values are DataFrames containing the configuration data for each cohort.</li>
+<li><code>config_data_dict</code> (dict): Dictionary with all the dataframes from each cohort that need to be merged.</li>
 </ul>
 </li>
 <li>
-<p><strong>Returns</strong>: </p>
-<ul>
-<li><code>pd.DataFrame</code>: The combined configuration data for all cohorts.
-<br><br></li>
-</ul>
+<p><strong>Returns</strong>:<br />
+<code>pd.DataFrame</code>: Concatenation of all the configuration dataframes for a specific configuration data type.</p>
 </li>
 </ul>
 </li>
 <li>
-<p><strong><code>_comb_var_data_to_df(self) -&gt; ConfigDataManager</code></strong>:<br />
-  Converts the <code>comb_var_data</code> dictionaries in <code>config_data</code> to DataFrames using the <code>_dict_to_df</code> method.</p>
+<p><strong><code>_comb_var_data_to_df(self) -&gt; dict[str, pd.DataFrame]</code></strong>:<br />
+  Converts the <code>comb_var_data</code> dictionaries in <code>config_data</code> into pandas DataFrames and returns a dictionary where keys are the cohort names and values are the dataframes (result of the conversion of the dictionaries).</p>
 <ul>
-<li><strong>Returns</strong>: <ul>
-<li><code>ConfigDataManager</code>: The instance with transformed <code>comb_var_data</code>.
-<br><br></li>
-</ul>
-</li>
+<li><strong>Returns</strong>:<br />
+<code>dict[str, pd.DataFrame]</code>: A dictionary with <code>comb_var_data</code> transformed into DataFrames.</li>
 </ul>
 </li>
 <li>
 <p><strong><code>combine_panel_data(self) -&gt; pd.DataFrame</code></strong>:<br />
-  Combines the <code>panel_data</code> for all cohorts into a single DataFrame, adding a 'panel' column.</p>
+  Combines the <code>panel_data</code> for all cohorts into a single DataFrame, adding a 'panel' column to indicate the corresponding panel that the data is referring to. </p>
 <ul>
-<li><strong>Returns</strong>: <ul>
-<li><code>pd.DataFrame</code>: The combined <code>panel_data</code> for all cohorts. If no <code>panel_data</code> is present, a warning is logged, and the method returns <code>None</code>.
-<br><br></li>
-</ul>
-</li>
+<li><strong>Returns</strong>:<br />
+<code>pd.DataFrame</code>: The combined <code>panel_data</code> for all cohorts. If no <code>panel_data</code> is present, a warning is logged, and the method returns <code>None</code>.</li>
 </ul>
 </li>
 <li>
 <p><strong><code>_dict_to_df(self, config_dict: dict) -&gt; pd.DataFrame</code></strong>:<br />
-  Converts a configuration dictionary into a pandas DataFrame.</p>
+  Converts a dictionary with the structure of <code>comb_var_data</code> into a pandas DataFrame.</p>
 <ul>
 <li>
 <p><strong>Arguments</strong>:</p>
@@ -684,27 +672,21 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
 </ul>
 </li>
 <li>
-<p><strong>Returns</strong>: </p>
-<ul>
-<li><code>pd.DataFrame</code>: DataFrame containing the configuration data.
-<br><br></li>
-</ul>
+<p><strong>Returns</strong>:<br />
+<code>pd.DataFrame</code>: DataFrame containing the configuration data.</p>
 </li>
 </ul>
 </li>
 <li>
-<p><strong><code>combine_config_data(self) -&gt; ConfigDataManager</code></strong>:<br />
-  Iterates through all the configuration object types in <code>config_data</code> and applies the <code>_combine_config_data_dfs</code> method to combine the data for each configuration type.</p>
+<p><strong><code>combine_config_data(self) -&gt; ConfigDataManager</code></strong>:
+  Iterates through all the configuration object types in <code>config_data</code> and applies the <code>_combine_config_data_dfs</code> method to combine the data for each type. It then calls <code>transform_all_config_data_datatypes</code> to ensure the columns have the proper data types for exporting to a MySQL database.</p>
 <ul>
-<li><strong>Returns</strong>: <ul>
-<li><code>ConfigDataManager</code>: The instance with the combined configuration data in <code>combined_config_data</code>.
-<br><br></li>
-</ul>
-</li>
+<li><strong>Returns</strong>:<br />
+<code>ConfigDataManager</code>: The instance with the combined configuration data in <code>combined_config_data</code>.</li>
 </ul>
 </li>
 <li>
-<p><strong><code>_combine_cohort_config_data(self, config_obj_type: str, config_data: dict)</code></strong>:<br />
+<p><strong><code>_combine_config_obj_type(self, config_obj_type: str, config_data: dict)</code></strong>:<br />
   Combines configuration data for individual cohorts based on the configuration object type (e.g., <code>var_data</code>, <code>level_data</code>, <code>comb_var_data</code>, <code>panel_data</code>).</p>
 <ul>
 <li><strong>Arguments</strong>:<ul>
@@ -712,6 +694,31 @@ Combines all data according to the <code>comb_var_dict</code> and returns the up
 <li><code>config_data</code> (dict): Dictionary containing the configuration data for the specified type.</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>
+<p><strong><code>transform_column_data_types(self, config_data: pd.DataFrame, data_types_map: dict) -&gt; pd.DataFrame</code></strong>:<br />
+  Maps the datatypes of <code>config_data</code> columns following the mapping in <code>data_types_map</code> and returns the updated DataFrame.</p>
+<ul>
+<li>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>config_data</code> (pd.DataFrame): The DataFrame whose column types need to be converted.</li>
+<li><code>data_types_map</code> (dict): A mapping of column names to their corresponding data types.</li>
+</ul>
+</li>
+<li>
+<p><strong>Returns</strong>:<br />
+<code>pd.DataFrame</code>: The DataFrame with updated column types.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>transform_all_config_data_datatypes(self) -&gt; None</code></strong>:<br />
+  Iterates through all the configuration data DataFrames and applies <code>transform_column_data_types</code> to ensure the columns have the correct data types for export to MySQL.</p>
+<ul>
+<li><strong>Notes</strong>:<br />
+  The method reads the datatype mapping from a metadata file and applies it to the combined configuration data.</li>
 </ul>
 </li>
 </ul>
