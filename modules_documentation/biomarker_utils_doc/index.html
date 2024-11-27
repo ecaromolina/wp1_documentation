@@ -547,7 +547,40 @@ Calls various internal methods to perform specific QC checks, such as boundary c
 <p><strong>Returns</strong>:</p>
 <ul>
 <li><code>pd.DataFrame</code>: The updated DataFrame with any identified inconsistencies resolved by 
-removing affected rows.</li>
+removing affected rows.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>compute_bmk_bounds(self) -&gt; None:</code></strong></p>
+<p>Method that creates the <code>bmk_bounds</code> attribute from the previously formatted biomarker data. For each biomarker, it extracts the upper and lower bounds (if present in the data) and stores them in a dictionary.
+Once created, the dictionary is assigned to the <code>bmk_bounds</code> attribute. The dictionary structure is as follows:</p>
+<pre><code>{
+    &lt;bmk_label&gt;: {
+        "&lt;": &lt;lower_bound&gt;, 
+        "&gt;": &lt;upper_bound&gt;},
+    ...
+}
+</code></pre>
+<ul>
+<li><strong>Logs</strong>:<ul>
+<li>If the biomarker data has not yet been processed, a warning is generated indicating that the data must be formatted before creating <code>bmk_bounds</code>.</li>
+<li>If multiple bounds of the same type are found for the same biomarker, a warning about possible inconsistency in the bounds is issued.
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>check_bmk_bounds(self) -&gt; None:</code></strong></p>
+<p>Method responsible for checking the bounds of formatted biomarker data using the previously created <code>bmk_bounds</code> attribute. Specifically, it verifies if any values exceed or fall below the established bounds.</p>
+<ul>
+<li><strong>Logs</strong>:<ul>
+<li>If the <code>bmk_bounds</code> attribute has not yet been created, a warning is issued indicating that this attribute must be created first, then the method returns.</li>
+<li>If any inconsistencies are found, i.e., values outside the <code>bmk_bounds</code> limits, a message with relevant error information is logged.
+<br><br></li>
 </ul>
 </li>
 </ul>
