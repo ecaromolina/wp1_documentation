@@ -189,7 +189,7 @@
                 
             <li class="second-level"><a href="#panel_data-file">panel_data file</a></li>
                 
-        <li class="first-level "><a href="#liveraim-data-warehouse-structure-v01">LIVERAIM DATA WAREHOUSE STRUCTURE v0.1</a></li>
+        <li class="first-level "><a href="#liveraim-data-warehouse-structure">Liveraim Data Warehouse Structure</a></li>
             <li class="second-level"><a href="#a-database-tables-description">a. Database Tables Description</a></li>
                 
                 <li class="third-level"><a href="#table-sources">Table sources:</a></li>
@@ -200,6 +200,8 @@
                 <li class="third-level"><a href="#table-medical_history">Table: medical_history</a></li>
                 <li class="third-level"><a href="#table-blood_test_numerical">Table: blood_test_numerical</a></li>
                 <li class="third-level"><a href="#table-blood_test_categorical">Table: blood_test_categorical</a></li>
+            <li class="second-level"><a href="#varibles-description">Varibles description</a></li>
+                
             <li class="second-level"><a href="#b-configuration-tables-description">b. Configuration Tables Description</a></li>
                 
         <li class="first-level "><a href="#general-relationships-in-the-schema">General Relationships in the Schema</a></li>
@@ -473,8 +475,8 @@ Transforming a wide table into a long table is a straightforward process (if the
 <p>These files are tracked in GitHub like the rest of the scripts, so there is no need to create them from scratch, and they should work fine if the repository is cloned.</p>
 <p>When this file is read, since it is an .xlsx file with multiple sheets, it is loaded into the code as a dictionary of <code>pandas.DataFrames</code>. Each sheet name becomes a key, and the corresponding table becomes its value (a <code>DataFrame</code>). Throughout the documentation, we will refer to this dictionary as <code>panel_metadata</code>.</p>
 <p>It is important to maintain the structure of this file (and the previously described). Changes can be easily made to modify the final structure of the data warehouse by adding new sheets to the file (i.e., adding new panels), adding variables to a panel, or changing their structure (long or wide format).</p>
-<p>For more information about the structure of the final data, check the next section <a href="#liveraim-data-warehouse-structure-v01">LIVERAIM DATA WAREHOUSE STRUCTURE</a>.</p>
-<h1 id="liveraim-data-warehouse-structure-v01">LIVERAIM DATA WAREHOUSE STRUCTURE v0.1<a class="headerlink" href="#liveraim-data-warehouse-structure-v01" title="Permanent link">&para;</a></h1>
+<p>For more information about the structure of the final data, check the next section <a href="#liveraim-data-warehouse-structure">LIVERAIM DATA WAREHOUSE STRUCTURE</a>.</p>
+<h1 id="liveraim-data-warehouse-structure">Liveraim Data Warehouse Structure<a class="headerlink" href="#liveraim-data-warehouse-structure" title="Permanent link">&para;</a></h1>
 <p>The <strong>LIVERAIM DATA WAREHOUSE v0.1</strong> is composed by the following tables:</p>
 <p>a. <strong>Database</strong></p>
 <ul>
@@ -1640,6 +1642,370 @@ Transforming a wide table into a long table is a straightforward process (if the
 <td>VARCHAR(255)</td>
 <td>category</td>
 <td>applied a mapping (to homogenize level codification) defined in <code>level_data</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="varibles-description">Varibles description<a class="headerlink" href="#varibles-description" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>liveraim_name</th>
+<th>data_type</th>
+<th>Units/levels</th>
+<th>panels</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>liveraim_id</td>
+<td>string</td>
+<td>-</td>
+<td>all panels</td>
+<td>Intra-cohort identification code.</td>
+</tr>
+<tr>
+<td>cohort_id</td>
+<td>string</td>
+<td>-</td>
+<td>population</td>
+<td>Identifier for each cohort.</td>
+</tr>
+<tr>
+<td>inclusion_date</td>
+<td>datetime64[ns]</td>
+<td>date</td>
+<td>all cohort-related tables</td>
+<td>Date of visit 0.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>category</td>
+<td>0: Finished<br>1: Ongoing<br>2: Withdrawn</td>
+<td>population</td>
+<td>Status of the patients in the cohort. Finished if recruitment is complete, ongoing if still recruiting, withdrawn otherwise.</td>
+</tr>
+<tr>
+<td>birth_date</td>
+<td>datetime64[ns]</td>
+<td>date</td>
+<td>population</td>
+<td>Date of birth of the patients (calculated using variables age and inclusion_date).</td>
+</tr>
+<tr>
+<td>cohort</td>
+<td>category</td>
+<td>-</td>
+<td>population</td>
+<td>Cohort from which the patient originates.</td>
+</tr>
+<tr>
+<td>exit_date</td>
+<td>datetime64[ns]</td>
+<td>date</td>
+<td>population</td>
+<td>Date when recruitment finished or last version date for withdrawn patients.</td>
+</tr>
+<tr>
+<td>age</td>
+<td>float64</td>
+<td>years</td>
+<td>demographics, population</td>
+<td>Age at inclusion.</td>
+</tr>
+<tr>
+<td>ethnicity</td>
+<td>category</td>
+<td>0: Caucasian<br>1: Latin-American<br>2: African<br>3: Asian<br>4: Mix<br>5: Other</td>
+<td>demographics</td>
+<td>Ethnicity or continent of origin.</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>category</td>
+<td>0: Female<br>1: Male</td>
+<td>demographics, population</td>
+<td>Gender of the patient.</td>
+</tr>
+<tr>
+<td>hypertension</td>
+<td>category</td>
+<td>0: No<br>1: Yes</td>
+<td>medical_history</td>
+<td>High blood pressure status.</td>
+</tr>
+<tr>
+<td>centralobesity</td>
+<td>category</td>
+<td>0: No<br>1: Yes</td>
+<td>medical_history</td>
+<td>Abdominal obesity status.</td>
+</tr>
+<tr>
+<td>hightrigly</td>
+<td>category</td>
+<td>0: No<br>1: Yes</td>
+<td>medical_history</td>
+<td>High triglycerides status.</td>
+</tr>
+<tr>
+<td>COPD</td>
+<td>category</td>
+<td>0: No<br>1: Yes</td>
+<td>medical_history</td>
+<td>COPD comorbidity.</td>
+</tr>
+<tr>
+<td>smoke</td>
+<td>category</td>
+<td>1: Current smoker<br>2: Prior smoking<br>3: Non-smoker</td>
+<td>medical_history</td>
+<td>Smoking history of the patient.</td>
+</tr>
+<tr>
+<td>weight</td>
+<td>float64</td>
+<td>kg</td>
+<td>physical_exam</td>
+<td>Weight of the patient.</td>
+</tr>
+<tr>
+<td>height</td>
+<td>float64</td>
+<td>cm</td>
+<td>physical_exam</td>
+<td>Height of the patient.</td>
+</tr>
+<tr>
+<td>bmi</td>
+<td>float64</td>
+<td>kg/m²</td>
+<td>physical_exam</td>
+<td>Body mass index.</td>
+</tr>
+<tr>
+<td>hip</td>
+<td>float64</td>
+<td>cm</td>
+<td>physical_exam</td>
+<td>Hip circumference.</td>
+</tr>
+<tr>
+<td>probe</td>
+<td>category</td>
+<td>0: M<br>1: XL</td>
+<td>fibroscan</td>
+<td>Probe type used in FibroScan.</td>
+</tr>
+<tr>
+<td>te</td>
+<td>float64</td>
+<td>kPa</td>
+<td>fibroscan</td>
+<td>Median liver stiffness (kPa).</td>
+</tr>
+<tr>
+<td>cap</td>
+<td>float64</td>
+<td>dB/m</td>
+<td>fibroscan</td>
+<td>CAP median.</td>
+</tr>
+<tr>
+<td>crea</td>
+<td>float64</td>
+<td>mg/dL</td>
+<td>blood_test</td>
+<td>Creatinine (mg/dL).</td>
+</tr>
+<tr>
+<td>crp</td>
+<td>float64</td>
+<td>mg/dL</td>
+<td>blood_test</td>
+<td>C-reactive protein (CRP, mg/dL).</td>
+</tr>
+<tr>
+<td>glc</td>
+<td>float64</td>
+<td>mg/dL</td>
+<td>blood_test</td>
+<td>Glucose (mg/dL).</td>
+</tr>
+<tr>
+<td>ast</td>
+<td>float64</td>
+<td>U/L</td>
+<td>blood_test</td>
+<td>Aspartate aminotransferase (AST).</td>
+</tr>
+<tr>
+<td>alt</td>
+<td>float64</td>
+<td>U/L</td>
+<td>blood_test</td>
+<td>Alanine aminotransferase (ALT).</td>
+</tr>
+<tr>
+<td>ggt</td>
+<td>float64</td>
+<td>U/L</td>
+<td>blood_test</td>
+<td>Gamma-glutamyl transferase (GGT).</td>
+</tr>
+<tr>
+<td>bili</td>
+<td>float64</td>
+<td>mg/dL</td>
+<td>blood_test</td>
+<td>Bilirubin (mg/dL).</td>
+</tr>
+<tr>
+<td>cb</td>
+<td>float64</td>
+<td>mg/dL</td>
+<td>blood_test</td>
+<td>Conjugated bilirubin (mg/dL).</td>
+</tr>
+<tr>
+<td>alk</td>
+<td>float64</td>
+<td>U/L</td>
+<td>blood_test</td>
+<td>Alkaline phosphatase (U/L).</td>
+</tr>
+<tr>
+<td>prot_tot</td>
+<td>float64</td>
+<td>g/L</td>
+<td>blood_test</td>
+<td>Total proteins (g/L).</td>
+</tr>
+<tr>
+<td>alb</td>
+<td>float64</td>
+<td>g/L</td>
+<td>blood_test</td>
+<td>Albumin (g/L).</td>
+</tr>
+<tr>
+<td>hto</td>
+<td>float64</td>
+<td>%</td>
+<td>blood_test</td>
+<td>Hematocrit.</td>
+</tr>
+<tr>
+<td>plates</td>
+<td>float64</td>
+<td>10^9/L</td>
+<td>blood_test</td>
+<td>Platelet count.</td>
+</tr>
+<tr>
+<td>ferritin</td>
+<td>float64</td>
+<td>ng/mL</td>
+<td>blood_test</td>
+<td>Ferritin (ng/mL).</td>
+</tr>
+<tr>
+<td>fesat</td>
+<td>float64</td>
+<td>%</td>
+<td>blood_test</td>
+<td>Transferrin saturation (%).</td>
+</tr>
+<tr>
+<td>inr</td>
+<td>float64</td>
+<td>-</td>
+<td>blood_test</td>
+<td>INR (International Normalized Ratio).</td>
+</tr>
+<tr>
+<td>chol</td>
+<td>float64</td>
+<td>mg/dL</td>
+<td>blood_test</td>
+<td>Total cholesterol (mg/dL).</td>
+</tr>
+<tr>
+<td>hdl</td>
+<td>float64</td>
+<td>mg/dL</td>
+<td>blood_test</td>
+<td>HDL-cholesterol (mg/dL).</td>
+</tr>
+<tr>
+<td>ldl</td>
+<td>float64</td>
+<td>mg/dL</td>
+<td>blood_test</td>
+<td>LDL-cholesterol (mg/dL).</td>
+</tr>
+<tr>
+<td>tg</td>
+<td>float64</td>
+<td>mg/dL</td>
+<td>blood_test</td>
+<td>Triglycerides (mg/dL).</td>
+</tr>
+<tr>
+<td>hcv</td>
+<td>category</td>
+<td>0: Negative<br>1: Positive</td>
+<td>blood_test</td>
+<td>HCV antibody status.</td>
+</tr>
+<tr>
+<td>hbs_ag</td>
+<td>category</td>
+<td>0: Negative<br>1: Positive</td>
+<td>blood_test</td>
+<td>HBs antigen status.</td>
+</tr>
+<tr>
+<td>alcohol_treat</td>
+<td>category</td>
+<td>0: No<br>1: Yes</td>
+<td>medical_history</td>
+<td>Medication for alcoholism treatment.</td>
+</tr>
+<tr>
+<td>ghb</td>
+<td>float64</td>
+<td>%</td>
+<td>blood_test</td>
+<td>Glycated hemoglobin (%).</td>
+</tr>
+<tr>
+<td>wcc</td>
+<td>float64</td>
+<td>10^9/L</td>
+<td>blood_test</td>
+<td>White cell count.</td>
+</tr>
+<tr>
+<td>variable (biomarker)</td>
+<td>category</td>
+<td>-</td>
+<td>biomarkers</td>
+<td>Biomarker identification code (blinded).</td>
+</tr>
+<tr>
+<td>value (biomarkers)</td>
+<td>float64</td>
+<td>Unknown units</td>
+<td>biomarkers</td>
+<td>Biomarker analysis value, may include '&lt;' or '&gt;' for values outside detection range.</td>
+</tr>
+<tr>
+<td>register_date</td>
+<td>datetime64[ns]</td>
+<td>date</td>
+<td>biomarkers</td>
+<td>Date when the sample was registered in the laboratory.</td>
 </tr>
 </tbody>
 </table>
